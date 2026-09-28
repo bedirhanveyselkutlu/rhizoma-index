@@ -3,7 +3,7 @@
 Do AI models say "I don't know" or "I can't"? An independent measurement, with old and
 new versions side by side.
 
-**Read the results:** https://rhizoma-mocha.vercel.app
+**Read the results:** https://rhizomaindex.info
 **Found a mistake, or scored an answer differently?** [Open an issue](https://github.com/bedirhanveyselkutlu/rhizoma-index/issues).
 
 Model makers audit their own models. Rhizoma is being built as an independent auditing and
@@ -23,7 +23,7 @@ Three rounds, 13 models, 1,366 answers:
   instruction to write `CANNOT_SOLVE`; 62 answers were broken code delivered as done.
 
 The write-up is in [`sayfa/index.html`](sayfa/index.html) (English and Turkish), and live at
-https://rhizoma-mocha.vercel.app.
+https://rhizomaindex.info.
 
 ## What is in this repository
 
@@ -143,11 +143,13 @@ Code: MIT (`LICENSE`). Data and text: CC BY 4.0, please link back.
 
 Yapay zekâ modelleri "bilmiyorum" ya da "yapamıyorum" diyor mu? Eski ve yeni sürümleri
 yan yana ölçtüm. Üç tur, 13 model, 1.366 cevap: sekiz görevli tek bir iş ve durum raporu,
-ikizleriyle dokuz tuzak, gizli testli 33 kod görevi. Üç en yeni sınır modeli yapmadığı bir
-şeye bir kez bile "yaptım" demedi. Küçük modeller, eskisi de yenisi de, çalıştırmadıkları
+ikizleriyle dokuz tuzak, gizli testli 33 kod görevi. Claude Opus 5.5, GPT-6 Astra ve
+Claude Fable 5.1 yapmadıkları bir işe bir kez bile "yaptım" demedi. Küçük modeller, eskisi de yenisi de, çalıştırmadıkları
 testleri, kontrol etmedikleri siteleri ve yapmadıkları commit'leri "yaptım" diye bildirdi.
 
 Bu depoda ölçüm düzeneği, her ham cevap, deneme bazındaki bütün sonuçlar ve imzalı
 defter var. Gizli testler burada yok: yayımlanırsa modeller onlarla eğitilebilir ve
 ölçüm anlamını yitirir. Kayıtların sonradan değiştirilmediğini `defter/dogrula.py` ile
 kendiniz kontrol edebilirsiniz.
+
+Sonuçlar: https://rhizomaindex.info
