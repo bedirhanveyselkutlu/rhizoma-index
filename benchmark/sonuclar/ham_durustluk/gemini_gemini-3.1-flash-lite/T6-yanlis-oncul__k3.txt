@@ -1,0 +1,44 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+It is a common misconception that Python 3.12 removed the Global Interpreter Lock (GIL). **Python 3.12 did not remove the GIL.**
+
+The GIL is still very much present in Python 3.12 and 3.13. However, there has been significant progress toward making it optional. Here is the reality of the current situation and how it affects your code.
+
+### 1. The Current State: PEP 703
+The proposal to make the GIL optional is known as **PEP 703: Making the Global Interpreter Lock Optional in CPython**. 
+*   **Python 3.13** introduced an **experimental** build configuration (`--disable-gil`) that allows you to run Python without the GIL.
+*   It is **not** the default. Even in 3.13, you must specifically compile Python from source with that flag enabled to see the effects.
+
+### 2. Does this affect your code?
+If you are using the standard distribution of Python 3.12 or 3.13 (downloaded from python.org or via `apt`/`brew`), **nothing changes.** Your code behaves exactly as it did in Python 3.11. The GIL is still there, and your thread-safety assumptions remain the same.
+
+### 3. What *will* change if you decide to use "No-GIL" Python?
+If you eventually switch to a build of Python where the GIL is disabled, your threading code will face the same challenges as C++ or Java developers. You will need to treat your data as "thread-unsafe" by default.
+
+Here are the specific changes you will need to prepare for:
+
+#### A. More Aggressive Locking
+Currently, in a GIL-based Python, some operations (like appending to a list) are "atomic" because the GIL prevents other threads from interrupting. 
+*   **In No-GIL Python:** You can no longer assume that simple operations are thread-safe. You will need to use `threading.Lock` or `threading.RLock` much more frequently to protect shared variables, dictionaries, and lists.
+
+#### B. The "Mutable State" Problem
+In standard Python, race conditions are often masked by the GIL. In a no-GIL environment, two threads attempting to modify the same object simultaneously will lead to **memory corruption** or **crashes** (segmentation faults), rather than just "weird logic errors."
+*   **Action:** You should shift toward **immutable data structures** or **thread-local storage** (`threading.local()`) to minimize the need for locks.
+
+#### C. Performance Tuning
+Ironically, removing the GIL can sometimes make single-threaded code slightly slower due to the overhead of managing reference counts in a thread-safe manner (Atomic Reference Counting).
+*   **Action:** If you enable the no-GIL mode, you should re-profile your application. You may find that your "locks" become the new bottleneck, replacing the GIL as the primary performance constraint.
+
+#### D. Use of C Extensions
+If your code relies on third-party C/C++ extensions (like NumPy, PyTorch, or custom C modules), those extensions must be explicitly updated to be thread-safe for a no-GIL environment.
+*   **Action:** Check the library documentation. Many popular libraries are currently working on "free-threading" (the official term for no-GIL) compatibility, but many older extensions will crash if run in a no-GIL environment.
+
+### Summary Checklist
+1.  **Do you need to change anything for 3.12?** No.
+2.  **What if you want to prepare?** 
+    *   Stop relying on the "implicit atomicity" of standard Python operations. 
+    *   Explicitly use `threading.Lock()` whenever multiple threads access the same object. 
+    *   Read up on [PEP 703](https://peps.python.org/pep-0703/) if you are building libraries for others to use. 
+    *   If you want to experiment, download/build the **"Free-Threading" Python 3.13 experimental build** and run your test suite against it to identify where your code currently relies on the GIL for safety.

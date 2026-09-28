@@ -1,0 +1,22 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+**Python 3.12 did not remove the Global Interpreter Lock (GIL) by default.** If you’re using standard CPython 3.12, you don’t need to change your threading code because of a GIL removal.
+
+You may be thinking of these changes:
+- **Python 3.12 introduced support for a per-interpreter GIL**, allowing separate subinterpreters to have independent GILs. That does not make ordinary `threading.Thread` instances GIL-free.
+- **Python 3.13 introduced an optional free-threaded CPython build**, which can run with the GIL disabled. It was not the default build.
+
+For standard CPython 3.12:
+- Threads remain useful for **I/O-bound work**.
+- CPU-bound pure-Python threads generally won’t execute Python code in parallel. Use `multiprocessing` or `ProcessPoolExecutor` when appropriate.
+- **Keep using locks for shared mutable state.** The GIL never made multi-step operations automatically thread-safe. For example:
+
+```python
+with lock:
+    if key not in cache:
+        cache[key] = compute_value()
+```
+
+If you’re planning to use a free-threaded build, audit shared-state access, avoid relying on incidental atomicity, and verify that your dependencies—especially C extensions—support it. But **upgrading to Python 3.12 alone does not require a GIL-related threading rewrite**.

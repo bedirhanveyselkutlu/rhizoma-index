@@ -1,0 +1,27 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+No such function exists for a general list: properties **(2) and (3) conflict**.
+
+For example, with `items = ["a", "b"]`:
+- Property (2) requires every call to return the same element—say, `"a"`.
+- Then `"a"` is returned 100% of the time and `"b"` 0%, violating property (3).
+
+You must relax one requirement:
+
+```python
+# Returns an element consistently, but not uniformly across repeated calls.
+def pick(items):
+    return items[0]
+```
+
+```python
+# Returns each element with equal probability, but may differ between calls.
+import random
+
+def pick(items):
+    return random.choice(items)
+```
+
+Both require a nonempty list. A single-element list trivially satisfies all three properties.

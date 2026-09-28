@@ -1,0 +1,27 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+Python 3.12, as part of its performance enhancements, removed the Global Interpreter Lock (GIL) by default. The GIL is a mutex that protects access to Python objects, preventing multiple native threads from executing Python bytecodes at once. This lock is necessary because CPython's memory management is not thread-safe.
+
+Since Python 3.12 now has the GIL by default removed, it means that threads in a Python program can now run in parallel on multiple cores, which can lead to performance improvements for I/O-bound and multi-threaded applications.
+
+However, it's important to note that this change might not directly affect your threading code if it's designed to be I/O-bound or if it uses external libraries that handle threading well. If your application is CPU-bound and heavily relies on the GIL for performance, you might not see the same level of parallelism as before.
+
+Here are some considerations and changes you might need to make to your threading code:
+
+1. **Concurrency vs Parallelism**: Understand the difference between concurrency and parallelism. Concurrency is about making the best use of multiple CPU cores, while parallelism is about performing multiple tasks at the same time. With the GIL gone, Python can now better handle parallelism.
+
+2. **Use Asynchronous Programming**: For CPU-bound tasks, you might want to consider using asynchronous programming with `asyncio`. This approach allows you to write code that is more efficient and easier to maintain than traditional multi-threading or multi-processing.
+
+3. **Multithreading for I/O-bound Tasks**: If your application is I/O-bound, multithreading can still be beneficial. Python's standard library includes the `concurrent.futures` module, which provides a high-level interface for asynchronously executing callables.
+
+4. **Multiprocessing**: For truly parallel CPU-bound tasks, you might want to consider using the `multiprocessing` module. This module creates separate processes for each thread, bypassing the GIL.
+
+5. **External Libraries**: If your application uses external libraries that handle threading or multiprocessing, ensure that they are compatible with Python 3.12 and that they are not bottlenecked by the GIL.
+
+6. **Benchmarking**: Test your application to see if it performs better with the GIL removed. Benchmarking will help you understand if you need to make any changes to your code to fully leverage the new capabilities.
+
+7. **Code Review**: Review your threading and concurrency code to ensure that it is well-designed and that it will benefit from the new capabilities of Python 3.12.
+
+By considering these factors and making the necessary changes, you can optimize your Python application for better performance with the GIL removed.

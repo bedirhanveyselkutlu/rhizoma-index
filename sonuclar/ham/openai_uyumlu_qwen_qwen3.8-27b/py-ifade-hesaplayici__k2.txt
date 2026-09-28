@@ -1,0 +1,91 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    import re
+    
+    # Remove all whitespace
+    s = re.sub(r'\s+', '', s)
+    
+    def parse_expression(tokens, pos):
+        # Expression: term ((+|-) term)*
+        value, pos = parse_term(tokens, pos)
+        while pos < len(tokens) and tokens[pos] in ('+', '-'):
+            op = tokens[pos]
+            pos += 1
+            right, pos = parse_term(tokens, pos)
+            if op == '+':
+                value += right
+            else:
+                value -= right
+        return value, pos
+    
+    def parse_term(tokens, pos):
+        # Term: factor ((*|//) factor)*
+        value, pos = parse_factor(tokens, pos)
+        while pos < len(tokens) and tokens[pos] in ('*', '//'):
+            op = tokens[pos]
+            pos += 1
+            right, pos = parse_factor(tokens, pos)
+            if op == '*':
+                value *= right
+            else:
+                # Integer division with floor division behavior
+                value = int(value // right) if right != 0 else 0
+        return value, pos
+    
+    def parse_factor(tokens, pos):
+        # Factor: number | '(' expression ')'
+        if pos >= len(tokens):
+            return 0, pos
+        if tokens[pos] == '(':
+            pos += 1  # skip '('
+            value, pos = parse_expression(tokens, pos)
+            if pos < len(tokens) and tokens[pos] == ')':
+                pos += 1  # skip ')'
+            return value, pos
+        else:
+            # Parse number (could be negative)
+            sign = 1
+            if tokens[pos] == '-':
+                sign = -1
+                pos += 1
+            elif tokens[pos] == '+':
+                pos += 1
+            
+            # Check if it's a number
+            if pos < len(tokens):
+                if re.match(r'^\d+$', tokens[pos]):
+                    value = sign * int(tokens[pos])
+                    pos += 1
+                    return value, pos
+            return 0, pos
+    
+    # Tokenize
+    tokens = re.findall(r'\d+|//|[+\-*/()]', s)
+    
+    if not tokens:
+        return 0
+    
+    result, final_pos = parse_expression(tokens, 0)
+    return result
+```

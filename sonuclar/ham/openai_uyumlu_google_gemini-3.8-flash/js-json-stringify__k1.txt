@@ -1,0 +1,95 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  function escapeString(str) {
+    return '"' + str.replace(/[\\"\u0000-\u001f]/g, (c) => {
+      switch (c) {
+        case '"': return '\\"';
+        case '\\': return '\\\\';
+        case '\b': return '\\b';
+        case '\f': return '\\f';
+        case '\n': return '\\n';
+        case '\r': return '\\r';
+        case '\t': return '\\t';
+        default:
+          return '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0');
+      }
+    }) + '"';
+  }
+
+  function serialize(val) {
+    if (val && typeof val.toJSON === 'function') {
+      val = val.toJSON();
+    }
+
+    if (val === null) {
+      return 'null';
+    }
+
+    if (val instanceof Number || val instanceof String || val instanceof Boolean) {
+      val = val.valueOf();
+    }
+
+    const type = typeof val;
+
+    if (type === 'boolean') {
+      return String(val);
+    }
+
+    if (type === 'number') {
+      return Number.isFinite(val) ? String(val) : 'null';
+    }
+
+    if (type === 'string') {
+      return escapeString(val);
+    }
+
+    if (Array.isArray(val)) {
+      const elements = val.map((item) => {
+        const s = serialize(item);
+        return s === undefined ? 'null' : s;
+      });
+      return '[' + elements.join(',') + ']';
+    }
+
+    if (type === 'object') {
+      const pairs = [];
+      for (const key of Object.keys(val)) {
+        const s = serialize(val[key]);
+        if (s !== undefined) {
+          pairs.push(escapeString(key) + ':' + s);
+        }
+      }
+      return '{' + pairs.join(',') + '}';
+    }
+
+    return undefined;
+  }
+
+  return serialize(value);
+}
+
+module.exports = { jsonStringify };
+```

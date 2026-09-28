@@ -1,0 +1,49 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: LRU Cache (Least Recently Used)
+
+Write an 'LRUCache(capacity)' class with a fixed capacity. 'get(key)' must return the value (or -1 if absent) and mark that key as most recently used. 'put(key, value)' must insert or update the value; when capacity is exceeded it must evict the least recently used entry. All operations must run in average O(1) time.
+
+STARTER CODE (python):
+class LRUCache:
+    def __init__(self, capacity: int):
+        pass
+
+    def get(self, key: int) -> int:
+        pass
+
+    def put(self, key: int, value: int) -> None:
+        pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+from collections import OrderedDict
+
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = OrderedDict()
+
+    def get(self, key: int) -> int:
+        if key not in self.cache:
+            return -1
+        self.cache.move_to_end(key)
+        return self.cache[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.cache.move_to_end(key)
+        self.cache[key] = value
+        if len(self.cache) > self.capacity:
+            self.cache.popitem(last=False)
+```

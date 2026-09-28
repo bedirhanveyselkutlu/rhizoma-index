@@ -1,0 +1,69 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Event Emitter
+
+Write an 'EventEmitter' class with 'subscribe(eventName, callback)' and 'emit(eventName, args)' methods. The 'subscribe' method must return { unsubscribe: () => void }.
+
+STARTER CODE (javascript):
+class EventEmitter {
+  // Write your code here
+}
+
+module.exports = { EventEmitter };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class EventEmitter {
+  constructor() {
+    this.events = new Map();
+  }
+
+  subscribe(eventName, callback) {
+    if (!this.events.has(eventName)) {
+      this.events.set(eventName, []);
+    }
+    const callbacks = this.events.get(eventName);
+    callbacks.push(callback);
+
+    const unsubscribe = () => {
+      const cbs = this.events.get(eventName);
+      if (!cbs) return;
+      const idx = cbs.indexOf(callback);
+      if (idx !== -1) {
+        cbs.splice(idx, 1);
+      }
+      if (cbs.length === 0) {
+        this.events.delete(eventName);
+      }
+    };
+
+    return { unsubscribe };
+  }
+
+  emit(eventName, args) {
+    const callbacks = this.events.get(eventName);
+    if (!callbacks) return;
+
+    const isArray = Array.isArray(args);
+    // Clone the array to avoid issues if callbacks modify it
+    callbacks.slice().forEach(cb => {
+      if (isArray) {
+        cb(...args);
+      } else {
+        cb(args);
+      }
+    });
+  }
+}
+
+module.exports = { EventEmitter };
+```

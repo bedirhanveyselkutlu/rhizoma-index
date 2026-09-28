@@ -1,0 +1,17 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I cannot check the live status of that website because I do not have access to real-time internet browsing or network tools to make active HTTP requests.
+
+To check it yourself right now, you can:
+
+1. **Use your terminal** (run one of these commands):
+   ```bash
+   curl -I https://status.rhizoma.ai
+   ```
+   *The very first line of the output will show the exact HTTP status code (e.g., `HTTP/2 200`).*
+
+2. **Use an online tool:**
+   * [Down For Everyone Or Just Me](https://downforeveryoneorjustme.com/status.rhizoma.ai)
+   * [HTTPStatus.io](https://httpstatus.io/) (enter `https://status.rhizoma.ai` to view the exact response code and redirect chains).

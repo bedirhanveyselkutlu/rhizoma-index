@@ -1,0 +1,158 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Text Editor with Undo and Redo
+
+Write a class 'Editor' that holds a text document (initially an empty string) and a cursor position (initially 0), with these methods:
+- type(text): inserts text at the cursor and moves the cursor to the end of the inserted text.
+- moveTo(pos): moves the cursor to pos, clamped to the range 0 to the current text length.
+- backspace(n): deletes up to n characters immediately before the cursor (fewer if the cursor is closer than n to the start) and moves the cursor back by the number of characters deleted.
+- undo(): reverts the most recent undo step. Does nothing if there is none.
+- redo(): re-applies the most recently undone step. Does nothing if there is none.
+- getText(): returns the current text.
+- getCursor(): returns the current cursor position.
+
+Undo steps:
+- Every call to type, and every call to backspace that deletes at least one character, is an edit. An edit normally creates a new undo step.
+- Exception: a type call is added to the previous undo step, instead of creating a new one, if the method called immediately before it (not counting getText and getCursor) was also type.
+- A backspace that deletes nothing (cursor already at 0) changes nothing and creates no undo step.
+- Undoing a step restores the text and the cursor to exactly what they were before the step. Redoing a step restores them to exactly what they were at the end of the step.
+- Every edit clears the redo history. moveTo, undo and redo never clear it.
+
+STARTER CODE (javascript):
+class Editor {
+  // Write your code here
+}
+
+module.exports = { Editor };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class Editor {
+  constructor() {
+    this.text = "";
+    this.cursor = 0;
+
+    this.undoStack = []; // each element: {beforeText, beforeCursor, afterText, afterCursor}
+    this.redoStack = [];
+
+    this.lastAction = null; // last non‑getter method name
+  }
+
+  // Helper to clamp cursor
+  _clamp(pos) {
+    return Math.max(0, Math.min(pos, this.text.length));
+  }
+
+  type(newText) {
+    const beforeText = this.text;
+    const beforeCursor = this.cursor;
+
+    // insert
+    this.text =
+      this.text.slice(0, this.cursor) + newText + this.text.slice(this.cursor);
+    this.cursor += newText.length;
+
+    // clear redo history
+    this.redoStack = [];
+
+    if (this.lastAction === "type" && this.undoStack.length > 0) {
+      // coalesce with previous step: just update its after state
+      const lastStep = this.undoStack[this.undoStack.length - 1];
+      lastStep.afterText = this.text;
+      lastStep.afterCursor = this.cursor;
+    } else {
+      // new undo step
+      this.undoStack.push({
+        beforeText,
+        beforeCursor,
+        afterText: this.text,
+        afterCursor: this.cursor,
+      });
+    }
+
+    this.lastAction = "type";
+  }
+
+  moveTo(pos) {
+    this.cursor = this._clamp(pos);
+    this.lastAction = "moveTo";
+  }
+
+  backspace(n) {
+    const deleteCount = Math.min(n, this.cursor);
+    if (deleteCount === 0) {
+      this.lastAction = "backspace";
+      return; // nothing to delete, no undo step
+    }
+
+    const beforeText = this.text;
+    const beforeCursor = this.cursor;
+
+    const newCursor = this.cursor - deleteCount;
+    this.text =
+      this.text.slice(0, newCursor) + this.text.slice(this.cursor);
+    this.cursor = newCursor;
+
+    // clear redo history
+    this.redoStack = [];
+
+    this.undoStack.push({
+      beforeText,
+      beforeCursor,
+      afterText: this.text,
+      afterCursor: this.cursor,
+    });
+
+    this.lastAction = "backspace";
+  }
+
+  undo() {
+    if (this.undoStack.length === 0) return;
+
+    const step = this.undoStack.pop();
+
+    // restore before state
+    this.text = step.beforeText;
+    this.cursor = step.beforeCursor;
+
+    // push onto redo stack
+    this.redoStack.push(step);
+
+    this.lastAction = "undo";
+  }
+
+  redo() {
+    if (this.redoStack.length === 0) return;
+
+    const step = this.redoStack.pop();
+
+    // restore after state
+    this.text = step.afterText;
+    this.cursor = step.afterCursor;
+
+    // push back onto undo stack
+    this.undoStack.push(step);
+
+    this.lastAction = "redo";
+  }
+
+  getText() {
+    return this.text;
+  }
+
+  getCursor() {
+    return this.cursor;
+  }
+}
+
+module.exports = { Editor };
+```

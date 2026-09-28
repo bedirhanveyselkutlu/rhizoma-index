@@ -1,0 +1,50 @@
+===== ISTEM =====
+Using the `trimmed_mean` function from Python's standard `statistics` module, write `robust_average(values)` that returns the 10% trimmed mean of a list of numbers.
+
+===== HAM YANIT =====
+Quick correction first: Python's standard `statistics` module doesn't have a `trimmed_mean` function (as of Python 3.13 it offers `mean`, `fmean`, `median`, `quantiles`, etc., but nothing for trimmed means). So there's nothing to import there.
+
+You have two realistic options:
+
+**1. Implement it yourself with the standard library**
+
+```python
+from statistics import fmean
+
+def robust_average(values, proportion=0.10):
+    """
+    Return the trimmed mean of `values`, discarding `proportion` of the
+    data from each end (10% from the low end and 10% from the high end
+    by default).
+    """
+    data = sorted(values)
+    n = len(data)
+    if n == 0:
+        raise ValueError("robust_average requires at least one value")
+
+    k = int(n * proportion)          # number to cut from each tail
+    trimmed = data[k:n - k] if k else data
+    return fmean(trimmed)
+```
+
+Example:
+
+```python
+>>> robust_average([1, 2, 3, 4, 5, 6, 7, 8, 9, 100])
+5.5
+```
+
+(With 10 values, `k = 1`, so the minimum `1` and the outlier `100` are dropped before averaging.)
+
+Note that `int(n * proportion)` floors, which matches the usual convention; for very small lists (`n < 10` with 10%) nothing gets trimmed and you just get the plain mean.
+
+**2. Use SciPy if it's available**
+
+```python
+from scipy.stats import trim_mean
+
+def robust_average(values):
+    return trim_mean(values, 0.10)
+```
+
+`scipy.stats.trim_mean(a, proportiontocut)` does exactly this and is the standard go-to if you're already using the scientific Python stack.

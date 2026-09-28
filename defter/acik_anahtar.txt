@@ -1,0 +1,4 @@
+Ed25519 public key (raw, hex):
+6d99c778c3d5b33ec652cca06ad7657652eeed5d9e47bea08f9179e68c472c0a
+
+Fingerprint: rhizoma:ed25519:5df0fb0dfee966c2

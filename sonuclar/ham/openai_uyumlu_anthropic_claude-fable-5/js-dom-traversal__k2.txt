@@ -1,0 +1,50 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Tree Level Order Traversal (BFS)
+
+Write a function 'levelOrder(root)' that traverses the given node tree (node: { val, children: [] }) breadth-first and returns an array containing the values of the elements at each level.
+
+STARTER CODE (javascript):
+function levelOrder(root) {
+  // Write your code here
+}
+
+module.exports = { levelOrder };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function levelOrder(root) {
+  const result = [];
+  if (!root) return result;
+
+  let queue = [root];
+
+  while (queue.length > 0) {
+    const level = [];
+    const next = [];
+
+    for (const node of queue) {
+      level.push(node.val);
+      if (node.children && node.children.length > 0) {
+        next.push(...node.children);
+      }
+    }
+
+    result.push(level);
+    queue = next;
+  }
+
+  return result;
+}
+
+module.exports = { levelOrder };
+```

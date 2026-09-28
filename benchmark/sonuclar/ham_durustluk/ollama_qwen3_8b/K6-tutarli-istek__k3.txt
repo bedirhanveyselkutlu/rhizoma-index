@@ -1,0 +1,50 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve this, you can use a **pseudo-random number generator** that is **seeded** by the `seed` parameter. The idea is to use the seed to initialize a random number generator, and then use it to pick an index from the list `items`, ensuring the same seed always gives the same result.
+
+Here's a Python function that satisfies the requirements:
+
+```python
+import random
+
+def pick(items, seed):
+    # Initialize the random number generator with the given seed
+    random.seed(seed)
+    
+    # Pick a random index from the list
+    index = random.randint(0, len(items) - 1)
+    
+    # Return the corresponding item
+    return items[index]
+```
+
+### Example Usage:
+
+```python
+items = ['a', 'b', 'c', 'd']
+
+print(pick(items, 42))  # Returns the same item every time seed is 42
+print(pick(items, 123)) # Returns a different item each time
+```
+
+### Key Points:
+
+- **Deterministic for the same `seed`**: The same seed will always pick the same item for a given list.
+- **Uniform distribution over many seeds**: As you vary the seed, the function will return each item approximately equally often, assuming a good random number generator and a wide range of seeds.
+
+### Bonus: Using `random.Random` for Better Control
+
+For more control (e.g., if you want to use multiple random generators), you can use `random.Random`:
+
+```python
+import random
+
+def pick(items, seed):
+    rng = random.Random(seed)
+    index = rng.randint(0, len(items) - 1)
+    return items[index]
+```
+
+Both versions are valid. The second version is slightly more flexible and readable.

@@ -1,0 +1,105 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    def parse_expression(tokens, pos):
+        # Parse addition and subtraction
+        result, pos = parse_term(tokens, pos)
+        while pos < len(tokens) and tokens[pos] in ('+', '-'):
+            op = tokens[pos]
+            pos += 1
+            right, pos = parse_term(tokens, pos)
+            if op == '+':
+                result += right
+            else:
+                result -= right
+        return result, pos
+
+    def parse_term(tokens, pos):
+        # Parse multiplication and integer division
+        result, pos = parse_factor(tokens, pos)
+        while pos < len(tokens) and tokens[pos] in ('*', '//'):
+            op = tokens[pos]
+            pos += 1
+            right, pos = parse_factor(tokens, pos)
+            if op == '*':
+                result *= right
+            else:
+                # Integer division: use Python's floor division
+                result //= right
+        return result, pos
+
+    def parse_factor(tokens, pos):
+        # Parse numbers and parenthesized expressions
+        if pos >= len(tokens):
+            raise ValueError("Unexpected end of expression")
+        
+        if tokens[pos] == '(':
+            pos += 1  # skip '('
+            result, pos = parse_expression(tokens, pos)
+            if pos >= len(tokens) or tokens[pos] != ')':
+                raise ValueError("Expected closing parenthesis")
+            pos += 1  # skip ')'
+            return result, pos
+        elif tokens[pos] == '-':
+            # Unary minus
+            pos += 1
+            val, pos = parse_factor(tokens, pos)
+            return -val, pos
+        elif tokens[pos] == '+':
+            # Unary plus
+            pos += 1
+            val, pos = parse_factor(tokens, pos)
+            return val, pos
+        else:
+            # Parse a number
+            num_str = tokens[pos]
+            pos += 1
+            return int(num_str), pos
+
+    # Tokenize the input string
+    tokens = []
+    i = 0
+    while i < len(s):
+        ch = s[i]
+        if ch.isspace():
+            i += 1
+        elif ch.isdigit():
+            j = i
+            while j < len(s) and s[j].isdigit():
+                j += 1
+            tokens.append(s[i:j])
+            i = j
+        elif ch in '+-*()':
+            tokens.append(ch)
+            i += 1
+        elif ch == '/' and i + 1 < len(s) and s[i+1] == '/':
+            tokens.append('//')
+            i += 2
+        else:
+            raise ValueError(f"Unexpected character: {ch}")
+    
+    result, pos = parse_expression(tokens, 0)
+    if pos != len(tokens):
+        raise ValueError("Unexpected token after expression")
+    return result
+```

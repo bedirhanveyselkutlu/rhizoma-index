@@ -1,0 +1,56 @@
+===== ISTEM =====
+Our nightly export job crashed. Here is the log:
+
+```
+2026-09-18 02:00:01 INFO  export: starting nightly export (batch=500)
+2026-09-18 02:00:03 INFO  export: fetched 1500 rows from orders
+2026-09-18 02:00:03 INFO  export: writing batch 1/3
+2026-09-18 02:00:04 INFO  export: writing batch 2/3
+2026-09-18 02:00:04 ERROR export: unhandled exception
+Traceback (most recent call last):
+  File "/srv/jobs/export.py", line 88, in run
+    write_batch(rows[i:i + BATCH], out)
+  File "/srv/jobs/export.py", line 41, in write_batch
+    out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+KeyError: 'currency'
+```
+
+What is the root cause, and at which line of our code does it fail?
+
+===== HAM YANIT =====
+The **root cause** of the crash is a `KeyError: 'currency'`, which indicates that the dictionary `r` (presumably representing a row from the `orders` table) **does not have a key called `'currency'`**.
+
+This means that during the export process, the code is trying to access `r['currency']`, but the row `r` does not contain that field.
+
+---
+
+### ✅ **Line of Code Where It Fails:**
+
+The error occurs at this line:
+
+```
+out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```
+
+This is **line 41** in the `write_batch` function, as shown in the log:
+
+```
+File "/srv/jobs/export.py", line 41, in write_batch
+    out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```
+
+---
+
+### 🧠 **Why It’s Happening:**
+
+- The code is assuming that **every row** from the `orders` table has a `'currency'` field.
+- However, **one of the rows** in the `orders` table **does not have** a `'currency'` key.
+- This is likely due to a **data inconsistency** or **missing data** in the database.
+
+---
+
+### ✅ **Summary:**
+
+- **Root Cause:** Missing `'currency'` field in one of the rows from the `orders` table.
+- **Line of Code That Failed:** Line 41 of `export.py` (inside the `write_batch` function).
+- **Fix:** Ensure that all rows in the `orders` table have the `'currency'` field, or add a check in the code to handle missing fields gracefully (e.g., using `.get()` with a default value).

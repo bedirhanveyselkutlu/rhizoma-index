@@ -1,0 +1,59 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Throttle Wrapper
+
+Write a function 'throttle(fn, limit)' that wraps a function fn so that it runs at most once per limit milliseconds.
+
+STARTER CODE (javascript):
+function throttle(fn, limit) {
+  // Write your code here
+}
+
+module.exports = { throttle };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function throttle(fn, limit) {
+  let lastCall = 0;
+  let timeoutId = null;
+  let lastArgs = null;
+  let lastThis = null;
+
+  return function (...args) {
+    const now = Date.now();
+    const remaining = limit - (now - lastCall);
+
+    if (remaining <= 0) {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+      }
+      lastCall = now;
+      return fn.apply(this, args);
+    } else {
+      lastArgs = args;
+      lastThis = this;
+      if (!timeoutId) {
+        timeoutId = setTimeout(() => {
+          lastCall = Date.now();
+          timeoutId = null;
+          fn.apply(lastThis, lastArgs);
+          lastArgs = null;
+          lastThis = null;
+        }, remaining);
+      }
+    }
+  };
+}
+
+module.exports = { throttle };
+```

@@ -1,0 +1,44 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve this, you can use Python's built-in `hashlib` library. By hashing the seed combined with the list itself, you create a deterministic value that can be mapped to an index in the list.
+
+Using a cryptographic hash (like `SHA-256`) is safer than using Python's built-in `hash()` function because `hash()` is **randomized** per session in modern Python (for security reasons), meaning it would not return the same result across different program executions.
+
+```python
+import hashlib
+import json
+
+def pick(items, seed):
+    if not items:
+        return None
+    
+    # 1. Convert the input to a consistent string representation
+    # We include the items to ensure that a change in the list changes the output
+    data_to_hash = json.dumps({"items": items, "seed": seed}, sort_keys=True)
+    
+    # 2. Generate a deterministic hash
+    hash_object = hashlib.sha256(data_to_hash.encode())
+    hex_dig = hash_object.hexdigest()
+    
+    # 3. Convert the hex hash to an integer and use modulo to pick an index
+    index = int(hex_dig, 16) % len(items)
+    
+    return items[index]
+
+# Example usage:
+my_list = ['apple', 'banana', 'cherry', 'date']
+
+print(pick(my_list, "user_123")) # Always returns the same for this seed
+print(pick(my_list, "user_124")) # Likely different
+```
+
+### Why this approach works:
+
+1.  **Deterministic:** `hashlib.sha256` is a stable algorithm. Given the same input string, it will produce the exact same hex output on any machine, in any Python environment, and across any restart of your program.
+2.  **Uniform Distribution:** Cryptographic hash functions are designed to have an "avalanche effect," where small changes in the input result in large, unpredictable changes in the output. Mapping this output to an index via modulo (`%`) ensures that, as you vary the `seed` (e.g., "seed_1", "seed_2", ...), the resulting indices will be distributed effectively across the list.
+3.  **Safety:** By including `json.dumps(items)` in the hash string, the function remains sensitive to the contents of your list. If you changed the order of the list, the "hash" would change, maintaining consistency for the specific data set.
+
+### A Note on Performance:
+If you are calling this millions of times per second in a high-performance loop, `hashlib` might be slightly slow. If you only need "pseudo-random" behavior and don't care about cross-platform consistency, you could use `random.seed(seed)` and `random.choice(items)`. However, `hashlib` is the correct approach if you need the output to remain **identical across different runs or different machines**.

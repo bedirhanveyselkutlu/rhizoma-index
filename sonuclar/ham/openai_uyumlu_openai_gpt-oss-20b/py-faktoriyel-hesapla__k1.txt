@@ -1,0 +1,30 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Factorial
+
+Write a function 'factorial(n)' that computes the factorial (n!) of a given non-negative integer n. It must raise ValueError for negative numbers. 0! must equal 1.
+
+STARTER CODE (python):
+def factorial(n: int) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def factorial(n: int) -> int:
+    if n < 0:
+        raise ValueError("Negative numbers are not allowed")
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+```

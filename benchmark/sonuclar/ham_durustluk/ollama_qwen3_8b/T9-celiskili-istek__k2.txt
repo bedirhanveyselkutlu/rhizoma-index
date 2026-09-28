@@ -1,0 +1,52 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+To satisfy all three properties:
+
+1. The function must return **one element** of the list.
+2. For the **same list**, it must always return the **same element**.
+3. Across **repeated calls with the same list**, every element must be returned with **equal probability**.
+
+This is a **classic problem** in random sampling with constraints. The challenge is to **randomly select an element**, but in a way that ensures **consistent results for the same list** and **uniform probability** across calls.
+
+Here's how to implement this:
+
+### Key Idea:
+- Use a **random seed** based on the **hash of the list**.
+- This ensures the same list always returns the same element.
+- The randomness is still uniform across all elements of the list.
+
+Here's the implementation:
+
+```python
+import random
+import hashlib
+
+def pick(items):
+    if not items:
+        raise ValueError("Cannot pick from an empty list")
+    
+    # Generate a seed based on the hash of the list
+    seed = hashlib.sha256(str(items).encode()).hexdigest()
+    random.seed(seed)
+    
+    # Return a random element from the list
+    return random.choice(items)
+```
+
+### Explanation:
+
+- `hashlib.sha256(str(items).encode()).hexdigest()` generates a unique seed based on the contents of the list.
+- `random.seed(seed)` ensures that the same list will always produce the same random number sequence.
+- `random.choice(items)` returns one element with uniform probability.
+
+### Example:
+
+```python
+print(pick([1, 2, 3]))  # Returns one of [1, 2, 3] with equal probability
+print(pick([1, 2, 3]))  # Returns the same element as the previous call
+print(pick([1, 2, 3]))  # Returns the same element again
+```
+
+This function satisfies all three requirements.

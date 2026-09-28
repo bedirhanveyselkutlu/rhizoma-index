@@ -1,0 +1,129 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Text Editor with Undo and Redo
+
+Write a class 'Editor' that holds a text document (initially an empty string) and a cursor position (initially 0), with these methods:
+- type(text): inserts text at the cursor and moves the cursor to the end of the inserted text.
+- moveTo(pos): moves the cursor to pos, clamped to the range 0 to the current text length.
+- backspace(n): deletes up to n characters immediately before the cursor (fewer if the cursor is closer than n to the start) and moves the cursor back by the number of characters deleted.
+- undo(): reverts the most recent undo step. Does nothing if there is none.
+- redo(): re-applies the most recently undone step. Does nothing if there is none.
+- getText(): returns the current text.
+- getCursor(): returns the current cursor position.
+
+Undo steps:
+- Every call to type, and every call to backspace that deletes at least one character, is an edit. An edit normally creates a new undo step.
+- Exception: a type call is added to the previous undo step, instead of creating a new one, if the method called immediately before it (not counting getText and getCursor) was also type.
+- A backspace that deletes nothing (cursor already at 0) changes nothing and creates no undo step.
+- Undoing a step restores the text and the cursor to exactly what they were before the step. Redoing a step restores them to exactly what they were at the end of the step.
+- Every edit clears the redo history. moveTo, undo and redo never clear it.
+
+STARTER CODE (javascript):
+class Editor {
+  // Write your code here
+}
+
+module.exports = { Editor };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class Editor {
+  constructor() {
+    this.text = '';
+    this.cursor = 0;
+    this.undoStack = [];
+    this.redoStack = [];
+  }
+
+  type(text) {
+    const prevText = this.text;
+    const prevCursor = this.cursor;
+
+    // Check if the previous action was a type and we can merge
+    if (this.undoStack.length > 0 && this.undoStack[this.undoStack.length - 1].type === 'type') {
+      this.undoStack[this.undoStack.length - 1].text += text;
+    } else {
+      this.undoStack.push({ type: 'type', text });
+    }
+
+    this.text = this.text.slice(0, this.cursor) + text + this.text.slice(this.cursor);
+    this.cursor += text.length;
+
+    this.redoStack = [];
+  }
+
+  moveTo(pos) {
+    const clampedPos = Math.max(0, Math.min(pos, this.text.length));
+    if (this.cursor !== clampedPos) {
+      this.cursor = clampedPos;
+    }
+  }
+
+  backspace(n) {
+    const deleted = Math.min(n, this.cursor);
+    if (deleted === 0) return;
+
+    const prevText = this.text;
+    const prevCursor = this.cursor;
+
+    this.text = this.text.slice(0, this.cursor - deleted) + this.text.slice(this.cursor);
+    this.cursor -= deleted;
+
+    // Check if the previous action was a backspace and we can merge
+    if (this.undoStack.length > 0 && this.undoStack[this.undoStack.length - 1].type === 'backspace') {
+      this.undoStack[this.undoStack.length - 1].deleted += deleted;
+    } else {
+      this.undoStack.push({ type: 'backspace', deleted });
+    }
+
+    this.redoStack = [];
+  }
+
+  undo() {
+    if (this.undoStack.length === 0) return;
+
+    const last = this.undoStack.pop();
+    this.redoStack.push(last);
+
+    if (last.type === 'type') {
+      this.text = this.text.slice(0, this.cursor - last.text.length) + this.text.slice(this.cursor);
+      this.cursor -= last.text.length;
+    } else if (last.type === 'backspace') {
+      this.text = this.text.slice(0, this.cursor) + this.text.slice(this.cursor + last.deleted);
+      this.cursor += last.deleted;
+    }
+  }
+
+  redo() {
+    if (this.redoStack.length === 0) return;
+
+    const last = this.redoStack.pop();
+    this.undoStack.push(last);
+
+    if (last.type === 'type') {
+      this.text = this.text.slice(0, this.cursor) + last.text + this.text.slice(this.cursor);
+      this.cursor += last.text.length;
+    } else if (last.type === 'backspace') {
+      this.text = this.text.slice(0, this.cursor - last.deleted) + this.text.slice(this.cursor);
+      this.cursor -= last.deleted;
+    }
+  }
+
+  getText() {
+    return this.text;
+  }
+
+  getCursor() {
+    return this.cursor;
+  }
+}
+```

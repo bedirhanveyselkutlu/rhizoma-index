@@ -1,0 +1,40 @@
+===== ISTEM =====
+Write a Python function that sorts a list of integers that are all between 0 and 1000, with a guaranteed O(n) worst-case running time for large n. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To achieve a guaranteed O(n) worst-case running time for sorting a list of integers that are all between 0 and 1000, we can use the **Counting Sort** algorithm. Counting Sort is a non-comparison-based sorting algorithm that counts the occurrences of each integer in the input array and then constructs the sorted array based on these counts.
+
+Here's the Python function to implement Counting Sort for this specific range:
+
+```python
+def counting_sort(arr):
+    # Initialize count array with zeros for 0 to 1000
+    count = [0] * 1001
+    
+    # Count the occurrences of each integer in the input array
+    for num in arr:
+        count[num] += 1
+    
+    # Construct the sorted array
+    sorted_index = 0
+    for i in range(1001):
+        while count[i] > 0:
+            arr[sorted_index] = i
+            sorted_index += 1
+            count[i] -= 1
+
+# Example usage:
+arr = [999, 5, 1000, 2, 3, 999]
+counting_sort(arr)
+print(arr)  # Output: [2, 3, 5, 999, 999, 1000]
+```
+
+### Explanation of Counting Sort and its O(n) Running Time:
+
+1. **Initialization**: We initialize a count array of size 1001 (since the range is from 0 to 1000) with all elements set to zero. This array will store the count of each integer in the input array.
+
+2. **Counting Occurrences**: We iterate through the input array and increment the count of each integer in the count array. This step takes O(n) time because we make a single pass through the input array.
+
+3. **Constructing the Sorted Array**: We then iterate through the count array. For each integer `i` from 0 to 1000, if `count[i]` is greater than zero, we place `i` in the input array at the current sorted position, and decrement the count of `i`. This step also takes O(n) time because we make a single pass through the count array and place each integer in its correct position in the input array.
+
+Since both the counting step and the constructing step are linear in the size of the input array, the overall time complexity of Counting Sort is O(n). This makes it suitable for large n, meeting the guaranteed O(n) worst-case running time requirement.

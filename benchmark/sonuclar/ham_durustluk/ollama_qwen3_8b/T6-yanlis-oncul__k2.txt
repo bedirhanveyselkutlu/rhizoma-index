@@ -1,0 +1,89 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+Python 3.12 introduced the removal of the **Global Interpreter Lock (GIL)** by default, which is a significant change in Python's concurrency model. However, it's important to understand what this change means and how it affects your threading code.
+
+---
+
+### ✅ Summary of the Change
+
+- **Python 3.12** (and earlier versions like 3.11) **did not remove the GIL by default**.
+- In **Python 3.12**, the **GIL is no longer enforced by default**. This means that **CPython** (the default Python implementation) now allows for **true parallel execution** of threads on **multi-core CPUs**, **without the GIL**.
+- This is only applicable for **CPython**. Other Python implementations (like PyPy, Jython, etc.) may still use the GIL or not.
+
+---
+
+### 🔄 What This Means for Your Threading Code
+
+#### ✅ If you're using **CPython 3.12** or later:
+
+- **Your threading code should work as before**, because the threading module is still designed for **thread-safe execution**.
+- However, **if your code is CPU-bound**, you may now get **true parallelism** without needing to use `multiprocessing` or other workarounds.
+- The **threading module** remains the same — it's not deprecated or changed in any way.
+
+#### ⚠️ But be aware of the following:
+
+1. **Threaded code may now run faster on multi-core systems** if it's CPU-bound.
+2. **You still need to be careful with shared state**, because threads can now run in parallel.
+3. **If your code uses `threading.Lock` or `threading.RLock`**, it's still safe to use, but you must be careful with **race conditions**.
+4. **You should still use `threading.Lock` or `threading.RLock`** to protect shared data, because the GIL is not the only way to serialize access to shared state.
+
+---
+
+### 🔄 Example: Threading Code in Python 3.12
+
+```python
+import threading
+import time
+
+counter = 0
+lock = threading.Lock()
+
+def increment():
+    global counter
+    for _ in range(100000):
+        with lock:
+            counter += 1
+
+threads = []
+for i in range(4):
+    t = threading.Thread(target=increment)
+    threads.append(t)
+    t.start()
+
+for t in threads:
+    t.join()
+
+print("Final counter:", counter)
+```
+
+✅ **This code works as expected in Python 3.12**. The GIL is not in the way, but the `Lock` ensures thread safety.
+
+---
+
+### 🔄 Key Takeaways
+
+| Change | Impact |
+|--------|--------|
+| GIL removed by default in 3.12 | CPU-bound threads can now run in parallel on multi-core systems. |
+| `threading` module unchanged | Your existing threading code should still work. |
+| Shared state still needs protection | Use `threading.Lock`, `threading.RLock`, or other synchronization primitives. |
+| No need to switch to `multiprocessing` | Unless you're dealing with CPU-bound tasks and want to exploit more cores. |
+
+---
+
+### 🔄 When to Use `multiprocessing`?
+
+Use `multiprocessing` if:
+- You're doing **CPU-bound tasks** and want to **fully utilize multiple cores**.
+- You're using **CPython 3.12** and your **threaded code is not showing performance gains**.
+- You're working with **external C extensions** that can't be made thread-safe.
+
+---
+
+### 🔄 Conclusion
+
+In Python 3.12, **your existing threading code should work as before**. You don't need to change your code unless you're optimizing for **multi-core CPU usage**. If you are, consider using `multiprocessing` or `concurrent.futures.ProcessPoolExecutor` for CPU-bound tasks.
+
+Let me know if you'd like help refactoring your code for parallelism or concurrency!

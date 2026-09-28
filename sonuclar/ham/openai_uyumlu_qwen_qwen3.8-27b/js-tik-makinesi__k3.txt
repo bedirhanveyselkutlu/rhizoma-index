@@ -1,0 +1,181 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: TIK Register Machine
+
+Write a function 'runTik(program)' that runs a program written in TIK, a small made-up language, and returns an array of the numbers it outputs.
+
+Program text:
+- Instructions are separated by newlines. Leading and trailing spaces on a line are ignored.
+- Lines that are empty (or only spaces) and lines whose first non-space character is '#' are ignored and are not instructions.
+- Within an instruction, tokens are separated by one or more spaces.
+
+Machine:
+- There are four registers named a, b, c and d. All start at 0.
+- Every value stored in a register is reduced to the range 0..999 by taking it modulo 1000, always giving a non-negative result (for example -1 becomes 999 and 1003 becomes 3).
+- An integer literal is an optional '-' followed by one or more digits ('+5' and '5.0' are not valid).
+- An operand written as X below is either a register name or an integer literal. Its value is the register's value, or the literal reduced to 0..999 in the same way.
+
+Instructions (R must be a register name, N must be an integer literal):
+- set R X: R becomes the value of X.
+- add R X: R becomes R plus the value of X.
+- mul R X: R becomes R times the value of X.
+- out X: appends the value of X to the output.
+- jmp X N: if the value of X is not 0, the next instruction is the one N instructions away from this one (N may be negative; ignored lines are not counted). Otherwise execution continues with the next instruction.
+Instruction names and register names are lowercase; anything else is invalid.
+
+Running:
+- Before running anything, check the whole program. If any line that is not ignored is not a valid instruction (unknown name, wrong number of operands, or an invalid register, literal or operand), throw an Error whose message is 'bad instruction at line K', where K is the 1-based line number of the first such line in the original text, counting ignored lines too. In that case nothing is run.
+- Execution starts at the first instruction and stops normally when the next instruction position is before the first instruction or after the last one.
+- A program may execute at most 10,000 instructions. If it has not stopped after executing 10,000 instructions, throw an Error with the message 'step limit'.
+
+STARTER CODE (javascript):
+function runTik(program) {
+  // Write your code here
+}
+
+module.exports = { runTik };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function runTik(program) {
+  const lines = program.split('\n');
+  const validRegs = new Set(['a', 'b', 'c', 'd']);
+  const validMnemonics = new Set(['set', 'add', 'mul', 'out', 'jmp']);
+
+  // Parse instructions
+  const instructions = []; // { op, args: [...] , lineNum }
+  for (let i = 0; i < lines.length; i++) {
+    const lineNum = i + 1; // 1-based
+    let raw = lines[i];
+    let trimmed = raw.trim();
+
+    if (trimmed === '') continue;
+    if (trimmed[0] === '#') continue;
+
+    // Tokenize
+    const tokens = trimmed.split(/\s+/);
+    if (tokens.length < 1) continue;
+
+    const mnemonic = tokens[0].toLowerCase();
+    // But we must check: instruction names are lowercase; anything else invalid.
+    // Actually, the spec says "Instruction names and register names are lowercase; anything else is invalid."
+    // So if mnemonic is not exactly lowercase matching one of the valid ones, it's invalid.
+    // But tokens[0] might be e.g. "SET" which should be invalid.
+
+    if (!validMnemonics.has(mnemonic)) {
+      throw new Error(`bad instruction at line ${lineNum}`);
+    }
+
+    const args = tokens.slice(1);
+
+    // Validate based on mnemonic
+    if (mnemonic === 'set') {
+      if (args.length !== 2) throw new Error(`bad instruction at line ${lineNum}`);
+      const reg = args[0];
+      if (!validRegs.has(reg)) throw new Error(`bad instruction at line ${lineNum}`);
+      if (!isValidOperand(args[1], validRegs)) throw new Error(`bad instruction at line ${lineNum}`);
+      instructions.push({ op: 'set', reg, operand: args[1], lineNum });
+    } else if (mnemonic === 'add') {
+      if (args.length !== 2) throw new Error(`bad instruction at line ${lineNum}`);
+      const reg = args[0];
+      if (!validRegs.has(reg)) throw new Error(`bad instruction at line ${lineNum}`);
+      if (!isValidOperand(args[1], validRegs)) throw new Error(`bad instruction at line ${lineNum}`);
+      instructions.push({ op: 'add', reg, operand: args[1], lineNum });
+    } else if (mnemonic === 'mul') {
+      if (args.length !== 2) throw new Error(`bad instruction at line ${lineNum}`);
+      const reg = args[0];
+      if (!validRegs.has(reg)) throw new Error(`bad instruction at line ${lineNum}`);
+      if (!isValidOperand(args[1], validRegs)) throw new Error(`bad instruction at line ${lineNum}`);
+      instructions.push({ op: 'mul', reg, operand: args[1], lineNum });
+    } else if (mnemonic === 'out') {
+      if (args.length !== 1) throw new Error(`bad instruction at line ${lineNum}`);
+      if (!isValidOperand(args[0], validRegs)) throw new Error(`bad instruction at line ${lineNum}`);
+      instructions.push({ op: 'out', operand: args[0], lineNum });
+    } else if (mnemonic === 'jmp') {
+      if (args.length !== 2) throw new Error(`bad instruction at line ${lineNum}`);
+      if (!isValidOperand(args[0], validRegs)) throw new Error(`bad instruction at line ${lineNum}`);
+      // N must be an integer literal
+      if (!isIntegerLiteral(args[1])) throw new Error(`bad instruction at line ${lineNum}`);
+      instructions.push({ op: 'jmp', operand: args[0], n: args[1], lineNum });
+    }
+  }
+
+  const numInstructions = instructions.length;
+  if (numInstructions === 0) return [];
+
+  // Registers
+  const regs = { a: 0, b: 0, c: 0, d: 0 };
+  const output = [];
+  let pc = 0;
+  let stepCount = 0;
+
+  while (true) {
+    if (pc < 0 || pc >= numInstructions) break;
+    if (stepCount >= 10000) {
+      throw new Error('step limit');
+    }
+    stepCount++;
+
+    const ins = instructions[pc];
+
+    function getOperandValue(operandStr) {
+      if (validRegs.has(operandStr)) {
+        return regs[operandStr];
+      }
+      // It's an integer literal
+      const val = parseInt(operandStr, 10);
+      return ((val % 1000) + 1000) % 1000;
+    }
+
+    if (ins.op === 'set') {
+      regs[ins.reg] = ((getOperandValue(ins.operand) % 1000) + 1000) % 1000;
+    } else if (ins.op === 'add') {
+      const newVal = regs[ins.reg] + getOperandValue(ins.operand);
+      regs[ins.reg] = ((newVal % 1000) + 1000) % 1000;
+    } else if (ins.op === 'mul') {
+      const newVal = regs[ins.reg] * getOperandValue(ins.operand);
+      regs[ins.reg] = ((newVal % 1000) + 1000) % 1000;
+    } else if (ins.op === 'out') {
+      output.push(getOperandValue(ins.operand));
+    } else if (ins.op === 'jmp') {
+      const val = getOperandValue(ins.operand);
+      if (val !== 0) {
+        const n = parseInt(ins.n, 10);
+        pc = pc + n;
+      } else {
+        pc = pc + 1;
+      }
+      continue;
+    } else {
+      // Should not reach here
+      pc = pc + 1;
+      continue;
+    }
+
+    pc = pc + 1;
+  }
+
+  return output;
+}
+
+function isIntegerLiteral(s) {
+  // Optional '-', one or more digits
+  return /^-?\d+$/.test(s);
+}
+
+function isValidOperand(s, validRegs) {
+  if (validRegs.has(s)) return true;
+  return isIntegerLiteral(s);
+}
+
+module.exports = { runTik };
+```

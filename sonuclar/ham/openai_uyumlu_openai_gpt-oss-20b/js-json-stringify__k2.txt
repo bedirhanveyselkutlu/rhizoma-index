@@ -1,0 +1,76 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  const escapeString = (str) => {
+    return str.replace(/[\\"\u0000-\u001f]/g, (c) => {
+      switch (c) {
+        case '"': return '\\"';
+        case '\\': return '\\\\';
+        case '\b': return '\\b';
+        case '\f': return '\\f';
+        case '\n': return '\\n';
+        case '\r': return '\\r';
+        case '\t': return '\\t';
+        default:
+          const code = c.charCodeAt(0);
+          return '\\u' + code.toString(16).padStart(4, '0');
+      }
+    });
+  };
+
+  const serialize = (val) => {
+    if (val === null) return 'null';
+    const type = typeof val;
+    if (type === 'string') return '"' + escapeString(val) + '"';
+    if (type === 'number') return isFinite(val) ? String(val) : 'null';
+    if (type === 'boolean') return val ? 'true' : 'false';
+    if (Array.isArray(val)) {
+      const items = val.map((item) => {
+        const res = serialize(item);
+        return res === undefined ? 'null' : res;
+      });
+      return '[' + items.join(',') + ']';
+    }
+    if (type === 'object') {
+      const keys = Object.keys(val);
+      const props = [];
+      for (const k of keys) {
+        const v = val[k];
+        const res = serialize(v);
+        if (res !== undefined) {
+          props.push('"' + escapeString(k) + '":' + res);
+        }
+      }
+      return '{' + props.join(',') + '}';
+    }
+    // For functions, symbols, undefined, etc. return undefined
+    return undefined;
+  };
+
+  return serialize(value);
+}
+
+module.exports = { jsonStringify };
+```

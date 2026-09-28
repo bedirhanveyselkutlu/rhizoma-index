@@ -1,0 +1,85 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Deep Clone an Object
+
+Write a function 'deepClone(obj)' that deeply copies a given JavaScript object or array (including nested objects, arrays and primitives) without sharing references. It must also clone Date and RegExp objects.
+
+STARTER CODE (javascript):
+function deepClone(obj) {
+  // Write your code here
+}
+
+module.exports = { deepClone };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function deepClone(obj) {
+  const visited = new WeakMap();
+
+  function clone(value) {
+    // primitives and functions (functions are returned as‑is)
+    if (value === null || typeof value !== 'object') {
+      return value;
+    }
+
+    // Date
+    if (value instanceof Date) {
+      return new Date(value.getTime());
+    }
+
+    // RegExp
+    if (value instanceof RegExp) {
+      const pattern = value.source;
+      const flags = value.flags;
+      return new RegExp(pattern, flags);
+    }
+
+    // circular reference handling
+    if (visited.has(value)) {
+      return visited.get(value);
+    }
+
+    // Array
+    if (Array.isArray(value)) {
+      const arr = [];
+      visited.set(value, arr);
+      value.forEach((item, idx) => {
+        arr[idx] = clone(item);
+      });
+      return arr;
+    }
+
+    // Plain Object or class instance
+    const prototype = Object.getPrototypeOf(value);
+    const clonedObj = Object.create(prototype);
+    visited.set(value, clonedObj);
+
+    // copy all own property descriptors (including non‑enumerable, symbols)
+    const keys = Reflect.ownKeys(value);
+    for (const key of keys) {
+      const desc = Object.getOwnPropertyDescriptor(value, key);
+      if (desc) {
+        if ('value' in desc) {
+          desc.value = clone(desc.value);
+        }
+        Object.defineProperty(clonedObj, key, desc);
+      }
+    }
+
+    return clonedObj;
+  }
+
+  return clone(obj);
+}
+
+module.exports = { deepClone };
+```

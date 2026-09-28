@@ -1,0 +1,35 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Chunk an Array
+
+Write a function 'chunk(arr, size)' that takes an array and a chunk size and splits the array into sub-arrays of at most size elements. Leftover elements go into the last chunk.
+
+STARTER CODE (javascript):
+function chunk(arr, size) {
+  // Write your code here
+}
+
+module.exports = { chunk };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function chunk(arr, size) {
+  const result = [];
+  if (!Array.isArray(arr) || size <= 0) return result;
+  for (let i = 0; i < arr.length; i += size) {
+    result.push(arr.slice(i, i + size));
+  }
+  return result;
+}
+
+module.exports = { chunk };
+```

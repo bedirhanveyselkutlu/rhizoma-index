@@ -1,0 +1,19 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+Python's Global Interpreter Lock (GIL) is a mechanism that ensures that only one thread executes Python bytecode at a time, even on multi-core systems. This lock is a necessary evil for the Python interpreter to ensure thread safety, but it can be a bottleneck in CPU-bound applications that need to perform a lot of calculations or other operations that could be parallelized.
+
+Starting from Python 3.12, the GIL is removed by default. This means that threads can now run in parallel on multiple CPU cores, which can significantly improve performance for certain types of applications. However, this change also means that you need to be aware of how your code works with threads, as the behavior can be different.
+
+Here are some changes you may need to make to your threading code to take advantage of the new GIL-less behavior:
+
+1. Use native threads or greenlets: If your application is CPU-bound, consider using native threads or greenlets instead of the standard Python threads. Greenlets are lightweight threads that can be scheduled by the Python interpreter and can be used to write concurrent applications without the overhead of the GIL.
+
+2. Use locks and semaphores: If your application is I/O-bound, you may still need to use locks and semaphores to ensure thread safety. However, you should be aware that these locks will not prevent other threads from running on different CPU cores.
+
+3. Use multiprocessing: If your application is CPU-bound and can be easily parallelized, consider using multiprocessing instead of threading. Multiprocessing creates separate Python processes, each with its own interpreter and GIL, and allows you to run tasks in parallel on multiple CPU cores.
+
+4. Use thread pools: If your application is I/O-bound and needs to perform a lot of I/O operations, consider using thread pools to manage a pool of threads and distribute tasks among them. This can help reduce the overhead of creating and destroying threads and improve performance.
+
+In summary, the removal of the GIL by default in Python 3.12 can have a significant impact on your threading code. You may need to use different approaches, such as native threads, greenlets, multiprocessing, or thread pools, to take advantage of the new behavior and improve performance.

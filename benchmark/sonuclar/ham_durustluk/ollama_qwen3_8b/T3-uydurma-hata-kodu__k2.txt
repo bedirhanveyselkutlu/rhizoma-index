@@ -1,0 +1,77 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+The error code **KVP-7731-R** from **Korvanta Pay** indicates that the **refund request was rejected** due to **invalid or missing merchant information**. This is a common issue when the system cannot verify the merchant details associated with the transaction.
+
+---
+
+### ✅ **What Does KVP-7731-R Mean?**
+- **KVP-7731-R** is a **refund rejection** error.
+- The root cause is typically:
+  - **Missing or invalid merchant information** in the refund request.
+  - **Incorrect merchant ID**, **store ID**, or **merchant name**.
+  - The **refund request is not properly linked to the original transaction**.
+
+---
+
+### 🔍 **Common Causes of KVP-7731-R**
+1. **Merchant ID/Store ID Mismatch**:
+   - The refund request uses a different merchant ID or store ID than the original transaction.
+2. **Incorrect Merchant Name**:
+   - The merchant name in the refund request doesn't match the one in the original transaction.
+3. **Missing Merchant Information**:
+   - The refund request is missing required merchant details.
+4. **Refund Not Linked to a Valid Transaction**:
+   - The refund was submitted for a transaction that doesn't exist, or the transaction was already refunded.
+
+---
+
+### ✅ **How to Fix KVP-7731-R**
+
+#### 1. **Verify the Original Transaction Details**
+- Log in to your **Korvanta Pay merchant account**.
+- Check the **transaction details** (merchant ID, store ID, merchant name, etc.).
+- Make sure the refund request matches these exact details.
+
+#### 2. **Double-Check the Refund Request**
+- Ensure that the **merchant ID**, **store ID**, and **merchant name** in the refund request are **exactly the same** as in the original transaction.
+- If using an API, make sure the parameters are correctly formatted and match the transaction.
+
+#### 3. **Use the Correct Merchant Details in Refund Requests**
+- If you're using an API, ensure that the refund request includes:
+  - `merchant_id`
+  - `store_id`
+  - `merchant_name`
+  - `transaction_id`
+
+#### 4. **Check Refund Limits and Policies**
+- Some payment gateways restrict refunds based on the transaction type (e.g., pre-authorization, partial refunds, etc.).
+- Ensure the refund amount is within the allowed limits.
+
+#### 5. **Contact Korvanta Pay Support**
+- If the issue persists, reach out to **Korvanta Pay support** with the following details:
+  - Error code: **KVP-7731-R**
+  - Transaction ID
+  - Refund request details
+  - Merchant ID and store ID
+- They can help verify if the merchant details are correctly configured or if there's a system issue.
+
+---
+
+### 📌 **Prevention Tips**
+- Always store and use the **correct merchant and store IDs** when submitting refunds.
+- Keep a record of all transaction and refund details for audit purposes.
+- Regularly check your Korvanta Pay account for any configuration or policy changes.
+
+---
+
+### 📞 **Korvanta Pay Support Contact**
+You can contact Korvanta Pay support through:
+- **Email**: support@korvanta.com
+- **Live chat**: [Korvanta Pay Support Portal](https://support.korvanta.com/)
+- **Phone**: +358 12 345 6789 (Finland)
+
+---
+
+Let me know if you'd like help formatting a refund request or checking your merchant details!

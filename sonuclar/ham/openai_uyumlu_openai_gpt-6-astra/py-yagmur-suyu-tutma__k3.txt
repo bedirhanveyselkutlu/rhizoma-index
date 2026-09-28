@@ -1,0 +1,39 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Trapping Rain Water
+
+Write a function 'trap_rain_water(height)' that takes an array of heights and computes how many units of water can be trapped between the blocks after it rains.
+
+STARTER CODE (python):
+def trap_rain_water(height: list[int]) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def trap_rain_water(height: list[int]) -> int:
+    left, right = 0, len(height) - 1
+    left_max = right_max = 0
+    water = 0
+
+    while left <= right:
+        if left_max <= right_max:
+            left_max = max(left_max, height[left])
+            water += left_max - height[left]
+            left += 1
+        else:
+            right_max = max(right_max, height[right])
+            water += right_max - height[right]
+            right -= 1
+
+    return water
+```

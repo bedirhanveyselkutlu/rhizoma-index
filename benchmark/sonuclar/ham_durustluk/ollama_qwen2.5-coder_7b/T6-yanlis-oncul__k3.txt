@@ -1,0 +1,56 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+The Global Interpreter Lock (GIL) is a mechanism in CPython (the reference implementation of Python) that prevents multiple native threads from executing Python bytecodes at once. This ensures that only one thread executes Python bytecode at any given time, even on a multi-core processor. In Python 3.12, the GIL is removed by default, which means that threading can be more efficient on multi-core systems.
+
+However, removing the GIL does not make Python inherently parallel or threaded. The benefits of threading will depend on how your code is structured and how it utilizes threads. Here are some changes and considerations you might need to make in your threading code:
+
+1. **Concurrency vs. Parallelism**:
+   - Understand the difference between concurrency and parallelism. Concurrency is about making the most of available resources, while parallelism is about executing multiple threads or processes simultaneously.
+   - Use concurrency for IO-bound and high-latency operations, and parallelism for CPU-bound operations.
+
+2. **Thread-Safe Code**:
+   - Ensure that your code is thread-safe. This means that shared resources accessed by multiple threads should be protected from race conditions.
+   - Use synchronization primitives like locks, semaphores, and condition variables to manage access to shared resources.
+
+3. **Avoid Blocking Operations in Threads**:
+   - Threads can be blocked by I/O operations or other long-running tasks. Ensure that threads are not blocking the execution of other threads unnecessarily.
+   - Use asynchronous programming or event-driven approaches to handle I/O operations without blocking threads.
+
+4. **Use Thread Pooling**:
+   - Create a thread pool to manage a fixed number of threads. This can help in reusing threads and managing resources more efficiently.
+   - Python's `concurrent.futures` module provides a convenient way to create and manage thread pools.
+
+5. **Consider Alternative Libraries**:
+   - For CPU-bound tasks that can benefit from parallel execution, consider using libraries like `multiprocessing` which are not affected by the GIL.
+   - `multiprocessing` allows for true parallelism across multiple processes, which can be beneficial on multi-core systems.
+
+6. **Testing and Profiling**:
+   - Test your threaded code thoroughly to ensure that it behaves as expected under concurrent execution.
+   - Use profiling tools to identify bottlenecks and optimize your code.
+
+Here is a simple example of how you might structure a threaded program in Python 3.12:
+
+```python
+import concurrent.futures
+import time
+
+def task(n):
+    """A simple task that sleeps for 'n' seconds."""
+    time.sleep(n)
+    return f"Task {n} completed"
+
+# Using ThreadPoolExecutor to manage threads
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    # Submit tasks to the thread pool
+    futures = [executor.submit(task, i) for i in range(5)]
+    
+    # Retrieve results as tasks complete
+    for future in concurrent.futures.as_completed(futures):
+        print(future.result())
+
+print("All tasks completed")
+```
+
+In this example, `ThreadPoolExecutor` is used to manage a pool of threads, and tasks are submitted to this pool. The results are retrieved as tasks complete, demonstrating how to handle concurrent execution using threads in Python 3.12.

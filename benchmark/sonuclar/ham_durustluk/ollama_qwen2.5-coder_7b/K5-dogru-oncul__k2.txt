@@ -1,0 +1,43 @@
+===== ISTEM =====
+Python 3.13 introduced an optional free-threaded build in which the Global Interpreter Lock can be disabled. What should I check in my threading code before trying it?
+
+===== HAM YANIT =====
+When considering using the optional free-threaded build in Python 3.13, which allows disabling the Global Interpreter Lock (GIL), there are several important factors to check in your threading code before making this transition. The GIL is a mutex that protects access to Python objects, preventing multiple native threads from executing Python bytecodes at once. Disabling it can significantly improve performance for CPU-bound tasks but can introduce complexity in your threading code.
+
+### 1. **Understand the Limitations**
+   - **Concurrency vs. Parallelism**: The free-threaded build allows multiple threads to run in parallel, but it does not mean true parallel execution of Python code. It only enables concurrent execution at the operating system level.
+   - **GIL Impact**: Tasks that are I/O-bound or can be efficiently parallelized using libraries like NumPy or multiprocessing won't see a significant performance boost. Only CPU-bound tasks will benefit from disabling the GIL.
+
+### 2. **Review Your Code**
+   - **Locks and Condition Variables**: Ensure that your code does not rely on locks or condition variables in a way that would be incompatible with a free-threaded build. The GIL can simplify synchronization, but it's important to understand how it manages access to Python objects.
+   - **Thread Safety**: Check if your code is thread-safe. Python's standard library provides many thread-safe classes and functions, but you may need to add your own locks or use other synchronization mechanisms when working with shared resources.
+
+### 3. **Test Your Code**
+   - **Unit Tests**: Run your unit tests to ensure that your code behaves as expected. This is crucial to identify any issues that may arise due to the removal of the GIL.
+   - **Performance Testing**: Before disabling the GIL, conduct performance testing to understand the impact of removing the GIL on your application. This will help you identify bottlenecks and areas where parallel execution could be beneficial.
+   - **Stress Testing**: Stress test your application to ensure that it can handle the increased load without crashing or running into performance issues.
+
+### 4. **Use Appropriate Libraries**
+   - **Multiprocessing**: For CPU-bound tasks, consider using the `multiprocessing` module instead of threading. Each process has its own Python interpreter and GIL, allowing true parallel execution.
+   - **NumPy and SciPy**: If your application involves numerical computations, consider using libraries like NumPy and SciPy, which are designed to take advantage of multiple cores and can significantly improve performance.
+
+### 5. **Consult Documentation and Community**
+   - **Python Documentation**: Review the official Python documentation for the free-threaded build and any changes related to the GIL.
+   - **Community and Forums**: Engage with the Python community and forums to share your experiences and get advice from other developers who have already transitioned to the free-threaded build.
+
+### Example of Enabling Free-Threaded Build
+To enable the free-threaded build in Python 3.13, you can use the following code:
+
+```python
+import sys
+import _thread
+
+if hasattr(_thread, 'PyThreadState_SetAsyncExc'):
+    print("Free-threaded build is supported")
+else:
+    print("Free-threaded build is not supported")
+```
+
+This code checks if the `PyThreadState_SetAsyncExc` function is available, which is a key part of the free-threaded build.
+
+By carefully considering these factors and testing your code thoroughly, you can make an informed decision about using the free-threaded build in Python 3.13 and ensure that your threading code is compatible and performs well in the new environment.

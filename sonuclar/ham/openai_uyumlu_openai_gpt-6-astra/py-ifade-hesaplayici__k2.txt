@@ -1,0 +1,93 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    n = len(s)
+    pos = 0
+
+    def skip_spaces():
+        nonlocal pos
+        while pos < n and s[pos].isspace():
+            pos += 1
+
+    def factor():
+        nonlocal pos
+        skip_spaces()
+
+        sign = 1
+        while pos < n and s[pos] in "+-":
+            if s[pos] == "-":
+                sign = -sign
+            pos += 1
+            skip_spaces()
+
+        if pos < n and s[pos] == "(":
+            pos += 1
+            value = expression()
+            skip_spaces()
+            if pos >= n or s[pos] != ")":
+                raise ValueError("Expected closing parenthesis")
+            pos += 1
+            return sign * value
+
+        start = pos
+        while pos < n and "0" <= s[pos] <= "9":
+            pos += 1
+        if start == pos:
+            raise ValueError("Expected a number or parenthesis")
+        return sign * int(s[start:pos])
+
+    def term():
+        nonlocal pos
+        value = factor()
+        while True:
+            skip_spaces()
+            if pos < n and s[pos] == "*":
+                pos += 1
+                value *= factor()
+            elif s.startswith("//", pos):
+                pos += 2
+                value //= factor()
+            else:
+                return value
+
+    def expression():
+        nonlocal pos
+        value = term()
+        while True:
+            skip_spaces()
+            if pos >= n or s[pos] not in "+-":
+                return value
+            operator = s[pos]
+            pos += 1
+            right = term()
+            if operator == "+":
+                value += right
+            else:
+                value -= right
+
+    result = expression()
+    skip_spaces()
+    if pos != n:
+        raise ValueError("Unexpected character")
+    return result
+```

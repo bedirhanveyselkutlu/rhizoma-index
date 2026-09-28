@@ -1,0 +1,45 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+It is a common misconception, but **Python 3.12 did not remove the Global Interpreter Lock (GIL).**
+
+In Python 3.12, the GIL is still very much present and active. What *did* happen is that Python 3.12 laid the architectural groundwork (via PEP 684) to allow for **per-interpreter GILs**, and it introduced experimental support for building Python with the GIL disabled (PEP 703).
+
+### What you need to know about the current state:
+
+1.  **Standard Python 3.12:** If you download Python 3.12 from python.org or your OS package manager, the GIL is still there. **Your threading code does not need to change.**
+2.  **The "No-GIL" Experimental Build:** To run Python without a GIL, you must specifically compile Python from source with the `--disable-gil` flag. This is currently considered **experimental/alpha** and is not recommended for production.
+
+---
+
+### What changes *would* you need to make (if you were using a No-GIL build)?
+
+If you move to a future version of Python where the GIL is removed, or if you experiment with the `--disable-gil` build, you shift from "GIL-protected" to "Thread-Safe" programming. Here is how your code needs to evolve:
+
+#### 1. Shift from "GIL-Safety" to "Thread-Safety"
+Previously, you could rely on the GIL to prevent data corruption for simple operations (like appending to a list or updating a dictionary), because the GIL ensured that only one thread executed Python bytecode at a time.
+*   **Without the GIL:** Two threads can modify a dictionary or a list simultaneously at the C level. This will lead to **data races** and potentially segmentation faults or memory corruption.
+*   **The Fix:** You must use `threading.Lock` or `threading.RLock` to wrap access to any shared mutable state.
+
+#### 2. Atomic Operations are no longer atomic
+In standard Python, `x += 1` is generally "safe" from thread interruption because the GIL prevents context switches in the middle of that bytecode sequence. Without the GIL, you are at the mercy of the OS thread scheduler.
+*   **The Fix:** You must use the `queue` module for communication or explicit `Lock` objects for shared counters.
+
+#### 3. Use `collections.deque` and `queue.Queue`
+The `queue.Queue` class and `collections.deque` are already designed to be thread-safe. In a no-GIL world, these become even more critical because they handle the necessary locking internally. Avoid manual management of shared lists or dictionaries whenever possible.
+
+#### 4. Leverage `multiprocessing` for CPU-bound tasks
+The removal of the GIL is intended to make `threading` better for CPU-bound tasks. However, if your code was designed with `multiprocessing` specifically to bypass the GIL, it will continue to work exactly as it does now. There is no requirement to switch to `threading` just because the GIL is gone.
+
+#### 5. Check your C-Extensions
+This is the biggest hurdle. Most C-extensions for Python (like NumPy, Pandas, or custom C++/Cython code) assume the existence of the GIL. 
+*   If you use a No-GIL build, extensions that are not "GIL-aware" may crash. 
+*   If you maintain your own C extensions, you will need to add rigorous internal locking to your C code.
+
+### Summary: What should you do today?
+
+*   **For Python 3.12:** Do nothing. Your existing code is safe.
+*   **For the future:** Audit your code for shared mutable state. If you are modifying a global dictionary, list, or object from multiple threads without an explicit `Lock`, **add the lock now.** It is good practice regardless of the GIL's status, and it will make your code future-proof for when the GIL is eventually removed or made optional.
+
+**Recommendation:** If you are worried about concurrency, focus on using `concurrent.futures.ThreadPoolExecutor` or `asyncio`. These abstractions are generally safer and easier to maintain than manually managing `threading.Thread` objects.

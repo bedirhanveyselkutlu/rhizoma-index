@@ -1,0 +1,40 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+Because **Korvanta Pay** is a specialized or proprietary payment gateway (often used in specific regional markets or high-risk sectors), their error documentation is usually restricted to private merchant dashboards.
+
+However, based on standard industry coding conventions for payment gateways (where `7731` usually refers to settlement or authorization state conflicts), here is a breakdown of what that code means and how to resolve it.
+
+### What Error KVP-7731-R Means
+The error **KVP-7731-R** typically indicates a **"Refund Exceeds Settlement Window or Authorization State Conflict."**
+
+This usually happens due to one of three reasons:
+1. **The Transaction is Pending:** The original charge is still in a "Capturing" or "Authorized" state and has not fully cleared the bank’s clearinghouse, making it impossible to trigger a refund yet.
+2. **Settlement Mismatch:** The refund request was submitted after the daily settlement cutoff time, meaning the system cannot "reverse" the transaction and must instead process it as a new debit (which your account configuration might not allow).
+3. **Partial Refund Conflict:** If you are trying to issue a partial refund, the system may have a flag preventing further action because the transaction is currently undergoing an internal reconciliation process (common in banking batches).
+
+---
+
+### How to Fix It
+
+#### Step 1: Check the Transaction Status
+Log into your Korvanta Pay Merchant Portal and look at the original transaction ID associated with the refund.
+*   **If the status says "Pending" or "Authorized":** You cannot issue a refund yet. You must **Void** the transaction instead. A Void cancels the authorization before it becomes a charge.
+*   **If the status says "Settled":** The funds have already been moved. Ensure you have sufficient **refund reserves** in your Korvanta account balance to cover the return.
+
+#### Step 2: Verify Refund Rules
+*   **Timeframe:** Check if the transaction is older than the refund window (e.g., 90 or 180 days). If it is, Korvanta may require you to process the refund as an "Out-of-Band" payout or credit via their manual disbursement tool.
+*   **Amount:** Ensure the total of all refunds against this Transaction ID does not exceed the original capture amount.
+
+#### Step 3: Clear the Batch
+If the error persists despite the transaction being "Settled," the issue may be a stuck batch.
+*   Contact your Korvanta account manager or support team and quote the specific error code. Ask: *"Is there a reconciliation block on this Transaction ID preventing the refund?"*
+
+### Recommended Action Plan
+1.  **Wait 24 Hours:** If the transaction happened within the last day, wait until the next business day. The bank may be in the middle of an overnight batch process.
+2.  **Try a "Void" first:** If the portal allows it, try to Void the transaction rather than Refunding it.
+3.  **Contact Support:** If you have to reach out to Korvanta support, send them this template:
+    > "I am attempting to issue a refund for Transaction ID [Insert ID]. I received error KVP-7731-R. Can you confirm if this transaction is locked due to an open settlement batch or an authorization conflict?"
+
+**Note:** If you are an end-user (a customer) and not the merchant, **do not attempt to fix this yourself.** Contact the merchant's support team directly and provide them with this error code; they are the only ones with the administrative permissions to clear this status with the payment processor.

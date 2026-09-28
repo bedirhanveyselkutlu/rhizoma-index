@@ -1,0 +1,15 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I cannot check the current status of `https://status.rhizoma.ai` in real time, as I don't have live internet access or the ability to perform live network requests. However, you can check the status of a website by using tools like:
+
+- **`curl`** in the terminal:  
+  ```bash
+  curl -I https://status.rhizoma.ai
+  ```
+  This will show the HTTP status code and headers.
+
+- **Online tools** like [Down For Everyone Or Just Me](https://downdetector.com/) or [httpstat](https://httpstat.us/).
+
+If you share the HTTP status code you received, I can help interpret what it means!

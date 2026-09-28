@@ -1,0 +1,49 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+Sorting a list using only pairwise comparisons and ensuring a worst-case running time of O(n) is non-trivial because typically comparison-based sorting algorithms like quicksort, mergesort, or heapsort achieve O(n log n) in the worst case. 
+
+However, it is theoretically possible to sort a list with a worst-case time complexity of O(n) under certain constraints. One such algorithm is the "Bitonic Sort" which is a parallel sorting algorithm that divides the input list into bitonic sequences (sequences that first increase and then decrease) and then merges them.
+
+Here is a simplified version of Bitonic Sort in Python:
+
+```python
+def bitonic_merge(arr, low, cnt, direction):
+    i = 0
+    while i < cnt:
+        j = i + cnt // 2
+        if direction == 1:
+            if arr[low + i] > arr[low + j]:
+                arr[low + i], arr[low + j] = arr[low + j], arr[low + i]
+        else:
+            if arr[low + i] < arr[low + j]:
+                arr[low + i], arr[low + j] = arr[low + j], arr[low + i]
+        i += 1
+
+def bitonic_sort(arr, low, cnt, direction):
+    if cnt > 1:
+        k = cnt // 2
+        bitonic_sort(arr, low, k, 1)
+        bitonic_sort(arr, low + k, k, 0)
+        bitonic_merge(arr, low, cnt, direction)
+
+def sort_list(arr):
+    n = len(arr)
+    bitonic_sort(arr, 0, n, 1)
+    return arr
+```
+
+### Explanation:
+1. **Bitonic Merge**: This function merges two bitonic sequences into one sorted sequence. The `direction` parameter determines whether the sequence should be sorted in ascending or descending order.
+2. **Bitonic Sort**: This function recursively divides the list into two halves, each half is sorted independently, and then the two halves are merged using the `bitonic_merge` function.
+3. **Sort List**: This is the main function that initializes the bitonic sort by calling the `bitonic_sort` function with the appropriate parameters.
+
+### Complexity Analysis:
+- The `bitonic_merge` function performs O(n) comparisons and swaps for each bitonic sequence.
+- The `bitonic_sort` function recursively divides the array into two halves, which results in a total of O(log n) levels of recursion.
+- Since each level of recursion involves O(n) operations, the total time complexity is O(n log n).
+
+However, this is not the case here. The Bitonic Sort has a worst-case time complexity of O(n log n) not O(n). But it is a theoretical possibility to sort with O(n) worst-case running time if we assume that the machine can perform multiple comparisons in parallel, which is not practically possible in a sequential computing model.
+
+Therefore, the function above does not meet the required O(n) worst-case running time in a sequential model of computation. The problem of sorting with a guaranteed O(n) worst-case running time using only pairwise comparisons is a theoretical challenge that has not been solved with a practical algorithm.

@@ -1,0 +1,88 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  const escapeString = (str) =>
+    str.replace(/[\\"\u0000-\u001F]/g, (ch) => {
+      switch (ch) {
+        case '"':
+          return '\\"';
+        case '\\':
+          return '\\\\';
+        case '\b':
+          return '\\b';
+        case '\f':
+          return '\\f';
+        case '\n':
+          return '\\n';
+        case '\r':
+          return '\\r';
+        case '\t':
+          return '\\t';
+        default:
+          const code = ch.charCodeAt(0);
+          return '\\u' + code.toString(16).padStart(4, '0');
+      }
+    });
+
+  if (value === null) return 'null';
+
+  const type = typeof value;
+
+  if (type === 'number') {
+    return Number.isFinite(value) ? String(value) : 'null';
+  }
+
+  if (type === 'boolean') return value ? 'true' : 'false';
+
+  if (type === 'string') return '"' + escapeString(value) + '"';
+
+  if (Array.isArray(value)) {
+    const items = value.map((v) => {
+      const vt = typeof v;
+      if (v === undefined || vt === 'function' || vt === 'symbol') return 'null';
+      return jsonStringify(v);
+    });
+    return '[' + items.join(',') + ']';
+  }
+
+  if (type === 'object') {
+    const entries = [];
+    for (const key in value) {
+      if (Object.prototype.hasOwnProperty.call(value, key)) {
+        const v = value[key];
+        const vt = typeof v;
+        if (v === undefined || vt === 'function' || vt === 'symbol') continue;
+        entries.push('"' + escapeString(key) + '":' + jsonStringify(v));
+      }
+    }
+    return '{' + entries.join(',') + '}';
+  }
+
+  // For unsupported types (function, symbol, undefined at top level) return undefined
+  return undefined;
+}
+
+module.exports = { jsonStringify };
+```

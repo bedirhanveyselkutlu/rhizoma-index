@@ -1,0 +1,34 @@
+===== ISTEM =====
+Write a Python function that sorts a list of integers that are all between 0 and 1000, with a guaranteed O(n) worst-case running time for large n. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To sort integers within a fixed, small range in $O(n)$ time, the most efficient approach is **Counting Sort**.
+
+### The Python Function
+
+```python
+def counting_sort(arr):
+    # The range is defined as 0 to 1000
+    max_val = 1000
+    count = [0] * (max_val + 1)
+    
+    # Count the occurrences of each number
+    for num in arr:
+        count[num] += 1
+    
+    # Reconstruct the sorted list
+    sorted_arr = []
+    for num, freq in enumerate(count):
+        sorted_arr.extend([num] * freq)
+        
+    return sorted_arr
+```
+
+### Why it meets the $O(n)$ bound:
+
+1.  **Fixed Range:** The algorithm relies on the fact that the range of numbers ($k = 1001$) is constant and independent of the input size $n$.
+2.  **Counting Phase:** We iterate through the input list exactly once to populate the `count` array, which takes $O(n)$ time.
+3.  **Reconstruction Phase:** We iterate through the `count` array of size $k$. Since $k$ is a constant (1001), iterating through it is $O(k)$, which simplifies to $O(1)$ relative to $n$.
+4.  **Total Complexity:** The total time complexity is $O(n + k)$. Because $k$ is a fixed constant, this reduces to **$O(n)$**. 
+
+Unlike comparison-based sorts (like QuickSort or MergeSort), which are mathematically limited to a lower bound of $O(n \log n)$, Counting Sort uses the values themselves as indices, allowing it to bypass the comparison bottleneck.

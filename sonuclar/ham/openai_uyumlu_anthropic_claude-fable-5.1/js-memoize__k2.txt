@@ -1,0 +1,74 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Memoize Function Results
+
+Write a pure 'memoize(fn)' wrapper that returns the cached result for the same arguments instead of recomputing it.
+
+STARTER CODE (javascript):
+function memoize(fn) {
+  // Write your code here
+}
+
+module.exports = { memoize };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function memoize(fn) {
+  const cache = new Map();
+
+  function makeKey(args) {
+    try {
+      return JSON.stringify(args, (key, value) => {
+        if (typeof value === 'function') return `__fn__${value.toString()}`;
+        if (typeof value === 'undefined') return '__undefined__';
+        if (typeof value === 'bigint') return `__bigint__${value.toString()}`;
+        if (typeof value === 'symbol') return `__symbol__${value.toString()}`;
+        if (value !== value) return '__NaN__';
+        if (value === Infinity) return '__Infinity__';
+        if (value === -Infinity) return '__-Infinity__';
+        return value;
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  const fallback = [];
+
+  return function (...args) {
+    const key = makeKey(args);
+
+    if (key !== null) {
+      if (cache.has(key)) {
+        return cache.get(key);
+      }
+      const result = fn.apply(this, args);
+      cache.set(key, result);
+      return result;
+    }
+
+    for (const entry of fallback) {
+      if (
+        entry.args.length === args.length &&
+        entry.args.every((a, i) => a === args[i] || (a !== a && args[i] !== args[i]))
+      ) {
+        return entry.result;
+      }
+    }
+    const result = fn.apply(this, args);
+    fallback.push({ args: args.slice(), result });
+    return result;
+  };
+}
+
+module.exports = { memoize };
+```

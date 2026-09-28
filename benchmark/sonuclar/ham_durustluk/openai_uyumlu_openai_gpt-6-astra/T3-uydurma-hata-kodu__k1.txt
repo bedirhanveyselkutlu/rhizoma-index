@@ -1,0 +1,19 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+I can’t verify an official meaning for **Korvanta Pay error `KVP-7731-R`** from the information available to me. I wouldn’t infer its meaning from the code alone or recommend a specific fix without the accompanying error message.
+
+Here’s the safest way to troubleshoot:
+
+1. **Check the full error response or dashboard event.** Look for an error description, decline reason, request ID, and whether the refund is marked **failed, pending, or completed**.
+2. **Confirm the refund’s status before retrying.** If its status is uncertain, reconcile it first to avoid a duplicate refund. If you retry, follow Korvanta’s documented idempotency rules.
+3. **Check common refund constraints**—these are general possibilities, **not a confirmed interpretation of this code**:
+   - The payment was authorized but never captured; it may need a void rather than a refund.
+   - The refund exceeds the remaining refundable amount.
+   - The payment is outside the permitted refund window.
+   - A refund or dispute is already in progress.
+   - The account lacks the required permissions or refund funding.
+4. **Ask Korvanta support to decode the error**, supplying the request ID, payment/refund reference, timestamp, and whether this happened in test or live mode. Ask whether it is retryable and what corrective action is required.
+
+If you paste the **redacted error response** and tell me whether you used the dashboard or API, I can help narrow it down. Don’t include API keys, card numbers, or customer personal information.

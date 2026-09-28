@@ -1,0 +1,5 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+Unfortunately, I'm unable to directly access or read files. However, if you can provide the relevant error messages or specific details from the log, I can certainly help you analyze them and identify the root cause of the crash. Please share the error messages or any other pertinent information from the log file.

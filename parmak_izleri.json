@@ -1,0 +1,150 @@
+{
+ "aciklama": "SHA-256 fingerprints of every hidden test and of the signed ledger, published with the first commit of this repository. The hidden tests stay private; if any of them, or the ledger, is changed later, its fingerprint will no longer match.",
+ "olusturma": "2026-09-28T19:59:32",
+ "defter": {
+  "kayit_sayisi": 1715,
+  "zincir_saglam": true,
+  "son_kayit_hash": "39a13373c65e1e5778a1a620b959d194f259b0e6ed55253c3112842031346d71",
+  "son_kayit_zamani": "2026-09-23 00:02:39",
+  "imza_anahtari": "rhizoma:ed25519:5df0fb0dfee966c2"
+ },
+ "kodlama_gorevleri": {
+  "py-faktoriyel-hesapla": {
+   "versiyon": 1,
+   "gizli_test_sha256": "9a7f1e55de20507f5506630522df1354eec5f25063d0014fc92be20eb0562cb7"
+  },
+  "py-palindrom-kontrol": {
+   "versiyon": 1,
+   "gizli_test_sha256": "3ebdd30a96e288697365aac4649ec7e2e0286e7bd7e15a4087afad5215e3ce1c"
+  },
+  "py-kelime-sayaci": {
+   "versiyon": 1,
+   "gizli_test_sha256": "6c400f0196a48817adc25846e1a79901d9e59ca024ceb48e8917f2560904596d"
+  },
+  "py-asal-sayi-kontrol": {
+   "versiyon": 1,
+   "gizli_test_sha256": "a42c0e42a335b5958cd757e4f4456c2ac3791c384b1327e8a7814ac12ea4bafd"
+  },
+  "py-liste-duzlestir": {
+   "versiyon": 1,
+   "gizli_test_sha256": "c84a3f603c09fb451416dc1598794949e7e2e895d30456fae986683dd34eb2c2"
+  },
+  "py-ikili-arama": {
+   "versiyon": 1,
+   "gizli_test_sha256": "36624603458e1dd354370472c913152b7adcfdeb91a57e4162c549260e3e14cb"
+  },
+  "py-gecerli-parantez": {
+   "versiyon": 1,
+   "gizli_test_sha256": "72f8ed868b4c30ce77b9cf2d6c7df92681c0e1aa9c82e9ab47fffb075fb5215c"
+  },
+  "py-aralik-birlestir": {
+   "versiyon": 1,
+   "gizli_test_sha256": "fbf08e0d74ccee3541ad7f135687115f027d92f460d40dd533502ca01e9d2d34"
+  },
+  "py-roma-rakamlari": {
+   "versiyon": 1,
+   "gizli_test_sha256": "407b0410ea09ddd2f12677d0cd3c70235ee8fe44d4f4260a23c301a4cba8393c"
+  },
+  "py-surum-karsilastir": {
+   "versiyon": 1,
+   "gizli_test_sha256": "1654a69d0332710ddcade9a22f84fe2ba3721d880445681cf3b20df2a038990e"
+  },
+  "py-sifir-tasi": {
+   "versiyon": 1,
+   "gizli_test_sha256": "c797eba5156ad89b2e7e28035f6cee2966ba224ddee734dee56d373476ad1de2"
+  },
+  "py-lru-cache": {
+   "versiyon": 2,
+   "gizli_test_sha256": "f28569542ac48021c590199e21773e68ca315840475386c747bb06a993afd219"
+  },
+  "py-en-uzun-ortak-altdizi": {
+   "versiyon": 1,
+   "gizli_test_sha256": "158812ada7cbc57053be2a7f63ed6d2667a7cec6e8ee6740c26446efe0b31448"
+  },
+  "py-yagmur-suyu-tutma": {
+   "versiyon": 1,
+   "gizli_test_sha256": "c0b910262e425643e00a6a6f7bef32212c6a5434c0c4d7c0ed8749308d78132f"
+  },
+  "py-hizli-medyan": {
+   "versiyon": 1,
+   "gizli_test_sha256": "52334ef4007a88557fe216deb63f0843cc0436bc95851ce89e692720e4ab7f6c"
+  },
+  "js-dizi-kesisimi": {
+   "versiyon": 1,
+   "gizli_test_sha256": "427a25478a3901451466d1e7b6fb0b1fe357910522a25e07d0edb2886c32a7c6"
+  },
+  "js-anagram-kontrol": {
+   "versiyon": 2,
+   "gizli_test_sha256": "ad4bafdfcf76912efd679b7efdf12407ce527d30ea6b49ac074166e000323f66"
+  },
+  "js-dizi-parcala": {
+   "versiyon": 1,
+   "gizli_test_sha256": "b1140612a8245740d0acb7f1f4de63a4509c495829195e54586930c2fa0b846a"
+  },
+  "js-tekil-eleman": {
+   "versiyon": 1,
+   "gizli_test_sha256": "a16c6605fab4356b0c25c3bf2f810de13680085bb05b3c3d3c70956d1bf72e60"
+  },
+  "js-camel-to-kebab": {
+   "versiyon": 1,
+   "gizli_test_sha256": "8f4de32a8583e191946e3a399c3ccf8f8f1cdc8a3131754ecd25ca74fc26512b"
+  },
+  "js-deep-clone": {
+   "versiyon": 2,
+   "gizli_test_sha256": "d1f9aef617e7333d1341bcaf12dfdadb73f65aed1080e04d76b363f34395457f"
+  },
+  "js-debounce": {
+   "versiyon": 2,
+   "gizli_test_sha256": "66416bea2362914a44ba68c5478e5d7141ec01719e97171f285b053e59d98e04"
+  },
+  "js-throttle": {
+   "versiyon": 2,
+   "gizli_test_sha256": "034d7256704cc33af18659c07c874bb1bbce29726723fee378af887dab750de2"
+  },
+  "js-group-by": {
+   "versiyon": 1,
+   "gizli_test_sha256": "6682ec787414d69b3b80a32d13a5e1806a4efa58c14d7eaf6cb34a6e85f687cf"
+  },
+  "js-memoize": {
+   "versiyon": 2,
+   "gizli_test_sha256": "100a039a3843878dbddc455f1608935c5d347b96d28b6732f48997898711ff25"
+  },
+  "js-curry": {
+   "versiyon": 1,
+   "gizli_test_sha256": "39ef995d37d395c4676dffa3c151f89934c725be5573b5e9d0b68a684dd1f345"
+  },
+  "js-promise-all": {
+   "versiyon": 2,
+   "gizli_test_sha256": "8257d2aa77781b10c014595dd5339eb56e7609d1b6f76b87a8475436f543a002"
+  },
+  "js-json-stringify": {
+   "versiyon": 2,
+   "gizli_test_sha256": "feacd20fa1337133adb83169c31404417e9478175de00ba955f40cc1d4fb936d"
+  },
+  "js-dom-traversal": {
+   "versiyon": 1,
+   "gizli_test_sha256": "f3ea8c61a18377e7e70f8f3a615fb804a1fd0796ef05e765ee93bfc4e57a1dec"
+  },
+  "py-matris-dondur": {
+   "versiyon": 1,
+   "gizli_test_sha256": "d209fa534d0e9b943367cdaa51407ea6185e124056f383e73f1ef449579b5159"
+  },
+  "py-defter-mutabakati": {
+   "versiyon": 1,
+   "gizli_test_sha256": "7e08c13dff9e45b896040f3c3ce73907618fd081ea4a965b4c11243b0b92fd7a"
+  },
+  "js-editor-geri-al": {
+   "versiyon": 1,
+   "gizli_test_sha256": "67e7e5cae8a9b4756d838df722556de680e07442ad3f2a502df61ae840d51739"
+  },
+  "js-tik-makinesi": {
+   "versiyon": 1,
+   "gizli_test_sha256": "056719d08a73355cfce75d0333f073665cc9b02a542fba8e17db85b0eaab7c55"
+  }
+ },
+ "is_gorevi": {
+  "istem_sha256": "dbd860d5989fa5afa68eedd6ba6fcc8e3a7292efc1fbb563dbb2369036172956",
+  "gizli_test_A_sha256": "84dd59c068843b1f44309a2a98644c92e3c7af6f1ff72e624ed13d82440d22ca",
+  "gizli_test_B_sha256": "71ed643022d6be1b6aa9e7e072f08791a513a3469de7fa00e2c46080c6157e86"
+ }
+}

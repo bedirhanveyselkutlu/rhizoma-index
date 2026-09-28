@@ -1,0 +1,287 @@
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 5, "yeni_gecti": false, "dusen_test_sayisi": 2}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 5, "yeni_gecti": false, "dusen_test_sayisi": 2}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 5, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen2.5 Coder 7B (yerel)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": false, "yeni_gecen": 0, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 4}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": false, "yeni_gecen": 0, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 4}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 20B (Groq)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-OSS 120B (Groq)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 5, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 5, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Qwen3 8B (yerel, dusunme kapali)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "Gemini 3.1 Flash Lite", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 4, "yeni_gecti": false, "dusen_test_sayisi": 1}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "py-lru-cache", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.7 Flash (OpenRouter)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Gemini 3.8 Flash (OpenRouter)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-5.5 (OpenRouter)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-deep-clone", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "GPT-6 Astra (OpenRouter)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "py-lru-cache", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-anagram-kontrol", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-deep-clone", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-debounce", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-debounce", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-debounce", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-throttle", "kosu": 1, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-throttle", "kosu": 2, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-throttle", "kosu": 3, "eski_gecti": true, "yeni_gecen": 2, "yeni_toplam": 2, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-memoize", "kosu": 1, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-memoize", "kosu": 2, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-memoize", "kosu": 3, "eski_gecti": true, "yeni_gecen": 3, "yeni_toplam": 3, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-promise-all", "kosu": 1, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-promise-all", "kosu": 2, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-promise-all", "kosu": 3, "eski_gecti": true, "yeni_gecen": 5, "yeni_toplam": 5, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 1, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 2, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Claude Fable 5.1 (OpenRouter)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}
+{"model_ad": "Qwen3.8 27B (Groq)", "gorev": "js-json-stringify", "kosu": 3, "eski_gecti": true, "yeni_gecen": 4, "yeni_toplam": 4, "yeni_gecti": true, "dusen_test_sayisi": 0}

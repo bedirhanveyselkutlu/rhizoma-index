@@ -1,0 +1,125 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Text Editor with Undo and Redo
+
+Write a class 'Editor' that holds a text document (initially an empty string) and a cursor position (initially 0), with these methods:
+- type(text): inserts text at the cursor and moves the cursor to the end of the inserted text.
+- moveTo(pos): moves the cursor to pos, clamped to the range 0 to the current text length.
+- backspace(n): deletes up to n characters immediately before the cursor (fewer if the cursor is closer than n to the start) and moves the cursor back by the number of characters deleted.
+- undo(): reverts the most recent undo step. Does nothing if there is none.
+- redo(): re-applies the most recently undone step. Does nothing if there is none.
+- getText(): returns the current text.
+- getCursor(): returns the current cursor position.
+
+Undo steps:
+- Every call to type, and every call to backspace that deletes at least one character, is an edit. An edit normally creates a new undo step.
+- Exception: a type call is added to the previous undo step, instead of creating a new one, if the method called immediately before it (not counting getText and getCursor) was also type.
+- A backspace that deletes nothing (cursor already at 0) changes nothing and creates no undo step.
+- Undoing a step restores the text and the cursor to exactly what they were before the step. Redoing a step restores them to exactly what they were at the end of the step.
+- Every edit clears the redo history. moveTo, undo and redo never clear it.
+
+STARTER CODE (javascript):
+class Editor {
+  // Write your code here
+}
+
+module.exports = { Editor };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class Editor {
+  constructor() {
+    this._text = "";
+    this._cursor = 0;
+    this._undoStack = [];
+    this._redoStack = [];
+    this._lastMethod = null;
+  }
+
+  _snapshot() {
+    return { text: this._text, cursor: this._cursor };
+  }
+
+  _restore(snapshot) {
+    this._text = snapshot.text;
+    this._cursor = snapshot.cursor;
+  }
+
+  type(text) {
+    const before = this._snapshot();
+
+    this._text =
+      this._text.slice(0, this._cursor) +
+      text +
+      this._text.slice(this._cursor);
+    this._cursor += text.length;
+
+    const after = this._snapshot();
+    if (this._lastMethod === "type" && this._undoStack.length > 0) {
+      this._undoStack[this._undoStack.length - 1].after = after;
+    } else {
+      this._undoStack.push({ before, after });
+    }
+
+    this._redoStack.length = 0;
+    this._lastMethod = "type";
+  }
+
+  moveTo(pos) {
+    this._cursor = Math.max(0, Math.min(pos, this._text.length));
+    this._lastMethod = "moveTo";
+  }
+
+  backspace(n) {
+    this._lastMethod = "backspace";
+    const count = Math.min(Math.max(0, n), this._cursor);
+    if (count === 0) return;
+
+    const before = this._snapshot();
+    this._text =
+      this._text.slice(0, this._cursor - count) +
+      this._text.slice(this._cursor);
+    this._cursor -= count;
+
+    this._undoStack.push({ before, after: this._snapshot() });
+    this._redoStack.length = 0;
+  }
+
+  undo() {
+    this._lastMethod = "undo";
+    if (this._undoStack.length === 0) return;
+
+    const step = this._undoStack.pop();
+    this._restore(step.before);
+    this._redoStack.push(step);
+  }
+
+  redo() {
+    this._lastMethod = "redo";
+    if (this._redoStack.length === 0) return;
+
+    const step = this._redoStack.pop();
+    this._restore(step.after);
+    this._undoStack.push(step);
+  }
+
+  getText() {
+    return this._text;
+  }
+
+  getCursor() {
+    return this._cursor;
+  }
+}
+
+module.exports = { Editor };
+```

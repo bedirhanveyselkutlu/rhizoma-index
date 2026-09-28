@@ -1,0 +1,47 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Object Diff
+
+Write a function 'objectDiff(obj1, obj2)' that compares two JavaScript objects and returns only the changed properties as [oldValue, newValue].
+
+STARTER CODE (javascript):
+function objectDiff(obj1, obj2) {
+  // Write your code here
+}
+
+module.exports = { objectDiff };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function objectDiff(obj1, obj2) {
+  const result = {};
+  const keys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
+
+  for (const key of keys) {
+    if (!(key in obj1) || !(key in obj2) || obj1[key] !== obj2[key]) {
+      if (key in obj1 && key in obj2 && obj1[key] !== obj2[key]) {
+        result[key] = [obj1[key], obj2[key]];
+      } else if (key in obj1 && !(key in obj2)) {
+        // Property only in obj1
+        result[key] = [obj1[key], undefined];
+      } else if (!(key in obj1) && key in obj2) {
+        // Property only in obj2
+        result[key] = [undefined, obj2[key]];
+      }
+    }
+  }
+
+  return result;
+}
+
+module.exports = { objectDiff };
+```

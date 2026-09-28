@@ -1,0 +1,42 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve this, you can use Python's built-in `random` module. By setting the **seed** of a local random number generator instance, you ensure that the selection is deterministic (the same seed always produces the same result) while maintaining a uniform distribution across different seeds.
+
+Using a local `random.Random` instance is better than `random.seed()` because it avoids affecting the global state of your program.
+
+### The Code
+
+```python
+import random
+
+def pick(items, seed):
+    """
+    Returns one element from items. 
+    Same seed + same list = same element.
+    Different seeds = uniform distribution over items.
+    """
+    if not items:
+        return None
+    
+    # Create a local generator to keep the function pure
+    rng = random.Random(seed)
+    return rng.choice(items)
+```
+
+### Why this works:
+1.  **Deterministic:** The `random.Random(seed)` constructor initializes the PRNG (Pseudo-Random Number Generator) with your provided seed. Because the algorithm is deterministic, calling it with the same seed will always result in the same sequence of "random" numbers.
+2.  **Uniformity:** `random.choice` uses a uniform distribution internally. Since the PRNG itself is designed to distribute values uniformly across its range, each element in the list will be selected with a probability of $1/N$ (where $N$ is the length of the list) as the seed changes.
+3.  **Independence:** By initializing a new instance inside the function, you ensure that calling `pick()` does not influence or rely on the state of `random.random()` or other libraries elsewhere in your application.
+
+### Example usage:
+```python
+items = ["apple", "banana", "cherry"]
+
+print(pick(items, 42))  # Always 'banana'
+print(pick(items, 42))  # Always 'banana'
+print(pick(items, 100)) # Always 'apple'
+```
+
+**Note:** If your `seed` values are very similar (e.g., `1, 2, 3`), the "randomness" is still mathematically guaranteed by the internal hashing and state transition of the `random` module, so it will remain well-distributed even for sequential seeds.

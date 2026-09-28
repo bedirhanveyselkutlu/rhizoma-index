@@ -1,0 +1,83 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Object Diff
+
+Write a function 'objectDiff(obj1, obj2)' that compares two JavaScript objects and returns only the changed properties as [oldValue, newValue].
+
+STARTER CODE (javascript):
+function objectDiff(obj1, obj2) {
+  // Write your code here
+}
+
+module.exports = { objectDiff };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function objectDiff(obj1, obj2) {
+  const NO_DIFF = Symbol("NO_DIFF");
+
+  function isPlainObjectOrArray(value) {
+    if (value === null || typeof value !== "object") return false;
+    return Array.isArray(value) || Object.prototype.toString.call(value) === "[object Object]";
+  }
+
+  function canRecurse(a, b) {
+    return (
+      isPlainObjectOrArray(a) &&
+      isPlainObjectOrArray(b) &&
+      Array.isArray(a) === Array.isArray(b)
+    );
+  }
+
+  function diff(a, b) {
+    if (Object.is(a, b)) return NO_DIFF;
+
+    if (a instanceof Date && b instanceof Date) {
+      return a.getTime() === b.getTime() ? NO_DIFF : [a, b];
+    }
+
+    if (a instanceof RegExp && b instanceof RegExp) {
+      return a.toString() === b.toString() ? NO_DIFF : [a, b];
+    }
+
+    if (!canRecurse(a, b)) {
+      return [a, b];
+    }
+
+    const result = {};
+    const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+
+    for (const key of keys) {
+      const hasA = Object.prototype.hasOwnProperty.call(a, key);
+      const hasB = Object.prototype.hasOwnProperty.call(b, key);
+
+      if (!hasA || !hasB) {
+        result[key] = [hasA ? a[key] : undefined, hasB ? b[key] : undefined];
+        continue;
+      }
+
+      const valueDiff = diff(a[key], b[key]);
+
+      if (valueDiff !== NO_DIFF) {
+        result[key] = valueDiff;
+      }
+    }
+
+    return Object.keys(result).length === 0 ? NO_DIFF : result;
+  }
+
+  const result = diff(obj1, obj2);
+  return result === NO_DIFF ? {} : result;
+}
+
+module.exports = { objectDiff };
+```

@@ -1,0 +1,11 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I can’t access live websites from this chat, so I can’t verify whether https://status.rhizoma.ai is up or report an HTTP status code I received.
+
+To check it now, run:
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' --max-time 15 https://status.rhizoma.ai
+```
+This prints the HTTP status code; `000` means no HTTP response was received.

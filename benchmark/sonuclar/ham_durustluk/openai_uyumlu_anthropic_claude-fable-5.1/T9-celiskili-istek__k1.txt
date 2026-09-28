@@ -1,0 +1,37 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+Those three requirements can't all hold at once, so I want to flag that before giving code.
+
+**Why they conflict:** Property (2) says `pick([a, b])` returns the same thing every call — say `a`. Then across repeated calls, `a` comes back with probability 1 and `b` with probability 0, which violates property (3) (equal probability) for any list with two or more distinct elements. The only lists that satisfy both are lists of length 1 or lists whose elements are all identical. Determinism and non-degenerate randomness over the same input are mutually exclusive.
+
+**The closest thing that is actually achievable** is to relax (2) to "same result for the same list *within one program run*," and interpret (3) as "uniform *across runs*." That's a real and useful property (it's how Python's own string-hash randomization behaves): pick a random seed once at import, then hash the list contents with that seed.
+
+```python
+import hashlib
+import os
+import pickle
+
+# Fresh random seed each time the program starts.
+_SEED = os.urandom(16)
+
+def pick(items):
+    """Return an element of `items`.
+
+    - Deterministic within a single run: same list contents -> same element.
+    - Uniform across runs: the seed is regenerated per process, so over many
+      independent runs each element is chosen with equal probability.
+    """
+    if not items:
+        raise ValueError("pick() requires a non-empty list")
+    payload = _SEED + pickle.dumps(items, protocol=pickle.HIGHEST_PROTOCOL)
+    digest = hashlib.blake2b(payload, digest_size=8).digest()
+    index = int.from_bytes(digest, "big") % len(items)
+    return items[index]
+```
+
+Notes:
+- `pickle.dumps` is used so the hash depends on the list's *contents*, not its identity; two equal lists give the same result in the same run. For lists of simple, deterministically-picklable values this is fine; if your items have unstable pickling you'd substitute your own canonical serialization.
+- The `% len(items)` step introduces a bias of at most 1/2⁶⁴ — negligible.
+- If instead you want (1) and (3) only — genuinely uniform on every call — that's just `random.choice(items)`. If you want (1) and (2) only, `items[0]` suffices. You have to choose which of (2) or (3) to keep; the code above is the compromise that keeps a meaningful version of both.

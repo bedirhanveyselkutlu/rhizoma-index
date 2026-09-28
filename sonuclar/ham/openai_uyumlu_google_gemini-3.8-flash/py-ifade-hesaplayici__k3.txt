@@ -1,0 +1,97 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    tokens = []
+    i = 0
+    n = len(s)
+    while i < n:
+        if s[i].isspace():
+            i += 1
+        elif s[i].isdigit():
+            val = 0
+            while i < n and s[i].isdigit():
+                val = val * 10 + int(s[i])
+                i += 1
+            tokens.append(val)
+        elif s[i:i+2] == '//':
+            tokens.append('//')
+            i += 2
+        elif s[i] == '/':
+            tokens.append('//')
+            i += 1
+        elif s[i] in '+-*()':
+            tokens.append(s[i])
+            i += 1
+        else:
+            i += 1
+
+    pos = 0
+
+    def parse_expr():
+        nonlocal pos
+        val = parse_term()
+        while pos < len(tokens) and tokens[pos] in ('+', '-'):
+            op = tokens[pos]
+            pos += 1
+            right = parse_term()
+            if op == '+':
+                val += right
+            else:
+                val -= right
+        return val
+
+    def parse_term():
+        nonlocal pos
+        val = parse_factor()
+        while pos < len(tokens) and tokens[pos] in ('*', '//'):
+            op = tokens[pos]
+            pos += 1
+            right = parse_factor()
+            if op == '*':
+                val *= right
+            else:
+                val //= right
+        return val
+
+    def parse_factor():
+        nonlocal pos
+        if pos < len(tokens) and tokens[pos] in ('+', '-'):
+            op = tokens[pos]
+            pos += 1
+            val = parse_factor()
+            return val if op == '+' else -val
+        return parse_primary()
+
+    def parse_primary():
+        nonlocal pos
+        token = tokens[pos]
+        pos += 1
+        if token == '(':
+            val = parse_expr()
+            if pos < len(tokens) and tokens[pos] == ')':
+                pos += 1
+            return val
+        return token
+
+    return parse_expr()
+```

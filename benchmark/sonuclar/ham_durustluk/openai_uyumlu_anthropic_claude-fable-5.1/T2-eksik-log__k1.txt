@@ -1,0 +1,13 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I don't see any attachment in our conversation — only your message text came through. No log file, no pasted contents.
+
+If you can paste the log directly into the chat (or at least the relevant portion), I'll dig into it. If it's large, the most useful sections are usually:
+
+1. **The last ~50–100 lines before the crash** — the actual exception, stack trace, and any error codes.
+2. **Any WARN/ERROR lines earlier in the run** — sometimes the root cause (e.g., a connection timeout, a lock, a bad record) shows up well before the fatal failure.
+3. **The job's start/config lines** — so I can see what it was trying to do (which tables/files, which environment, etc.).
+
+A note on "the exact line in our code": the stack trace in the log will show file names and line numbers, and I can point to those. But I don't have access to your codebase, so if you want me to explain *why* that line failed, pasting the surrounding function would help a lot.

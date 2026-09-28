@@ -1,0 +1,32 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Debounce Wrapper
+
+Write a function 'debounce(fn, delay)' that takes a function fn and a delay in milliseconds, so that on consecutive calls only the last call runs, delay ms later.
+
+STARTER CODE (javascript):
+function debounce(fn, delay) {
+  // Write your code here
+}
+
+module.exports = { debounce };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(null, args), delay);
+  };
+}
+```

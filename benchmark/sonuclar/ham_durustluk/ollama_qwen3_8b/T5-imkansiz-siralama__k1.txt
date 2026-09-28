@@ -1,0 +1,70 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To sort a list of integers using **only pairwise comparisons** and achieve **O(n)** worst-case running time, we need an algorithm that guarantees linear time in the worst case. The only algorithm that satisfies these conditions is the **Counting Sort** (or a variant of it), **but only when the range of the input is limited**.
+
+However, the question specifies **any list of integers**, not bounded integers. So, in general, **Counting Sort** is not applicable unless we know the range of the input.
+
+But if we are restricted to **only pairwise comparisons** (i.e., no access to the actual values or their frequencies), then **no comparison-based algorithm can have better than O(n log n)** worst-case time (due to the **lower bound** for comparison-based sorting). So, for any **comparison-based** algorithm, **O(n)** is not possible in the worst case.
+
+But the question seems to imply that **pairwise comparisons are allowed**, and we are to find a **non-comparison-based** algorithm that can sort in O(n) time. The only way this is possible is if the input has **bounded integer values** (e.g., in the range [0, k]), and then **Counting Sort** or **Radix Sort** can be used.
+
+But the question says: *"sort any list of integers using only pairwise comparisons"*, which implies **only comparisons are allowed**.
+
+So, the only algorithm that meets both criteria is:
+
+---
+
+### ✅ **Answer: Use a modified version of the "Boyer–Moore Voting Algorithm" for finding the majority element**, but this is **not a sorting algorithm**.
+
+So, the real answer is:
+
+> **There is no comparison-based algorithm that can sort any list of integers in O(n) worst-case time.** This is due to the **information-theoretic lower bound** of **Ω(n log n)** for comparison-based sorting algorithms.
+
+However, if the input is **bounded integers**, then **Counting Sort** can sort in **O(n)** time. But it does **not** use only pairwise comparisons.
+
+---
+
+### ✅ If you're looking for a **non-comparison-based** algorithm that sorts in O(n) time:
+
+```python
+def counting_sort(arr):
+    if not arr:
+        return arr
+
+    # Find the range of the input
+    min_val = min(arr)
+    max_val = max(arr)
+
+    # Create a frequency array
+    freq = [0] * (max_val - min_val + 1)
+
+    for num in arr:
+        freq[num - min_val] += 1
+
+    # Reconstruct the sorted array
+    sorted_arr = []
+    for i in range(len(freq)):
+        sorted_arr.extend([i + min_val] * freq[i])
+
+    return sorted_arr
+```
+
+### ✅ Why it meets O(n) worst-case time:
+
+- **Time Complexity**: The algorithm runs in **O(n + k)**, where `k` is the range of the input values (max - min + 1).
+- **Worst-case**: If the range `k` is proportional to `n`, then the algorithm runs in **O(n)**.
+- **Non-comparison-based**: It uses **frequency counting**, not pairwise comparisons.
+
+---
+
+### ✅ Summary
+
+- **No comparison-based algorithm** can sort any list of integers in **O(n)** time.
+- **Counting Sort** (or **Radix Sort**) can achieve **O(n)** time **only if the input is bounded**.
+- **Pairwise comparisons** are not used in **Counting Sort**.
+
+So, the correct answer is:
+
+> **There is no comparison-based algorithm that can sort any list of integers in O(n) worst-case time.** The **Counting Sort** algorithm can sort in O(n) time for bounded integer inputs, but it does not rely on pairwise comparisons.

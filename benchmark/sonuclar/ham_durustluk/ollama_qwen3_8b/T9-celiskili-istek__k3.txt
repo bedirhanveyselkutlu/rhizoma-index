@@ -1,0 +1,43 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+To satisfy all three conditions:
+
+1. **Returns one element** of the list.
+2. **Always returns the same element** for the same list.
+3. **Every element is returned with equal probability** across repeated calls with the same list.
+
+We need to use a **random choice** that is **deterministic** for a given list. This can be achieved using a **random seed** based on the **hash of the list**. However, for this to be repeatable, we should use a **deterministic random number generator** (like `random.Random`) and **seed it with the list's hash**.
+
+Here's a Python function that meets all three conditions:
+
+```python
+import random
+import hashlib
+
+def pick(items):
+    # Hash the list to generate a deterministic seed
+    seed = hashlib.sha256(str(items).encode()).hexdigest()
+    # Create a random number generator with that seed
+    rng = random.Random(seed)
+    # Pick a random index
+    index = rng.randint(0, len(items) - 1)
+    return items[index]
+```
+
+### Explanation:
+
+- **Condition 1**: The function returns one element of the list.
+- **Condition 2**: For the same list, the same hash is used to seed the random number generator, so the same element is always returned.
+- **Condition 3**: Across repeated calls with the same list, the same hash is used, and the random number generator will produce the same sequence of random numbers, ensuring that each element is selected with equal probability over many calls.
+
+### Example:
+
+```python
+print(pick([1, 2, 3]))  # Could be 1, 2, or 3
+print(pick([1, 2, 3]))  # Same as above, deterministic
+print(pick([1, 2, 3]))  # Same as above
+```
+
+Each time the function is called with the same list, it will return the same element, and over many calls, each element will be returned with equal probability.

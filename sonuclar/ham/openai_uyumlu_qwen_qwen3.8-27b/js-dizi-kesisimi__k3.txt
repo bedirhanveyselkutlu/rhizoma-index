@@ -1,0 +1,38 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Intersection of Two Arrays
+
+Write a function 'intersection(nums1, nums2)' that returns the common elements of the two given arrays as a unique array. The order of the result does not matter.
+
+STARTER CODE (javascript):
+function intersection(nums1, nums2) {
+  // Write your code here
+}
+
+module.exports = { intersection };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function intersection(nums1, nums2) {
+  const set1 = new Set(nums1);
+  const set2 = new Set(nums2);
+  const result = [];
+  for (const num of set1) {
+    if (set2.has(num)) {
+      result.push(num);
+    }
+  }
+  return result;
+}
+
+module.exports = { intersection };
+```

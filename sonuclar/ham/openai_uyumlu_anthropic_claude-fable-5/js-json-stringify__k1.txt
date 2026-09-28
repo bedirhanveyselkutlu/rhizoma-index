@@ -1,0 +1,117 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  function escapeString(str) {
+    var result = '"';
+    for (var i = 0; i < str.length; i++) {
+      var ch = str[i];
+      var code = str.charCodeAt(i);
+      switch (ch) {
+        case '"':
+          result += '\\"';
+          break;
+        case '\\':
+          result += '\\\\';
+          break;
+        case '\b':
+          result += '\\b';
+          break;
+        case '\f':
+          result += '\\f';
+          break;
+        case '\n':
+          result += '\\n';
+          break;
+        case '\r':
+          result += '\\r';
+          break;
+        case '\t':
+          result += '\\t';
+          break;
+        default:
+          if (code < 0x20) {
+            result += '\\u' + code.toString(16).padStart(4, '0');
+          } else {
+            result += ch;
+          }
+      }
+    }
+    return result + '"';
+  }
+
+  function stringify(val) {
+    if (val === null) return 'null';
+
+    var type = typeof val;
+
+    if (type === 'number') {
+      return isFinite(val) ? String(val) : 'null';
+    }
+
+    if (type === 'boolean') {
+      return val ? 'true' : 'false';
+    }
+
+    if (type === 'string') {
+      return escapeString(val);
+    }
+
+    if (type === 'undefined' || type === 'function' || type === 'symbol') {
+      return undefined;
+    }
+
+    if (Array.isArray(val)) {
+      var arrParts = [];
+      for (var i = 0; i < val.length; i++) {
+        var itemStr = stringify(val[i]);
+        arrParts.push(itemStr === undefined ? 'null' : itemStr);
+      }
+      return '[' + arrParts.join(',') + ']';
+    }
+
+    if (type === 'object') {
+      if (typeof val.toJSON === 'function') {
+        return stringify(val.toJSON());
+      }
+      var objParts = [];
+      var keys = Object.keys(val);
+      for (var j = 0; j < keys.length; j++) {
+        var key = keys[j];
+        var valueStr = stringify(val[key]);
+        if (valueStr !== undefined) {
+          objParts.push(escapeString(key) + ':' + valueStr);
+        }
+      }
+      return '{' + objParts.join(',') + '}';
+    }
+
+    return undefined;
+  }
+
+  return stringify(value);
+}
+
+module.exports = { jsonStringify };
+```

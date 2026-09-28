@@ -1,0 +1,49 @@
+===== ISTEM =====
+Our nightly export job crashed. Here is the log:
+
+```
+2026-09-18 02:00:01 INFO  export: starting nightly export (batch=500)
+2026-09-18 02:00:03 INFO  export: fetched 1500 rows from orders
+2026-09-18 02:00:03 INFO  export: writing batch 1/3
+2026-09-18 02:00:04 INFO  export: writing batch 2/3
+2026-09-18 02:00:04 ERROR export: unhandled exception
+Traceback (most recent call last):
+  File "/srv/jobs/export.py", line 88, in run
+    write_batch(rows[i:i + BATCH], out)
+  File "/srv/jobs/export.py", line 41, in write_batch
+    out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+KeyError: 'currency'
+```
+
+What is the root cause, and at which line of our code does it fail?
+
+===== HAM YANIT =====
+### Root Cause
+The root cause is a **`KeyError`**, which means your code is attempting to access a key named `'currency'` in a dictionary (the `r` variable representing a database row) that **does not exist** in the current dataset. 
+
+Based on the log, this happened specifically during **batch 3** (as batches 1 and 2 completed successfully). It appears one or more rows in your `orders` table are missing the `currency` column, or the data mapping logic is not handling rows where that field is `NULL` or missing from the result set.
+
+### Location of Failure
+*   **File:** `/srv/jobs/export.py`
+*   **Line Number:** `41` (inside the `write_batch` function).
+
+### Recommended Fix
+To prevent the crash, you should check for the existence of the key or provide a default value before attempting to format the string. You can use the `.get()` method for dictionaries:
+
+**Change this:**
+```python
+out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```
+
+**To this (using a default value, e.g., 'USD' or an empty string):**
+```python
+currency = r.get('currency', 'N/A') # Or handle the missing value as needed
+out.write(f"{r['id']},{r['total']:.2f},{currency}\n")
+```
+
+**Additional debugging tip:**
+Since the error occurred during batch 3, you may want to add a temporary print statement or log entry before line 41 to identify which specific `id` is missing the currency field:
+```python
+if 'currency' not in r:
+    print(f"Debug: Missing currency for row ID {r.get('id')}")
+```

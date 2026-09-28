@@ -1,0 +1,96 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    # Remove whitespace
+    s = s.replace(" ", "")
+    if not s:
+        return 0
+    
+    def tokenize(string):
+        tokens = []
+        i = 0
+        while i < len(string):
+            if string[i].isdigit():
+                num = ""
+                while i < len(string) and string[i].isdigit():
+                    num += string[i]
+                    i += 1
+                tokens.append(int(num))
+            elif string[i] in "+-*/()":
+                tokens.append(string[i])
+                i += 1
+            else:
+                i += 1
+        return tokens
+    
+    def parse_expression(tokens, pos):
+        # Handles + and - (lowest precedence)
+        left, pos = parse_term(tokens, pos)
+        while pos < len(tokens) and tokens[pos] in ('+', '-'):
+            op = tokens[pos]
+            pos += 1
+            right, pos = parse_term(tokens, pos)
+            if op == '+':
+                left += right
+            else:
+                left -= right
+        return left, pos
+    
+    def parse_term(tokens, pos):
+        # Handles * and // (higher precedence)
+        left, pos = parse_factor(tokens, pos)
+        while pos < len(tokens) and tokens[pos] in ('*', '//'):
+            op = tokens[pos]
+            pos += 1
+            right, pos = parse_factor(tokens, pos)
+            if op == '*':
+                left *= right
+            else:
+                # Python's // is floor division; for negative results it floors
+                # But integer division in math context might mean truncation.
+                # Let's use Python's // as specified.
+                left = left // right
+        return left, pos
+    
+    def parse_factor(tokens, pos):
+        # Handles numbers and parentheses
+        if pos >= len(tokens):
+            raise ValueError("Unexpected end of input")
+        token = tokens[pos]
+        if token == '(':
+            pos += 1
+            value, pos = parse_expression(tokens, pos)
+            if pos >= len(tokens) or tokens[pos] != ')':
+                raise ValueError("Expected closing parenthesis")
+            return value, pos + 1
+        elif isinstance(token, int):
+            return token, pos + 1
+        else:
+            # Handle unary minus/plus? The problem doesn't mention it, but let's be safe.
+            # Actually, let's just raise an error for unexpected tokens at this level.
+            raise ValueError(f"Unexpected token: {token}")
+    
+    tokens = tokenize(s)
+    result, _ = parse_expression(tokens, 0)
+    return result
+```

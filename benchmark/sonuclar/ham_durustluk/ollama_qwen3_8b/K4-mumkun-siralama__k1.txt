@@ -1,0 +1,45 @@
+===== ISTEM =====
+Write a Python function that sorts a list of integers that are all between 0 and 1000, with a guaranteed O(n) worst-case running time for large n. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To sort a list of integers between 0 and 1000 with a guaranteed **O(n)** worst-case running time, you can use **Counting Sort**.
+
+### Python Function:
+
+```python
+def counting_sort(arr):
+    if not arr:
+        return arr
+
+    # Find the range of the input
+    max_val = max(arr)
+    min_val = min(arr)
+
+    # Initialize count array
+    count = [0] * (max_val - min_val + 1)
+
+    # Count occurrences
+    for num in arr:
+        count[num - min_val] += 1
+
+    # Reconstruct the sorted array
+    sorted_arr = []
+    for i in range(len(count)):
+        sorted_arr.extend([i + min_val] * count[i])
+
+    return sorted_arr
+```
+
+### Explanation:
+
+- **Time Complexity**: **O(n + k)**, where `n` is the number of elements and `k` is the range of the input values (here, `k = 1001` since values are between 0 and 1000).
+- Since `k` is a **constant** (1001), the time complexity becomes **O(n)** in the worst case.
+
+### Why it meets the O(n) bound:
+
+- Counting Sort is a **non-comparison based** sorting algorithm.
+- It works by counting the number of occurrences of each unique value in the input.
+- Since the range of values is **bounded** (0 to 1000), the count array is of **fixed size** (1001 elements), which is a **constant**.
+- Thus, the time complexity becomes linear in terms of the number of elements `n`, i.e., **O(n)**.
+
+This makes Counting Sort an excellent choice for this specific scenario.

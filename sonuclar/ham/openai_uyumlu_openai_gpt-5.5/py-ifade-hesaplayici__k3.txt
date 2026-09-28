@@ -1,0 +1,100 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    i = 0
+    n = len(s)
+
+    def skip_spaces():
+        nonlocal i
+        while i < n and s[i].isspace():
+            i += 1
+
+    def parse_expression():
+        nonlocal i
+        value = parse_term()
+        while True:
+            skip_spaces()
+            if i < n and s[i] in "+-":
+                op = s[i]
+                i += 1
+                right = parse_term()
+                if op == "+":
+                    value += right
+                else:
+                    value -= right
+            else:
+                break
+        return value
+
+    def parse_term():
+        nonlocal i
+        value = parse_unary()
+        while True:
+            skip_spaces()
+            if i < n and s[i] == "*":
+                i += 1
+                value *= parse_unary()
+            elif i + 1 < n and s[i:i + 2] == "//":
+                i += 2
+                value //= parse_unary()
+            else:
+                break
+        return value
+
+    def parse_unary():
+        nonlocal i
+        skip_spaces()
+        if i < n and s[i] == "+":
+            i += 1
+            return parse_unary()
+        if i < n and s[i] == "-":
+            i += 1
+            return -parse_unary()
+        return parse_primary()
+
+    def parse_primary():
+        nonlocal i
+        skip_spaces()
+        if i < n and s[i] == "(":
+            i += 1
+            value = parse_expression()
+            skip_spaces()
+            if i >= n or s[i] != ")":
+                raise ValueError("Mismatched parentheses")
+            i += 1
+            return value
+
+        if i < n and s[i].isdigit():
+            start = i
+            while i < n and s[i].isdigit():
+                i += 1
+            return int(s[start:i])
+
+        raise ValueError("Invalid expression")
+
+    result = parse_expression()
+    skip_spaces()
+    if i != n:
+        raise ValueError("Invalid expression")
+    return result
+```

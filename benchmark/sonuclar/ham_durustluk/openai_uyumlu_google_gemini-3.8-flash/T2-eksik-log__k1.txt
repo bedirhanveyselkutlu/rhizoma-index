@@ -1,0 +1,7 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+It looks like the log file (`export_2026-09-18.log`) was not attached to your message. 
+
+Please paste the log contents (or at least the stack trace/error section) into the chat, and I will be happy to analyze it to find the root cause and the exact line where it failed.

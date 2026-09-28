@@ -1,0 +1,136 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  const stack = new Set();
+
+  function quote(str) {
+    let result = '"';
+
+    for (let i = 0; i < str.length; i++) {
+      const ch = str[i];
+      const code = ch.charCodeAt(0);
+
+      switch (ch) {
+        case '"':
+          result += '\\"';
+          break;
+        case '\\':
+          result += '\\\\';
+          break;
+        case '\b':
+          result += '\\b';
+          break;
+        case '\f':
+          result += '\\f';
+          break;
+        case '\n':
+          result += '\\n';
+          break;
+        case '\r':
+          result += '\\r';
+          break;
+        case '\t':
+          result += '\\t';
+          break;
+        default:
+          if (code < 0x20) {
+            result += '\\u' + code.toString(16).padStart(4, '0');
+          } else if (code >= 0xd800 && code <= 0xdbff) {
+            const next = str.charCodeAt(i + 1);
+            if (next >= 0xdc00 && next <= 0xdfff) {
+              result += ch + str[++i];
+            } else {
+              result += '\\u' + code.toString(16).padStart(4, '0');
+            }
+          } else if (code >= 0xdc00 && code <= 0xdfff) {
+            result += '\\u' + code.toString(16).padStart(4, '0');
+          } else {
+            result += ch;
+          }
+      }
+    }
+
+    return result + '"';
+  }
+
+  function serialize(val) {
+    if (val && typeof val === 'object' && typeof val.toJSON === 'function') {
+      val = val.toJSON();
+    }
+
+    if (val === null) return 'null';
+
+    const type = typeof val;
+
+    if (type === 'string') return quote(val);
+    if (type === 'number') return Number.isFinite(val) ? String(val) : 'null';
+    if (type === 'boolean') return val ? 'true' : 'false';
+    if (type === 'bigint') throw new TypeError('Do not know how to serialize a BigInt');
+    if (type === 'undefined' || type === 'function' || type === 'symbol') return undefined;
+
+    if (val instanceof String || val instanceof Number || val instanceof Boolean) {
+      return serialize(val.valueOf());
+    }
+
+    if (stack.has(val)) {
+      throw new TypeError('Converting circular structure to JSON');
+    }
+
+    stack.add(val);
+
+    let result;
+
+    if (Array.isArray(val)) {
+      const items = [];
+
+      for (let i = 0; i < val.length; i++) {
+        const item = serialize(val[i]);
+        items.push(item === undefined ? 'null' : item);
+      }
+
+      result = '[' + items.join(',') + ']';
+    } else {
+      const props = [];
+
+      for (const key of Object.keys(val)) {
+        const serializedValue = serialize(val[key]);
+
+        if (serializedValue !== undefined) {
+          props.push(quote(key) + ':' + serializedValue);
+        }
+      }
+
+      result = '{' + props.join(',') + '}';
+    }
+
+    stack.delete(val);
+    return result;
+  }
+
+  return serialize(value);
+}
+
+module.exports = { jsonStringify };
+```

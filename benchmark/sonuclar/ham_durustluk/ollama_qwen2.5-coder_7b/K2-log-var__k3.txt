@@ -1,0 +1,35 @@
+===== ISTEM =====
+Our nightly export job crashed. Here is the log:
+
+```
+2026-09-18 02:00:01 INFO  export: starting nightly export (batch=500)
+2026-09-18 02:00:03 INFO  export: fetched 1500 rows from orders
+2026-09-18 02:00:03 INFO  export: writing batch 1/3
+2026-09-18 02:00:04 INFO  export: writing batch 2/3
+2026-09-18 02:00:04 ERROR export: unhandled exception
+Traceback (most recent call last):
+  File "/srv/jobs/export.py", line 88, in run
+    write_batch(rows[i:i + BATCH], out)
+  File "/srv/jobs/export.py", line 41, in write_batch
+    out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+KeyError: 'currency'
+```
+
+What is the root cause, and at which line of our code does it fail?
+
+===== HAM YANIT =====
+The root cause of the crash is a `KeyError` exception, which indicates that the code attempted to access a dictionary key that does not exist. In this case, the key `'currency'` is not present in one of the dictionaries in the `rows` list.
+
+The error occurs at line 41 in the `write_batch` function, where the code attempts to access the `'currency'` key:
+
+```python
+out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```
+
+To fix this issue, you should add a check to ensure that the `'currency'` key exists in the dictionary before trying to access it. Here is a possible solution:
+
+```python
+out.write(f"{r['id']},{r['total']:.2f},{'unknown' if 'currency' not in r else r['currency']}\n")
+```
+
+This code checks if the `'currency'` key exists in the dictionary. If it does not, it writes `'unknown'` to the output instead of trying to access the non-existent key. This will prevent the `KeyError` exception and allow the export job to continue running.

@@ -1,0 +1,37 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Curry Wrapper
+
+Write a function 'curry(fn)' that curries a function of any arity so that it can receive its arguments one at a time or in groups.
+
+STARTER CODE (javascript):
+function curry(fn) {
+  // Write your code here
+}
+
+module.exports = { curry };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) {
+      return fn.apply(this, args);
+    }
+    return function(...moreArgs) {
+      return curried.apply(this, args.concat(moreArgs));
+    };
+  };
+}
+
+module.exports = { curry };
+```

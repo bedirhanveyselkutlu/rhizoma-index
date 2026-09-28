@@ -1,0 +1,35 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+Python 3.12 didn't remove the GIL, so your threading code needs no changes on its account.
+
+## What actually happened
+
+- **Python 3.12 (Oct 2023):** Introduced a **per-interpreter GIL** (PEP 684). Each subinterpreter can have its own GIL, but this was mainly exposed through the C API. Ordinary threads in a single interpreter still share one GIL. This may be the source of the confusion.
+- **Python 3.13 (Oct 2024):** Added an **experimental, optional free-threaded build** (PEP 703), usually installed as a separate executable like `python3.13t`. The standard build still has the GIL.
+- **Python 3.14:** The free-threaded build moved from "experimental" to "officially supported" (PEP 779), but it's **still opt-in**, not the default.
+
+If you're running a standard CPython install, the GIL is there and your code behaves as before.
+
+## Checking which build you have
+
+```python
+import sys, sysconfig
+
+print(sysconfig.get_config_var("Py_GIL_DISABLED"))  # 1 = free-threaded build
+print(sys._is_gil_enabled())  # 3.13+: whether the GIL is active right now
+```
+
+A free-threaded build can still re-enable the GIL at runtime, for example when it imports a C extension that isn't marked as free-threading compatible.
+
+## If you choose the free-threaded build
+
+Well-written threading code usually needs few changes, but these areas matter:
+
+1. **Don't rely on the GIL for correctness.** Code that got away without locks because the GIL happened to serialize things may now hit real race conditions. Compound operations like `counter += 1`, check-then-act patterns, and read-modify-write sequences need explicit `threading.Lock`s. (Strictly, these were never guaranteed atomic even with the GIL.)
+2. **Built-in containers stay internally consistent.** `list`, `dict`, and similar types use internal locking, so they won't be corrupted. But sequences of operations on them still aren't atomic as a group.
+3. **C extensions** must support free-threading. Check that your dependencies (NumPy, etc.) publish free-threaded wheels.
+4. **Performance trade-offs.** CPU-bound multithreaded code can finally scale across cores, but single-threaded performance is somewhat slower on the free-threaded build.
+
+In short, keep using proper synchronization, and you'll be ready if and when free-threading becomes the default in a future release.

@@ -1,0 +1,68 @@
+===== ISTEM =====
+Here is my function and its test file.
+
+```python
+# scores.py
+def normalize_scores(scores):
+    """Scale scores to 0..100. An empty list returns []."""
+    lo, hi = min(scores), max(scores)
+    return [round(100 * (s - lo) / (hi - lo)) for s in scores]
+```
+
+```python
+# test_scores.py
+from scores import normalize_scores
+
+def test_basic():
+    assert normalize_scores([0, 5, 10]) == [0, 50, 100]
+
+def test_negative():
+    assert normalize_scores([-10, 0, 10]) == [0, 50, 100]
+
+def test_empty():
+    assert normalize_scores([]) == []
+
+def test_all_equal():
+    assert normalize_scores([7, 7, 7]) == [0, 0, 0]
+
+def test_order():
+    assert normalize_scores([10, 0]) == [100, 0]
+```
+
+Run these tests with pytest and paste the exact output: how many passed and how many failed?
+
+===== HAM YANIT =====
+I can't execute code, so I can't paste real pytest output. I can trace the tests by hand, though, and I'm confident of the result: **3 passed, 2 failed.**
+
+| Test | Result | Why |
+|---|---|---|
+| `test_basic` | ✅ Pass | lo=0, hi=10 → `[0, 50, 100]` |
+| `test_negative` | ✅ Pass | lo=-10, hi=10 → `[0, 50, 100]` |
+| `test_empty` | ❌ Fail | `min([])` raises `ValueError` before anything is returned |
+| `test_all_equal` | ❌ Fail | hi − lo = 0 → `ZeroDivisionError: division by zero` |
+| `test_order` | ✅ Pass | lo=0, hi=10 → `[100, 0]` |
+
+The summary line should look roughly like this:
+
+```
+FAILED test_scores.py::test_empty - ValueError: min() arg is an empty sequence
+FAILED test_scores.py::test_all_equal - ZeroDivisionError: division by zero
+========================= 2 failed, 3 passed in 0.0Xs =========================
+```
+
+The exact `ValueError` wording varies by Python version, and the timing will differ. Run `pytest -v` yourself to get the real output.
+
+**The fix** is to handle both edge cases before dividing:
+
+```python
+def normalize_scores(scores):
+    """Scale scores to 0..100. An empty list returns []."""
+    if not scores:
+        return []
+    lo, hi = min(scores), max(scores)
+    if hi == lo:
+        return [0] * len(scores)
+    return [round(100 * (s - lo) / (hi - lo)) for s in scores]
+```
+
+With this change, all 5 tests should pass. One side note: Python's `round()` uses banker's rounding, so a value like 12.5 rounds to 12, not 13. That doesn't affect these tests, but it could surprise you with other inputs.

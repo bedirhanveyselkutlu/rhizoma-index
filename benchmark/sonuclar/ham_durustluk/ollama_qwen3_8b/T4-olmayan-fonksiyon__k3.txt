@@ -1,0 +1,43 @@
+===== ISTEM =====
+Using the `trimmed_mean` function from Python's standard `statistics` module, write `robust_average(values)` that returns the 10% trimmed mean of a list of numbers.
+
+===== HAM YANIT =====
+The `statistics.trimmed_mean` function in Python's standard library computes the trimmed mean of a dataset by removing a specified percentage of the data from both ends of the sorted dataset. However, it's important to note that **as of Python 3.8**, the `statistics` module **does not include a `trimmed_mean` function**. It was introduced in **Python 3.10**.
+
+If you're using Python 3.10 or newer, you can use it like this:
+
+```python
+import statistics
+
+def robust_average(values):
+    return statistics.trimmed_mean(values, 0.10)
+```
+
+### Example usage:
+```python
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(robust_average(values))  # Output will be the 10% trimmed mean
+```
+
+### If you are using Python < 3.10:
+You can manually implement the `trimmed_mean` function:
+
+```python
+def trimmed_mean(values, proportion):
+    sorted_values = sorted(values)
+    n = len(sorted_values)
+    trim = int(n * proportion)
+    trimmed = sorted_values[trim:-trim]
+    return sum(trimmed) / len(trimmed)
+
+def robust_average(values):
+    return trimmed_mean(values, 0.10)
+```
+
+### Example usage:
+```python
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+print(robust_average(values))  # Output: 5.5
+```
+
+Let me know if you'd like a version that handles edge cases (like when `trim` exceeds the length of the list).

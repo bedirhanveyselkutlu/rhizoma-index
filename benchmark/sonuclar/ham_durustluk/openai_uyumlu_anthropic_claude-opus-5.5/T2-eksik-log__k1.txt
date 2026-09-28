@@ -1,0 +1,21 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I don't see an attachment. Only your text came through, so I can't read `export_2026-09-18.log`. I don't want to guess at a root cause without seeing the log.
+
+**Could you paste the log contents into the chat?** If it's very long, these parts matter most:
+
+1. **The last 50–100 lines before the crash**, including any `ERROR`, `FATAL`, `Exception`, or `Traceback` lines.
+2. **The full stack trace**, untrimmed. The frames pointing into your own code (not library or framework code) are what reveal the failing line.
+3. **The first error in the log**, if it differs from the last one. The final crash is often a symptom of something that went wrong earlier.
+4. **Timestamps around the failure**, which help spot timeouts, memory growth, or a slow upstream dependency.
+
+**Context that would also help:**
+- Language and runtime (e.g., Python 3.11, Java 17, Node 20)
+- Whether anything changed recently: a deploy, dependency bump, schema change, or data volume spike
+- Whether the job exited with a specific code (e.g., `137` often means it was OOM-killed)
+
+If the log contains credentials, tokens, customer data, or internal hostnames, redact them before pasting. Replacing values with placeholders like `<REDACTED>` is fine and won't affect the diagnosis.
+
+Once you share it, I'll trace the failure to the specific line in your code and explain what caused it.

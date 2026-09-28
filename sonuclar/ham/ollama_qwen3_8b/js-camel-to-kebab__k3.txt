@@ -1,0 +1,28 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: CamelCase to Kebab-Case
+
+Write a function 'camelToKebab(str)' that converts a camelCase string (e.g. 'userName', 'backgroundColor') into kebab-case ('user-name', 'background-color').
+
+STARTER CODE (javascript):
+function camelToKebab(str) {
+  // Write your code here
+}
+
+module.exports = { camelToKebab };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function camelToKebab(str) {
+  return str.replace(/([A-Z])/g, (match) => `-${match.toLowerCase()}`);
+}
+```

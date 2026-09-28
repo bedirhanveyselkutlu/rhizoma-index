@@ -1,0 +1,51 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve this, we need to create a function `pick(items, seed)` that selects an item from a list in a deterministic manner based on the seed. The key is to use the seed to generate a consistent index into the list, ensuring that the same seed always results in the same index and, consequently, the same item.
+
+We can use Python's built-in `hashlib` library to generate a hash of the seed, which can then be used to compute a consistent index. Since we want to ensure that the index falls within the bounds of the list, we can use the modulo operation.
+
+Here's a step-by-step implementation of the `pick` function:
+
+1. Convert the seed to a string and compute its hash using `hashlib.sha256()`.
+2. Convert the hash to an integer.
+3. Use the modulo operation to ensure the index is within the bounds of the list.
+4. Return the item at the computed index.
+
+Here's the complete code:
+
+```python
+import hashlib
+
+def pick(items, seed):
+    if not items:
+        raise ValueError("The list cannot be empty")
+    
+    # Convert the seed to a string and compute its hash
+    seed_hash = hashlib.sha256(seed.encode('utf-8')).hexdigest()
+    
+    # Convert the hash to an integer
+    hash_int = int(seed_hash, 16)
+    
+    # Compute the index using modulo operation
+    index = hash_int % len(items)
+    
+    # Return the item at the computed index
+    return items[index]
+
+# Example usage:
+items = ['apple', 'banana', 'cherry', 'date']
+seed = 'some_seed_value'
+
+result = pick(items, seed)
+print(result)  # This will always return the same item for the same seed
+```
+
+### Explanation:
+- **Hashing the Seed**: The `hashlib.sha256(seed.encode('utf-8')).hexdigest()` converts the seed string into a fixed-length hash. This ensures that the same seed always produces the same hash.
+- **Converting Hash to Integer**: `int(seed_hash, 16)` converts the hexadecimal hash string into an integer.
+- **Computing Index**: `hash_int % len(items)` ensures that the index is within the range of valid indices for the list.
+- **Returning the Item**: The item at the computed index is returned.
+
+This approach ensures that for the same seed, the same item is picked every time, and over many different seeds, each item is picked approximately equally often due to the uniform distribution of the hash function.

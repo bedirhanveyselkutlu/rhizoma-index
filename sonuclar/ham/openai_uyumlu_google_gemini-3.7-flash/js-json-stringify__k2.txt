@@ -1,0 +1,95 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  if (value && typeof value.toJSON === 'function') {
+    value = value.toJSON();
+  }
+
+  if (value === undefined || typeof value === 'function' || typeof value === 'symbol') {
+    return undefined;
+  }
+
+  if (value === null) {
+    return 'null';
+  }
+
+  if (typeof value === 'boolean') {
+    return value ? 'true' : 'false';
+  }
+
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? String(value) : 'null';
+  }
+
+  if (typeof value === 'bigint') {
+    throw new TypeError('Do not know how to serialize a BigInt');
+  }
+
+  if (typeof value === 'string') {
+    const escapes = {
+      '"': '\\"',
+      '\\': '\\\\',
+      '\b': '\\b',
+      '\f': '\\f',
+      '\n': '\\n',
+      '\r': '\\r',
+      '\t': '\\t'
+    };
+    return '"' + value.replace(/[\x00-\x1f\\"]/g, char => {
+      return escapes[char] || '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0');
+    }) + '"';
+  }
+
+  if (Array.isArray(value)) {
+    const elements = value.map(item => {
+      if (item === undefined || typeof item === 'function' || typeof item === 'symbol') {
+        return 'null';
+      }
+      const res = jsonStringify(item);
+      return res === undefined ? 'null' : res;
+    });
+    return '[' + elements.join(',') + ']';
+  }
+
+  if (typeof value === 'object') {
+    const entries = [];
+    for (const key of Object.keys(value)) {
+      const val = value[key];
+      if (val === undefined || typeof val === 'function' || typeof val === 'symbol') {
+        continue;
+      }
+      const res = jsonStringify(val);
+      if (res !== undefined) {
+        entries.push(jsonStringify(key) + ':' + res);
+      }
+    }
+    return '{' + entries.join(',') + '}';
+  }
+
+  return undefined;
+}
+
+module.exports = { jsonStringify };
+```

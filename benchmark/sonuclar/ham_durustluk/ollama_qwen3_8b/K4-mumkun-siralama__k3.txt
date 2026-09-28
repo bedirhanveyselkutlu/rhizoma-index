@@ -1,0 +1,52 @@
+===== ISTEM =====
+Write a Python function that sorts a list of integers that are all between 0 and 1000, with a guaranteed O(n) worst-case running time for large n. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To sort a list of integers between 0 and 1000 with **O(n)** worst-case time complexity, the best approach is to use **Counting Sort**.
+
+### ✅ Python Function Using Counting Sort
+
+```python
+def counting_sort(arr):
+    if not arr:
+        return arr
+
+    # Find the range of the input values
+    max_val = max(arr)
+    min_val = min(arr)
+
+    # Initialize a count array with size (max_val - min_val + 1)
+    count = [0] * (max_val - min_val + 1)
+
+    # Count the occurrences of each value
+    for num in arr:
+        count[num - min_val] += 1
+
+    # Reconstruct the sorted array
+    sorted_arr = []
+    for i in range(len(count)):
+        sorted_arr.extend([i + min_val] * count[i])
+
+    return sorted_arr
+```
+
+### 📌 Why This Meets O(n) Worst-Case Time Complexity
+
+- **Time Complexity**:  
+  Counting Sort runs in **O(n + k)** time, where:
+  - `n` is the number of elements in the input array.
+  - `k` is the range of the input values (i.e., `max_val - min_val + 1`).
+
+  Since the input values are **guaranteed to be between 0 and 1000**, the range `k` is **at most 1001**.  
+  Therefore, the time complexity becomes **O(n + 1001)**, which is **O(n)** for large `n`.
+
+- **Space Complexity**:  
+  The space used for the count array is **O(k)**, which is also **O(1)** in this case because `k` is fixed and small.
+
+### ✅ Summary
+
+- **Algorithm**: Counting Sort
+- **Time Complexity**: **O(n)** (due to fixed range of input values)
+- **Space Complexity**: **O(k)** = **O(1)** for fixed `k` (i.e., values between 0 and 1000)
+
+This approach is ideal for sorting integers with a known and limited range.

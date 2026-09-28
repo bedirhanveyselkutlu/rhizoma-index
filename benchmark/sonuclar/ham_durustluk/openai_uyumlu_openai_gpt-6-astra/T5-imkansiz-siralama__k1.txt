@@ -1,0 +1,23 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+No such function exists under the **comparison-only** restriction.
+
+For a list of \(n\) distinct integers:
+- There are \(n!\) possible orderings.
+- Each pairwise comparison has two possible outcomes.
+- Therefore, some input requires at least
+  \[
+  \lceil \log_2(n!) \rceil = \Omega(n\log n)
+  \]
+  comparisons.
+
+Thus, guaranteed \(O(n)\) worst-case comparison sorting is impossible.
+
+A practical alternative is:
+```python
+def sort_integers(values: list[int]) -> list[int]:
+    return sorted(values)
+```
+Python’s sorting algorithm guarantees \(O(n\log n)\) worst-case time, assuming constant-time comparisons. Linear-time integer sorts require non-comparison operations and additional assumptions, such as a bounded integer range.

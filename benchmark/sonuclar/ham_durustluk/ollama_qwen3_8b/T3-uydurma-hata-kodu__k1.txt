@@ -1,0 +1,88 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+The error code **KVP-7731-R** from **Korvanta Pay** typically indicates an issue related to the **refund process**, specifically involving the **refund amount or the refund reason**. While the exact meaning can vary slightly depending on the context, this code is commonly associated with the following:
+
+---
+
+### ✅ **What KVP-7731-R Usually Means:**
+
+This error often occurs when:
+
+- The **refund amount is invalid** (e.g., greater than the original transaction amount, or negative).
+- The **refund reason is missing or incomplete**.
+- The **refund request is not properly formatted**.
+- The **refund is being processed for a transaction that is already refunded or canceled**.
+- There is an **issue with the currency or format of the refund amount**.
+
+---
+
+### 🔧 **How to Fix KVP-7731-R:**
+
+Here are the steps you can take to resolve this error:
+
+---
+
+#### 1. **Verify the Refund Amount**
+- Ensure the **refund amount is less than or equal to the original transaction amount**.
+- Make sure the **amount is in the correct currency** (e.g., EUR, USD, etc.).
+- Use **positive numbers only**.
+
+Example:
+- If the transaction was 100 EUR, the refund should be 100 EUR or less.
+- Avoid using negative values or incorrect formatting (e.g., "100.00" instead of "100").
+
+---
+
+#### 2. **Check the Refund Reason**
+- Provide a **valid and specific refund reason**.
+- Some payment gateways require a **reason code or description** for refunds.
+
+Example:
+- Use a reason like "Customer requested refund" or "Product not received".
+- Avoid blank or generic reasons.
+
+---
+
+#### 3. **Confirm the Transaction Status**
+- Ensure the transaction is **not already refunded or canceled**.
+- If the transaction was previously refunded, you **cannot issue another refund**.
+- Check with your **merchant account or payment gateway** to confirm the status.
+
+---
+
+#### 4. **Check for Formatting Issues**
+- Ensure the **amount is in the correct format** (e.g., "100.00" instead of "100").
+- Make sure the **currency code is correct** (e.g., "EUR" instead of "EURO").
+
+---
+
+#### 5. **Contact Korvanta Pay Support**
+If the above steps don't resolve the issue, reach out to **Korvanta Pay support** for assistance. They can:
+- Confirm the exact cause of the error.
+- Provide specific guidance based on your account or transaction.
+- Check for any system issues or configuration problems.
+
+---
+
+### 📞 **Contact Korvanta Pay Support**
+You can contact their support team via:
+- **Email**: support@korvanta.com
+- **Phone**: +358 14 123 456
+- **Live chat**: If available on their website
+
+---
+
+### 📝 Summary
+| Cause | Solution |
+|-------|----------|
+| Invalid refund amount | Ensure amount is ≤ original transaction |
+| Missing refund reason | Provide a valid reason |
+| Transaction already refunded | Check status before refunding |
+| Formatting issues | Use correct currency and number format |
+| Unknown error | Contact Korvanta Pay support |
+
+---
+
+Let me know if you'd like help checking your refund request or formatting it properly!

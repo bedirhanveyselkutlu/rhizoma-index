@@ -1,0 +1,29 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+That premise isn't quite right, so it's worth correcting before you change any code.
+
+**What actually happened**
+
+- **Python 3.12** did *not* remove the GIL. What 3.12 shipped was PEP 684, a *per-interpreter* GIL: each sub-interpreter gets its own lock. This only matters if you're using sub-interpreters (via the C API, or later the `interpreters` module). Ordinary `threading` code in 3.12 runs under exactly the same GIL as before.
+- **Python 3.13** introduced PEP 703's "free-threaded" build as an *experimental, opt-in* build (`--disable-gil` at compile time; the binary is usually named `python3.13t`). The normal, default 3.13 build still has the GIL.
+- **Python 3.14** promoted the free-threaded build from "experimental" to officially supported (PEP 779), but it is still a separate build. The default interpreter still has the GIL.
+
+So if you're running a standard `python3.12`, nothing about threading semantics changed and you don't need to do anything.
+
+**If you *do* switch to a free-threaded build**
+
+You can check with `sys._is_gil_enabled()` (3.13+). If you go that route, here's what to think about:
+
+1. **Real data races become possible in your own code.** Under the GIL, patterns like `counter += 1` from multiple threads were already technically wrong but rarely bit you because switches happened at bytecode boundaries. Without the GIL, those races are real. Protect shared mutable state with `threading.Lock`, `RLock`, `queue.Queue`, etc. If you already wrote correct code (locks around shared state), it needs no changes.
+
+2. **Built-in containers are still internally safe.** CPython's free-threaded build adds per-object locking so a single `list.append()` or `dict[k] = v` won't corrupt the object. But *compound* operations ("check then set", "read-modify-write") are still not atomic and need your own locking, exactly as before.
+
+3. **C extensions are the biggest risk.** Extensions must be built specifically for the free-threaded ABI (`cp313t` wheels) and declare themselves safe with `Py_mod_gil`. If you import an extension that hasn't, the interpreter re-enables the GIL for the whole process (with a warning) unless you force it off via `PYTHON_GIL=0` or `-X gil=0`. Check your dependencies — NumPy, Cython-based packages, etc. have been adding support, but coverage isn't universal.
+
+4. **Performance expectations.** CPU-bound threaded code can now actually scale across cores, so places where you reached for `multiprocessing` purely to dodge the GIL may be candidates for plain threads. Single-threaded code is somewhat slower on the free-threaded build (a few to ~10% overhead depending on version), so measure.
+
+5. **Don't rely on implicit atomicity anymore.** Some code implicitly depended on "the GIL makes this safe" — e.g. lazy initialization without a lock, or module-level caches. Audit those spots.
+
+**Short version:** on 3.12 (or any default build of 3.13/3.14), your threading code needs zero changes because the GIL is still there. Only if you deliberately install and run the free-threaded `python3.13t`/`python3.14t` build do you need to audit for genuine races and verify your C-extension dependencies support it.

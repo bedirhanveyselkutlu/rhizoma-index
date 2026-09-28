@@ -1,0 +1,60 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Median Finder on a Data Stream
+
+Write a 'MedianFinder' class that accepts numbers from a data stream and computes the running median with O(log n) insertion and O(1) lookup. It must have 'add_num(num)' and 'find_median()' methods.
+
+STARTER CODE (python):
+class MedianFinder:
+    def __init__(self):
+        pass
+    def add_num(self, num: int) -> None:
+        pass
+    def find_median(self) -> float:
+        pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+import heapq
+
+class MedianFinder:
+    def __init__(self):
+        # max-heap (as negatives) for the lower half
+        self.lower = []  # type: list[int]
+        # min-heap for the upper half
+        self.upper = []  # type: list[int]
+
+    def add_num(self, num: int) -> None:
+        # Push to max-heap (store negative)
+        heapq.heappush(self.lower, -num)
+
+        # Ensure every element in lower <= every element in upper
+        if self.lower and self.upper and (-self.lower[0] > self.upper[0]):
+            val = -heapq.heappop(self.lower)
+            heapq.heappush(self.upper, val)
+
+        # Rebalance sizes: len(lower) may be at most 1 larger than len(upper)
+        if len(self.lower) > len(self.upper) + 1:
+            heapq.heappush(self.upper, -heapq.heappop(self.lower))
+        elif len(self.upper) > len(self.lower):
+            heapq.heappush(self.lower, -heapq.heappop(self.upper))
+
+    def find_median(self) -> float:
+        if not self.lower and not self.upper:
+            raise ValueError("No numbers are available to find median.")
+        if len(self.lower) > len(self.upper):
+            return float(-self.lower[0])
+        elif len(self.upper) > len(self.lower):
+            return float(self.upper[0])
+        else:
+            return (-self.lower[0] + self.upper[0]) / 2.0
+```

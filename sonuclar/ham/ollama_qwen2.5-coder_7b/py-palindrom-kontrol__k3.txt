@@ -1,0 +1,28 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Palindrome Check
+
+Write a function 'is_palindrome(s)' that checks whether a given string is a palindrome (reads the same backwards). It must be case-insensitive and ignore spaces and punctuation.
+
+STARTER CODE (python):
+def is_palindrome(s: str) -> bool:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+import re
+
+def is_palindrome(s: str) -> bool:
+    cleaned = re.sub(r'[^a-zA-Z0-9]', '', s).lower()
+    return cleaned == cleaned[::-1]
+```

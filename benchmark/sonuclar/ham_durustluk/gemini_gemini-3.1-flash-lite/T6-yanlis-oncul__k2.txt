@@ -1,0 +1,43 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+Actually, there is a small clarification needed: **Python 3.12 did not remove the Global Interpreter Lock (GIL).**
+
+In Python 3.12, the GIL is still very much present. What was introduced in 3.12 (as a **preview** feature) is **PEP 684: A Per-Interpreter GIL**. This allows for multiple sub-interpreters, each with its own GIL, which effectively allows true multi-core parallelism for Python code.
+
+However, the "Free-threaded" Python (the complete removal of the GIL) is currently slated for **Python 3.13** as an experimental build.
+
+Here is what you need to know about preparing your code for a world without a (universal) GIL:
+
+### 1. You don't *need* to change anything for the code to run
+The Python core developers have worked extensively to ensure that the "Free-threaded" mode is **backward compatible**. If your existing threading code works in 3.12, it will work in 3.13 without the GIL. Python’s internal memory management and object reference counting have been updated to be thread-safe without the master lock.
+
+### 2. Thread-safety is now your responsibility
+This is the biggest change. Previously, the GIL provided a "safety net." Even if you forgot to use a lock in a multithreaded script, the GIL ensured that only one thread was executing bytecode at a time, preventing many race conditions on Python objects.
+
+**Without the GIL, the safety net is gone.**
+*   **Old behavior:** If two threads modified a shared list simultaneously, the GIL might have serialized those operations for you, masking the bug.
+*   **New behavior:** True parallel execution means those two threads can access the list at the exact same nanosecond. This will trigger race conditions, memory corruption, or interpreter crashes if the operations aren't properly protected.
+
+**What you must do:**
+*   **Use `threading.Lock` everywhere:** Any shared mutable state (lists, dictionaries, custom objects) must be protected by a lock if accessed by multiple threads.
+*   **Audit your shared state:** Identify all global variables or objects shared across threads. If you haven't been using locks because "it seemed fine before," you will likely encounter non-deterministic bugs in a free-threaded environment.
+
+### 3. Use Atomic Operations
+If you are doing simple things like incrementing a counter, rely on thread-safe primitives. While Python’s `queue.Queue` is thread-safe, manual counters are not.
+*   Ensure you are using `threading.Lock()` or `threading.RLock()` to wrap any read-modify-write operations.
+
+### 4. Be aware of `atomic` types (in the future)
+There is ongoing work to introduce "atomic" primitives in Python that don't require heavy locks, but for now, sticking to standard `threading` synchronization primitives is the recommended path.
+
+### 5. Performance Considerations
+*   **Lock Contention:** Because you will now have to use locks more strictly, you might encounter "lock contention." If you lock a large block of code, you will negate the performance benefits of having multiple cores, as threads will spend all their time waiting for the lock. 
+*   **Refinement:** You will need to move from "coarse-grained locking" (locking a whole function) to "fine-grained locking" (locking only the specific line where the shared data is accessed).
+
+### Summary Checklist for the transition:
+1.  **Stop relying on the GIL as a synchronization mechanism.** If you were accidentally relying on it, you must add `threading.Lock` now.
+2.  **Audit shared mutable objects.** Search your code for any objects accessed by multiple threads.
+3.  **Use higher-level abstractions.** If possible, use `queue.Queue` or `concurrent.futures`, which handle the locking internally, rather than managing your own locks on raw lists and dictionaries.
+
+**Recommendation:** If you want to see if your code is "thread-safe enough," start using the **`threading`** module exclusively for communication (Queues) and use **`multiprocessing`** for heavy CPU tasks. By the time Python 3.13+ goes mainstream, if your code avoids shared state and uses proper locking, it will be ready.

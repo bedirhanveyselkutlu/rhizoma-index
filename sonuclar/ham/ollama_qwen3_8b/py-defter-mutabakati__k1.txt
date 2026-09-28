@@ -1,0 +1,88 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Payment and Refund Reconciliation
+
+Write a function 'reconcile(transactions)' that processes a list of payment and refund transactions in order and returns a dict with two keys, 'balances' and 'rejected'.
+
+Each transaction is a dict with the keys 'id' (str), 'type' ('payment' or 'refund'), 'account' (str) and 'amount' (int, in cents). A refund also has 'refers_to', the id of the payment it refunds. You can assume every transaction has these keys with these types.
+
+Process the transactions in list order:
+- A transaction whose id has already appeared earlier in the list is rejected with reason 'duplicate', whether or not the earlier one was accepted.
+- A transaction whose amount is 0 or negative is rejected with reason 'invalid_amount'.
+- A refund is rejected with reason 'unknown_payment' if 'refers_to' is not the id of an earlier, accepted payment. This includes ids of refunds, ids of rejected payments, and ids of payments that appear later in the list.
+- A refund is rejected with reason 'account_mismatch' if its account differs from the account of the payment it refers to.
+- A refund is rejected with reason 'over_refund' if the accepted refunds for that payment, including this one, would add up to more than the payment's amount.
+- If more than one reason applies, use the first one in the order listed above.
+- An accepted payment adds its amount to its account's balance; an accepted refund subtracts its amount. Rejected transactions change nothing.
+
+Return:
+- 'balances': a dict mapping each account that appears in at least one accepted transaction to its final balance in cents. Accounts that appear only in rejected transactions are not included.
+- 'rejected': a list of (id, reason) tuples, in the order the rejected transactions appeared.
+
+STARTER CODE (python):
+def reconcile(transactions: list) -> dict:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def reconcile(transactions: list) -> dict:
+    balances = {}
+    accepted_payments = {}
+    rejected = []
+
+    for transaction in transactions:
+        tid = transaction['id']
+        ttype = transaction['type']
+        account = transaction['account']
+        amount = transaction['amount']
+        refers_to = transaction.get('refers_to', None)
+
+        if tid in accepted_payments or tid in [t['id'] for t in rejected]:
+            rejected.append((tid, 'duplicate'))
+            continue
+
+        if amount <= 0:
+            rejected.append((tid, 'invalid_amount'))
+            continue
+
+        if ttype == 'refund':
+            if refers_to not in accepted_payments:
+                rejected.append((tid, 'unknown_payment'))
+                continue
+            referred_payment = accepted_payments[refers_to]
+            if account != referred_payment['account']:
+                rejected.append((tid, 'account_mismatch'))
+                continue
+            total_refund = referred_payment.get('refunds', 0) + amount
+            if total_refund > referred_payment['amount']:
+                rejected.append((tid, 'over_refund'))
+                continue
+            referred_payment['refunds'] = total_refund
+            continue
+
+        accepted_payments[tid] = {
+            'account': account,
+            'amount': amount,
+            'refunds': 0
+        }
+
+    for tid, data in accepted_payments.items():
+        account = data['account']
+        balance = data['amount'] - data['refunds']
+        balances[account] = balances.get(account, 0) + balance
+
+    return {
+        'balances': balances,
+        'rejected': rejected
+    }
+```

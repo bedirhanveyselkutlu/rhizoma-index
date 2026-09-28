@@ -1,0 +1,67 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Object Diff
+
+Write a function 'objectDiff(obj1, obj2)' that compares two JavaScript objects and returns only the changed properties as [oldValue, newValue].
+
+STARTER CODE (javascript):
+function objectDiff(obj1, obj2) {
+  // Write your code here
+}
+
+module.exports = { objectDiff };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function objectDiff(obj1, obj2) {
+  function isPlainObject(v) {
+    return v !== null && typeof v === 'object' && !Array.isArray(v);
+  }
+
+  function deepEqual(a, b) {
+    if (a === b) return true;
+    if (typeof a !== typeof b) return false;
+    if (a === null || b === null) return false;
+    if (typeof a !== 'object') return false;
+    if (Array.isArray(a) !== Array.isArray(b)) return false;
+    const keysA = Object.keys(a);
+    const keysB = Object.keys(b);
+    if (keysA.length !== keysB.length) return false;
+    return keysA.every(
+      (k) => Object.prototype.hasOwnProperty.call(b, k) && deepEqual(a[k], b[k])
+    );
+  }
+
+  const diff = {};
+  const keys = new Set([...Object.keys(obj1 || {}), ...Object.keys(obj2 || {})]);
+
+  for (const key of keys) {
+    const oldVal = obj1 ? obj1[key] : undefined;
+    const newVal = obj2 ? obj2[key] : undefined;
+
+    if (deepEqual(oldVal, newVal)) continue;
+
+    if (isPlainObject(oldVal) && isPlainObject(newVal)) {
+      const nested = objectDiff(oldVal, newVal);
+      if (Object.keys(nested).length > 0) {
+        diff[key] = nested;
+      }
+    } else {
+      diff[key] = [oldVal, newVal];
+    }
+  }
+
+  return diff;
+}
+
+module.exports = { objectDiff };
+```

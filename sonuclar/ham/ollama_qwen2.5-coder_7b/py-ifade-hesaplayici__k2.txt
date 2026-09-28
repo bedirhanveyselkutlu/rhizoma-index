@@ -1,0 +1,74 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    import re
+    def apply_operator(operators, values):
+        operator = operators.pop()
+        right = values.pop()
+        left = values.pop()
+        if operator == '+':
+            values.append(left + right)
+        elif operator == '-':
+            values.append(left - right)
+        elif operator == '*':
+            values.append(left * right)
+        elif operator == '//':
+            values.append(left // right)
+
+    def greater_precedence(op1, op2):
+        precedence = {'+': 1, '-': 1, '*': 2, '//': 2}
+        return precedence[op1] > precedence[op2]
+
+    operators = []
+    values = []
+    i = 0
+    while i < len(s):
+        if s[i] == ' ':
+            i += 1
+            continue
+        elif s[i].isdigit():
+            j = i
+            while j < len(s) and s[j].isdigit():
+                j += 1
+            values.append(int(s[i:j]))
+            i = j
+        elif s[i] == '(':
+            operators.append(s[i])
+            i += 1
+        elif s[i] == ')':
+            while operators[-1] != '(':
+                apply_operator(operators, values)
+            operators.pop()  # Remove '('
+            i += 1
+        else:
+            while (operators and operators[-1] != '(' and
+                   greater_precedence(operators[-1], s[i])):
+                apply_operator(operators, values)
+            operators.append(s[i])
+            i += 1
+
+    while operators:
+        apply_operator(operators, values)
+
+    return values[0]
+```

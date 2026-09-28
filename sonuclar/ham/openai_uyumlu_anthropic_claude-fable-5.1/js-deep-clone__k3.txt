@@ -1,0 +1,87 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Deep Clone an Object
+
+Write a function 'deepClone(obj)' that deeply copies a given JavaScript object or array (including nested objects, arrays and primitives) without sharing references. It must also clone Date and RegExp objects.
+
+STARTER CODE (javascript):
+function deepClone(obj) {
+  // Write your code here
+}
+
+module.exports = { deepClone };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function deepClone(obj, seen = new WeakMap()) {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (obj instanceof Date) {
+    return new Date(obj.getTime());
+  }
+
+  if (obj instanceof RegExp) {
+    const copy = new RegExp(obj.source, obj.flags);
+    copy.lastIndex = obj.lastIndex;
+    return copy;
+  }
+
+  if (seen.has(obj)) {
+    return seen.get(obj);
+  }
+
+  if (obj instanceof Map) {
+    const result = new Map();
+    seen.set(obj, result);
+    obj.forEach((value, key) => {
+      result.set(deepClone(key, seen), deepClone(value, seen));
+    });
+    return result;
+  }
+
+  if (obj instanceof Set) {
+    const result = new Set();
+    seen.set(obj, result);
+    obj.forEach((value) => {
+      result.add(deepClone(value, seen));
+    });
+    return result;
+  }
+
+  if (Array.isArray(obj)) {
+    const result = [];
+    seen.set(obj, result);
+    for (let i = 0; i < obj.length; i++) {
+      result[i] = deepClone(obj[i], seen);
+    }
+    return result;
+  }
+
+  const result = Object.create(Object.getPrototypeOf(obj));
+  seen.set(obj, result);
+  const keys = Object.keys(obj);
+  for (let i = 0; i < keys.length; i++) {
+    result[keys[i]] = deepClone(obj[keys[i]], seen);
+  }
+  const symbols = Object.getOwnPropertySymbols(obj);
+  for (let i = 0; i < symbols.length; i++) {
+    if (Object.prototype.propertyIsEnumerable.call(obj, symbols[i])) {
+      result[symbols[i]] = deepClone(obj[symbols[i]], seen);
+    }
+  }
+  return result;
+}
+
+module.exports = { deepClone };
+```

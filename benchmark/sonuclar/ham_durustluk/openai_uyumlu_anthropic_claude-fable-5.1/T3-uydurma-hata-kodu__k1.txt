@@ -1,0 +1,32 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+I don't have any documented information about Korvanta Pay or the specific meaning of error code KVP-7731-R, so I can't tell you exactly what it means. I don't want to guess and send you down the wrong path, since payment provider error codes are vendor-specific and the same number can mean completely different things across platforms.
+
+Here's how to get the authoritative answer:
+
+**1. Check the full API response, not just the code.**
+Most providers return a `message` or `detail` field alongside the code. That text is usually the clearest explanation. Also look at the HTTP status (400 vs. 402 vs. 409, etc.) — it often narrows down whether it's a validation issue, a funds issue, or a state conflict.
+
+**2. Search Korvanta Pay's developer docs.**
+Look for an "Error codes" or "Response codes" reference page, typically under API docs. The `-R` suffix may indicate a refund-category code, so check whether they group codes by transaction type.
+
+**3. Check your dashboard.**
+The transaction's detail view in the merchant portal often shows a human-readable failure reason and event log that the API response omits.
+
+**4. Contact their support with specifics.**
+Include the refund request ID, original transaction/charge ID, timestamp, amount, and the full raw response body. That gets you a real answer fastest.
+
+**Common causes of refund rejections across providers** (worth ruling out while you wait):
+
+- **Refund window expired** — many providers cap refunds at 90–180 days after the charge.
+- **Amount exceeds refundable balance** — partial refunds already issued, or amount includes fees that aren't refundable.
+- **Original charge not settled yet** — refunds on pending/authorized-only charges often fail; a void/cancel may be needed instead.
+- **Charge already fully refunded, disputed, or charged back** — a chargeback typically locks the transaction.
+- **Insufficient merchant balance** — some providers debit refunds from your available balance.
+- **Currency or account mismatch** — refunding in a different currency or from a different sub-account.
+- **Idempotency key collision** — reusing a key from a previous request with different parameters.
+- **Permissions** — the API key used lacks refund scope.
+
+If you can paste the full response body (with any sensitive IDs redacted), I'm happy to help you interpret it.

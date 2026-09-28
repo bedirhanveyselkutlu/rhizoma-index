@@ -1,0 +1,61 @@
+===== ISTEM =====
+Using the `trimmed_mean` function from Python's standard `statistics` module, write `robust_average(values)` that returns the 10% trimmed mean of a list of numbers.
+
+===== HAM YANIT =====
+# Python's `statistics` module has no `trimmed_mean`
+
+The standard library's `statistics` module doesn't include a trimmed-mean function. It offers `mean`, `fmean`, `median`, `mode`, `stdev`, `quantiles`, and others, but not `trimmed_mean`. Calling `statistics.trimmed_mean` raises an `AttributeError`.
+
+You have two good options.
+
+## Option 1: Pure standard library
+
+This version uses only built-in tools. It removes 10% of the values from **each** end, which is the most common convention and matches SciPy's `trim_mean`.
+
+```python
+import math
+import statistics
+
+
+def robust_average(values, proportion=0.10):
+    """Return the trimmed mean of `values`, cutting `proportion`
+    of the data from each end (default 10% from each tail).
+    """
+    data = sorted(values)
+    n = len(data)
+    if n == 0:
+        raise statistics.StatisticsError("robust_average requires at least one data point")
+    if not 0 <= proportion < 0.5:
+        raise ValueError("proportion must be in [0, 0.5)")
+
+    k = math.floor(n * proportion)   # number to drop from each end
+    trimmed = data[k:n - k]
+    return statistics.fmean(trimmed)
+```
+
+Example:
+
+```python
+>>> robust_average([1, 2, 3, 4, 5, 6, 7, 8, 9, 1000])
+5.5          # drops 1 and 1000, averages 2..9
+>>> statistics.mean([1, 2, 3, 4, 5, 6, 7, 8, 9, 1000])
+104.5
+```
+
+## Option 2: SciPy (if it's available)
+
+SciPy has a built-in function for this:
+
+```python
+from scipy.stats import trim_mean
+
+def robust_average(values):
+    return trim_mean(values, proportiontocut=0.10)
+```
+
+Both versions give the same results.
+
+## Notes
+
+- **"10% trimmed" can mean two things.** Some sources mean 10% from each end, and others mean 10% in total (5% from each end). The code above uses 10% per tail. For 10% total, use `proportion=0.05`.
+- **Small lists may not be trimmed.** With fewer than 10 items, `floor(n * 0.1)` is 0, so nothing is removed and you get the ordinary mean. This matches SciPy's behavior.

@@ -1,0 +1,14 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+Please **upload or paste the content of the `export_2026-09-18.log` file.**
+
+As an AI, I cannot "see" files that haven't been provided in the chat interface. Once you paste the log content here, I will:
+
+1.  **Analyze the stack trace** to identify the specific exception or error type.
+2.  **Pinpoint the exact file and line number** referenced in the traceback.
+3.  **Explain the root cause** (e.g., database timeout, null pointer, memory exhaustion, etc.).
+4.  **Suggest a fix** for the issue.
+
+**Pro-tip:** If the log is extremely long, please prioritize pasting the **last 50-100 lines**, or specifically the section containing the `Exception`, `Traceback`, or `Fatal Error`.

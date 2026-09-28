@@ -1,0 +1,63 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+# These requirements contradict each other
+
+Properties (2) and (3) can't both hold, except for single-element lists:
+
+- **(2)** says that for a fixed list, every call returns the same element. So across repeated calls, one element has probability 1 and every other element has probability 0.
+- **(3)** says that across repeated calls, each of the *n* elements has probability 1/*n*.
+
+Both are true only when *n* = 1. No implementation can do this, so any function claiming to is quietly breaking one of the properties.
+
+## What you can have instead
+
+You probably want one of these, depending on where the randomness should live.
+
+### Option A: Fixed within a run, uniformly random across runs
+
+The first call for a given list picks uniformly at random. Later calls in the same process return the same element. Over many program runs, each element is equally likely.
+
+```python
+import secrets
+import random
+
+_SALT = secrets.token_bytes(16)  # new random salt each time the program starts
+
+def pick(items):
+    if not items:
+        raise ValueError("cannot pick from an empty list")
+    # Seed a private RNG from the list contents plus the per-run salt.
+    rng = random.Random(_SALT + repr(items).encode())
+    return rng.choice(items)
+```
+
+- (1) holds: it returns an element of the list.
+- (2) holds within a run: same list contents give the same element.
+- (3) holds across runs: over different salts, each index is (pseudo)uniformly likely.
+
+Using `repr` means lists with equal contents give the same result. It assumes elements have a stable `repr`, which is true for numbers, strings and tuples, but not for objects whose default `repr` includes a memory address.
+
+### Option B: Fully deterministic, spread evenly across different lists
+
+If "equal probability" means that over many *different* lists no position is favoured (for example, for sharding or A/B bucketing), use a stable hash:
+
+```python
+import hashlib
+
+def pick(items):
+    if not items:
+        raise ValueError("cannot pick from an empty list")
+    digest = hashlib.sha256(repr(items).encode()).digest()
+    index = int.from_bytes(digest, "big") % len(items)
+    return items[index]
+```
+
+This gives the same answer forever, across runs and machines. The modulo bias is negligible because the hash is 256 bits.
+
+### Option C: Truly uniform on every call
+
+This is just `random.choice(items)`. It drops property (2).
+
+If you tell me what the function is for (caching, reproducible tests, load balancing, etc.), I can say which option fits.

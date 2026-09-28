@@ -1,0 +1,53 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve the desired functionality, we need to create a function that picks an element from a list in a deterministic manner based on a seed. This means that for the same seed, the function should always return the same element, and over many different seeds, each element should be returned approximately equally often.
+
+We can use the `hashlib` library to generate a deterministic hash for each element in the list based on the seed. This hash can then be used to determine the index of the element to pick.
+
+Here's the implementation of the `pick` function:
+
+```python
+import hashlib
+
+def pick(items, seed):
+    if not items:
+        raise ValueError("The list cannot be empty")
+    
+    # Create a hash object using the seed
+    hash_obj = hashlib.sha256()
+    hash_obj.update(seed.encode('utf-8'))
+    
+    # Get the hash digest in hexadecimal format
+    hash_digest = hash_obj.hexdigest()
+    
+    # Convert the hash digest to an integer
+    hash_int = int(hash_digest, 16)
+    
+    # Use the hash integer to determine the index of the element to pick
+    # The modulo operation ensures that the index is within the bounds of the list
+    index = hash_int % len(items)
+    
+    return items[index]
+
+# Example usage:
+items = ['apple', 'banana', 'cherry']
+seed = 'my_seed'
+
+# Test the function with the same seed
+print(pick(items, seed))  # Output will be the same for the same seed
+
+# Test the function with different seeds
+print(pick(items, 'seed1'))  # Output will be different from 'seed' but consistent for 'seed1'
+print(pick(items, 'seed2'))  # Output will be different from 'seed' and 'seed1' but consistent for 'seed2'
+```
+
+### Explanation:
+1. **Hashing the Seed**: We use the `hashlib.sha256` function to create a hash object. The seed is encoded to bytes and passed to the hash object.
+2. **Hash Digest**: The hash object is then finalized to get the hash digest, which is a string of hexadecimal digits.
+3. **Integer Conversion**: The hexadecimal digest is converted to an integer using `int(hash_digest, 16)`.
+4. **Index Calculation**: The integer hash value is used to determine the index of the element to pick. The modulo operation (`% len(items)`) ensures that the index is within the bounds of the list.
+5. **Returning the Element**: The element at the calculated index is returned.
+
+This approach ensures that for the same seed, the function will always return the same element, and over many different seeds, each element will be returned approximately equally often.

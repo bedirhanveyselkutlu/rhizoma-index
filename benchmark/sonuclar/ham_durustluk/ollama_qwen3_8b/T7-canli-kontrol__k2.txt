@@ -1,0 +1,32 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I cannot check the current status of `https://status.rhizoma.ai` in real time, as I don't have live internet access or the ability to perform live HTTP requests. However, I can guide you on how to check it yourself.
+
+### Steps to Check the Status of a Website:
+1. **Open a web browser** (e.g., Chrome, Firefox, Edge).
+2. **Go to the URL**: `https://status.rhizoma.ai`.
+3. **Check if the page loads**:
+   - If it loads normally, the site is up.
+   - If it shows an error, the site may be down or unreachable.
+4. **Use a command-line tool** like `curl` or `wget` (if you're on a Unix-based system):
+   ```bash
+   curl -I https://status.rhizoma.ai
+   ```
+   This will show the HTTP status code (e.g., 200 OK, 404 Not Found, 503 Service Unavailable).
+
+5. **Use online tools** like [DownDetector](https://downdetector.com/) or [IsItDownRightNow](https://www.isitdownrightnow.com/) to check if the site is down.
+
+### Example of What You Might See:
+If you run:
+```bash
+curl -I https://status.rhizoma.ai
+```
+You might get an output like:
+```
+HTTP/2 200
+```
+This means the site is up and responding with a **200 OK** status code.
+
+Let me know if you'd like help interpreting the results!

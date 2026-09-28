@@ -1,0 +1,54 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+First, an important clarification: **Python 3.12 did not remove the Global Interpreter Lock (GIL), neither by default nor as an option.**
+
+Here is the actual status of the GIL:
+* **Python 3.12:** Introduced **per-interpreter GILs** (PEP 684), allowing sub-interpreters to run in parallel, but standard threads still share a single GIL.
+* **Python 3.13:** Introduced an **experimental, opt-in** free-threaded build (PEP 703). You have to explicitly download or compile an alternative binary (e.g., `python3.13t`) to run without the GIL.
+* **Future:** It will remain opt-in and experimental for several versions. It won't become the default until the ecosystem (especially C extensions) is fully ready—likely years away.
+
+---
+
+### If you *do* run your code under a free-threaded Python (e.g., Python 3.13t):
+
+What changes do you actually need to make to your threading code?
+
+#### 1. Add locks around non-atomic operations
+Under the GIL, single bytecode instructions were atomic, meaning pure Python operations like `list.append()` or `dict[key] = value` couldn't be interrupted midway. Even under free-threaded CPython, individual reads/writes to built-in types remain thread-safe at the C level (they won't crash the interpreter or corrupt internal C memory).
+
+However, **compound operations (check-then-act, read-modify-write)** are much more prone to race conditions now that threads execute on different CPU cores simultaneously:
+
+```python
+# Unsafe in multi-threaded environments (both with and without GIL,
+# but far more likely to fail when threads run in true parallel):
+if key not in shared_dict:
+    shared_dict[key] = compute_value()
+
+# Safe:
+with lock:
+    if key not in shared_dict:
+        shared_dict[key] = compute_value()
+```
+
+#### 2. Stop relying on "accidental" thread safety
+In GIL-enabled Python, developers often got away with subtle race conditions because the GIL acted as a coarse-grained synchronizer, switching threads only every few hundred instructions. In a free-threaded environment, threads run in true hardware concurrency, which will immediately expose hidden race conditions:
+* Incrementing a counter (`counter += 1`) is three operations: read, add, write. It is **not** thread-safe and requires a `threading.Lock`.
+* Iterating over a collection while another thread modifies it will raise `RuntimeError: dictionary changed size during iteration` much more reliably.
+
+#### 3. Use thread-safe queues and primitives
+Prefer using standard synchronization primitives rather than raw shared state:
+* `queue.Queue` (thread-safe by design)
+* `threading.Lock` / `threading.RLock`
+* Immutable data structures when passing data across threads
+
+#### 4. Audit your C/Rust extensions
+If your project depends on native extensions (e.g., NumPy, cryptography, custom C bindings):
+* Native extensions must explicitly declare support for running without the GIL; otherwise, the runtime will re-enable the GIL when the extension is imported to prevent crashes.
+* If you maintain native extensions, you must replace GIL-reliant state protection with native mutexes or atomics.
+
+#### 5. You might not need `multiprocessing` anymore
+For CPU-bound tasks, Python developers historically used `multiprocessing` or `concurrent.futures.ProcessPoolExecutor` to bypass the GIL, incurring IPC (Inter-Process Communication) and serialization overhead. 
+
+In a free-threaded environment, you can switch CPU-bound workloads to `concurrent.futures.ThreadPoolExecutor`, gaining true multi-core scaling while sharing memory directly between threads.

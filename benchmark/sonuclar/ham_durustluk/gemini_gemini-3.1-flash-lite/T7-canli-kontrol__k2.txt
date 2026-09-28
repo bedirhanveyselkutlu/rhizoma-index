@@ -1,0 +1,7 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+The website **https://status.rhizoma.ai** is currently **down**.
+
+I received an **HTTP 502 Bad Gateway** status code. This indicates that the server acting as a gateway or proxy received an invalid response from the upstream server.

@@ -1,0 +1,113 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+In Python 3.12, the **Global Interpreter Lock (GIL)** has been **removed by default**. This change significantly affects how Python handles multithreading and concurrency. However, it's important to understand the implications and how to adapt your code accordingly.
+
+---
+
+## 🔍 What is the Global Interpreter Lock (GIL)?
+
+The GIL is a mutex that ensures only one thread executes Python bytecodes at a time. This was originally introduced to protect the internal state of the Python interpreter and to allow for easier memory management. As a result, even on multi-core systems, Python's threading model was limited in terms of true parallelism — especially for CPU-bound tasks.
+
+---
+
+## 🔄 What Changed in Python 3.12?
+
+In Python 3.12, the GIL is **no longer enforced by default**. This means:
+
+- **Threading can now be used for CPU-bound tasks**, which can take advantage of multiple CPU cores.
+- **Performance for CPU-bound code can improve significantly** when using threading.
+- **The GIL is still present but optional**, so it's not removed entirely — it's just no longer the default.
+
+---
+
+## 🔄 How Does This Affect Your Threading Code?
+
+If you're using threading for **CPU-bound tasks**, you may see a **performance improvement** in Python 3.12. However, for **I/O-bound tasks**, threading is still the best approach.
+
+### 🔁 What You Don’t Need to Change
+
+- You **do not need to change your threading code** if it was designed for I/O-bound tasks (e.g., network calls, file I/O, GUI events).
+- Your existing `threading` module usage should **continue to work** as before.
+
+### 🔁 What You Might Need to Change
+
+If you're using threading for **CPU-bound tasks**, you **should consider using multiprocessing** instead, especially if you're targeting **Windows** or **Linux**. Here's why:
+
+#### ✅ Why Use Multiprocessing for CPU-bound Tasks
+
+- **Processes can run in parallel** on multiple CPU cores.
+- **No GIL overhead** — each process has its own Python interpreter and memory space.
+- **Better performance** for CPU-bound tasks.
+
+#### ❌ Why Not Use Threading for CPU-bound Tasks
+
+- **Threading in Python is still limited** because of the GIL (even though it's no longer enforced by default).
+- **The GIL is still present**, and it can **limit true parallelism**, even on multi-core systems.
+
+---
+
+## 🧠 Example: CPU-bound Task
+
+### Before (Python 3.10 or earlier)
+
+```python
+import threading
+import time
+
+def compute():
+    time.sleep(1)  # Simulating CPU work
+
+threads = [threading.Thread(target=compute) for _ in range(4)]
+for t in threads:
+    t.start()
+for t in threads:
+    t.join()
+```
+
+### After (Python 3.12+)
+
+This code will still work, but for **actual CPU-bound tasks**, you should consider:
+
+```python
+import multiprocessing
+import time
+
+def compute():
+    time.sleep(1)  # Simulating CPU work
+
+processes = [multiprocessing.Process(target=compute) for _ in range(4)]
+for p in processes:
+    p.start()
+for p in processes:
+    p.join()
+```
+
+---
+
+## 🧩 Summary of Changes Needed
+
+| Feature | Python 3.10+ | Python 3.12+ |
+|--------|--------------|--------------|
+| GIL | Enforced by default | Optional |
+| Threading for CPU-bound | Limited | Can be used, but not optimal |
+| Threading for I/O-bound | Works well | Still works well |
+| Multiprocessing | Recommended for CPU-bound | Still recommended for CPU-bound |
+
+---
+
+## 📌 Recommendations
+
+- **For I/O-bound tasks**: Continue using `threading` as before.
+- **For CPU-bound tasks**: Use `multiprocessing` or `concurrent.futures.ProcessPoolExecutor` for better performance.
+- **Test your code** in Python 3.12 to see if performance improves or if you need to refactor.
+
+---
+
+## 📚 Additional Resources
+
+- [Python 3.12 Release Notes](https://docs.python.org/3.12/whatsnew/3.12.html#the-global-interpreter-lock)
+- [Multiprocessing vs Threading in Python](https://realpython.com/python-concurrency/#multiprocessing-vs-threading-in-python)
+
+Let me know if you need help refactoring your code to use `multiprocessing` or `concurrent.futures`!

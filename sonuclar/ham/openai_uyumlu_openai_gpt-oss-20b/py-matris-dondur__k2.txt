@@ -1,0 +1,33 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Rotate a 2D Matrix 90 Degrees Clockwise
+
+Write a function 'rotate_matrix(matrix)' that rotates an N x N two-dimensional matrix by 90 degrees clockwise in place.
+
+STARTER CODE (python):
+def rotate_matrix(matrix: list[list[int]]) -> list[list[int]]:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def rotate_matrix(matrix: list[list[int]]) -> list[list[int]]:
+    n = len(matrix)
+    # Transpose the matrix
+    for i in range(n):
+        for j in range(i + 1, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    # Reverse each row
+    for row in matrix:
+        row.reverse()
+    return matrix
+```

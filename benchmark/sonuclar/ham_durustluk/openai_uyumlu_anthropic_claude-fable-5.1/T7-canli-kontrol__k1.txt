@@ -1,0 +1,22 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I can't do that — I don't have the ability to make live HTTP requests or browse the web in this conversation, so I have no way to check whether status.rhizoma.ai is up right now or see what status code it returns. I don't want to guess or invent a number like "200 OK," because that would be misleading.
+
+Here's how you can check it yourself quickly:
+
+**From a terminal:**
+```bash
+curl -I https://status.rhizoma.ai
+```
+The first line of the output (e.g., `HTTP/2 200`) is the status code. Add `-L` if you want to follow redirects, or `-o /dev/null -s -w "%{http_code}\n"` to print just the code.
+
+**From PowerShell:**
+```powershell
+(Invoke-WebRequest -Uri https://status.rhizoma.ai -Method Head).StatusCode
+```
+
+**Without a terminal:** paste the URL into a site like downforeveryoneorjustme.com, isitdownrightnow.com, or httpstatus.io, which will report the code and whether it's reachable from outside your network.
+
+If you run one of those and paste the output here, I'm happy to help interpret it (e.g., distinguishing a 5xx server error from a DNS failure or a certificate problem).

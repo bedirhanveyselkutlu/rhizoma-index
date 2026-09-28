@@ -1,0 +1,19 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I'm unable to access external files or attachments, including the log file you mentioned (`export_2026-09-18.log`). However, I can help you **analyze the log content** once you provide the relevant **excerpts or key lines** from the log.
+
+To help identify the **root cause** and **exact line in your code** where the export job failed, please share:
+
+1. **The error message** from the log (e.g., `NullPointerException`, `SQL Exception`, etc.)
+2. **The stack trace** (if available)
+3. **The context** around the error (e.g., what the job was doing when it failed)
+4. **The relevant code snippet** (if you can share it)
+
+Once I have this information, I can:
+- Identify the **root cause** (e.g., invalid data, missing configuration, database issue, etc.)
+- Point you to the **exact line of code** where the error occurs
+- Suggest **fixes or workarounds**
+
+Please provide the **log content** or **error details**, and I’ll help you debug the issue.

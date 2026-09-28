@@ -1,0 +1,96 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    tokens = []
+    i = 0
+    n = len(s)
+    while i < n:
+        c = s[i]
+        if c.isspace():
+            i += 1
+        elif c.isdigit():
+            j = i
+            while j < n and s[j].isdigit():
+                j += 1
+            tokens.append(int(s[i:j]))
+            i = j
+        elif c == '/' and i + 1 < n and s[i + 1] == '/':
+            tokens.append('//')
+            i += 2
+        else:
+            tokens.append(c)
+            i += 1
+
+    pos = [0]
+
+    def peek():
+        return tokens[pos[0]] if pos[0] < len(tokens) else None
+
+    def advance():
+        pos[0] += 1
+
+    def parse_expr():
+        val = parse_term()
+        while peek() in ('+', '-'):
+            op = peek()
+            advance()
+            rhs = parse_term()
+            if op == '+':
+                val += rhs
+            else:
+                val -= rhs
+        return val
+
+    def parse_term():
+        val = parse_factor()
+        while peek() in ('*', '//', '/'):
+            op = peek()
+            advance()
+            rhs = parse_factor()
+            if op == '*':
+                val *= rhs
+            else:
+                val //= rhs
+        return val
+
+    def parse_factor():
+        tok = peek()
+        if tok == '+':
+            advance()
+            return parse_factor()
+        if tok == '-':
+            advance()
+            return -parse_factor()
+        if tok == '(':
+            advance()
+            val = parse_expr()
+            if peek() == ')':
+                advance()
+            return val
+        if isinstance(tok, int):
+            advance()
+            return tok
+        return 0
+
+    return parse_expr()
+```

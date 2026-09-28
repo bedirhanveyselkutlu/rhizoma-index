@@ -1,0 +1,42 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve the desired behavior, the function `pick(items, seed)` should:
+
+- Return one element from the list `items`.
+- Return the same element for the same list and seed.
+- Ensure that over many different seeds, each element is selected about equally often.
+
+This is a classic **pseudo-random selection** task, where we want **deterministic randomness** — the same seed leads to the same output, and all elements are selected with roughly equal probability.
+
+We can use the Python `random` module with a fixed seed to achieve this. Here's how you can implement the function:
+
+```python
+import random
+
+def pick(items, seed):
+    random.seed(seed)
+    return random.choice(items)
+```
+
+### Explanation:
+
+- `random.seed(seed)` ensures that the same seed leads to the same sequence of random numbers.
+- `random.choice(items)` picks a random element from the list.
+- Since the seed is fixed, the same seed will always yield the same item.
+- If you iterate over many different seeds, the chance of picking each item is roughly uniform.
+
+### Example Usage:
+
+```python
+print(pick(['a', 'b', 'c'], 42))  # Might return 'a'
+print(pick(['a', 'b', 'c'], 42))  # Same result as above
+print(pick(['a', 'b', 'c'], 123)) # Might return 'b'
+```
+
+### Note:
+
+- The randomness is not perfectly uniform across all seeds (due to the nature of pseudo-random number generators), but for practical purposes, especially with a large number of seeds, it will approximate uniform selection.
+
+If you need **perfectly uniform distribution** over all possible seeds, you would need a custom pseudo-random generator or a deterministic hash function, but the above solution is sufficient for most use cases.

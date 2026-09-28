@@ -1,0 +1,27 @@
+===== ISTEM =====
+Using the `median` function from Python's standard `statistics` module, write `robust_center(values)` that returns the median of a list of numbers, or None for an empty list.
+
+===== HAM YANIT =====
+Here is the `robust_center` function that calculates the median of a list of numbers using Python's standard `statistics` module, or returns None if the list is empty:
+
+```python
+import statistics
+
+def robust_center(values):
+    if len(values) == 0:
+        return None
+    else:
+        return statistics.median(values)
+```
+
+You can use this function like this:
+
+```python
+values = [1, 2, 3, 4, 5]
+print(robust_center(values))  # Output: 3
+
+values = []
+print(robust_center(values))  # Output: None
+```
+
+This function first checks if the input list `values` is empty. If it is, the function returns `None`. Otherwise, it calculates and returns the median of the list using the `median` function from Python's `statistics` module.

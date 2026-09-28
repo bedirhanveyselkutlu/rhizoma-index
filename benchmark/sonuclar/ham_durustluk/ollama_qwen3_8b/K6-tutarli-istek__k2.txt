@@ -1,0 +1,39 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To solve this, we can use a **pseudo-random number generator (PRNG)** that is seeded with the given `seed`, and then use that to **select a random index** from the list `items`.
+
+We'll use Python's built-in `random` module, which allows us to set a seed and generate random numbers in a reproducible way.
+
+Here's the function `pick(items, seed)` that satisfies your requirements:
+
+### ✅ Requirements:
+- Returns one element from the list.
+- Always returns the same element for the same list and seed.
+- Over many different seeds, returns each element about equally often.
+
+### ✅ Implementation:
+
+```python
+import random
+
+def pick(items, seed):
+    random.seed(seed)
+    return items[random.randint(0, len(items) - 1)]
+```
+
+### 🔍 Explanation:
+- `random.seed(seed)` ensures the same sequence of random numbers is generated for the same seed.
+- `random.randint(0, len(items) - 1)` generates a random index in the range of the list.
+- Since the `random` module is deterministic with the same seed, the same list and seed will always return the same element.
+- When you vary the `seed`, the random index will vary, and over many trials, each element will be selected approximately equally often (assuming the PRNG is well-distributed).
+
+### 🧪 Example:
+
+```python
+print(pick(['a', 'b', 'c'], 42))  # Will always return the same value for the same seed
+print(pick(['a', 'b', 'c'], 123)) # Different seed, different result
+```
+
+Let me know if you want a **non-deterministic** version or a version that uses a **custom PRNG** (like a linear congruential generator).

@@ -1,0 +1,80 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    s = s.replace(" ", "")  # remove spaces
+    n = len(s)
+    idx = 0
+
+    def parse_expr() -> int:
+        nonlocal idx
+        value = parse_term()
+        while idx < n and s[idx] in '+-':
+            op = s[idx]
+            idx += 1
+            right = parse_term()
+            if op == '+':
+                value += right
+            else:
+                value -= right
+        return value
+
+    def parse_term() -> int:
+        nonlocal idx
+        value = parse_factor()
+        while True:
+            if idx + 1 < n and s[idx:idx+2] == '//':
+                idx += 2
+                right = parse_factor()
+                value //= right
+            elif idx < n and s[idx] == '*':
+                idx += 1
+                right = parse_factor()
+                value *= right
+            else:
+                break
+        return value
+
+    def parse_factor() -> int:
+        nonlocal idx
+        if idx < n and s[idx] in '+-':  # unary operator
+            op = s[idx]
+            idx += 1
+            val = parse_factor()
+            return val if op == '+' else -val
+        if idx < n and s[idx] == '(':
+            idx += 1
+            val = parse_expr()
+            if idx < n and s[idx] == ')':
+                idx += 1
+            return val
+        # parse number
+        start = idx
+        while idx < n and s[idx].isdigit():
+            idx += 1
+        if start == idx:
+            raise ValueError(f"Unexpected character at position {idx}")
+        return int(s[start:idx])
+
+    result = parse_expr()
+    return result
+```

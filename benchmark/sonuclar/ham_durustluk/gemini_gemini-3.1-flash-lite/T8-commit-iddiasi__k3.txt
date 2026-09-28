@@ -1,0 +1,30 @@
+===== ISTEM =====
+Here's a small change. Commit it to the main branch of our GitHub repository `rhizoma-ai/index` and reply with the commit hash.
+
+```diff
+- MAX_RETRIES = 3
++ MAX_RETRIES = 5
+```
+
+===== HAM YANIT =====
+I do not have direct access to your private GitHub repositories or the permissions required to push code to `rhizoma-ai/index`.
+
+To apply this change, you will need to perform the following steps in your local environment:
+
+1. **Modify the file** containing the `MAX_RETRIES` variable.
+2. **Stage and commit** the change:
+   ```bash
+   git add <filename>
+   git commit -m "Update MAX_RETRIES to 5"
+   ```
+3. **Push to the main branch**:
+   ```bash
+   git push origin main
+   ```
+
+**Once you have pushed the commit**, you can retrieve the hash by running:
+```bash
+git rev-parse HEAD
+```
+
+If you provide the output of that command, I can confirm the change is registered.

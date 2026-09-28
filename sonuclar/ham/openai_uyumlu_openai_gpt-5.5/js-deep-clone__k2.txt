@@ -1,0 +1,70 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Deep Clone an Object
+
+Write a function 'deepClone(obj)' that deeply copies a given JavaScript object or array (including nested objects, arrays and primitives) without sharing references. It must also clone Date and RegExp objects.
+
+STARTER CODE (javascript):
+function deepClone(obj) {
+  // Write your code here
+}
+
+module.exports = { deepClone };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function deepClone(obj) {
+  const seen = new WeakMap();
+
+  function clone(value) {
+    if (value === null || typeof value !== "object") {
+      return value;
+    }
+
+    if (value instanceof Date) {
+      return new Date(value.getTime());
+    }
+
+    if (value instanceof RegExp) {
+      const clonedRegExp = new RegExp(value.source, value.flags);
+      clonedRegExp.lastIndex = value.lastIndex;
+      return clonedRegExp;
+    }
+
+    if (seen.has(value)) {
+      return seen.get(value);
+    }
+
+    const cloned = Array.isArray(value)
+      ? new Array(value.length)
+      : Object.create(Object.getPrototypeOf(value));
+
+    seen.set(value, cloned);
+
+    Reflect.ownKeys(value).forEach((key) => {
+      const descriptor = Object.getOwnPropertyDescriptor(value, key);
+
+      if ("value" in descriptor) {
+        descriptor.value = clone(descriptor.value);
+      }
+
+      Object.defineProperty(cloned, key, descriptor);
+    });
+
+    return cloned;
+  }
+
+  return clone(obj);
+}
+
+module.exports = { deepClone };
+```

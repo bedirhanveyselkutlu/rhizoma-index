@@ -1,0 +1,91 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  if (value === null) return "null";
+  if (typeof value === "boolean") return value ? "true" : "false";
+  if (typeof value === "number") {
+    if (isNaN(value) || !isFinite(value)) return "null";
+    return String(value);
+  }
+  if (typeof value === "string") return jsonStringifyString(value);
+  if (typeof value === "function" || typeof value === "undefined") return undefined;
+  if (value instanceof Date) return "\"" + value.toISOString() + "\"";
+  if (Array.isArray(value)) {
+    if (value.length === 0) return "[]";
+    const items = [];
+    for (let i = 0; i < value.length; i++) {
+      const item = jsonStringify(value[i]);
+      if (item === undefined) items.push("null");
+      else items.push(item);
+    }
+    return "[" + items.join(",") + "]";
+  }
+  if (typeof value === "object") {
+    const keys = Object.keys(value);
+    if (keys.length === 0) return "{}";
+    const items = [];
+    for (const key of keys) {
+      const val = value[key];
+      const serialized = jsonStringify(val);
+      if (serialized === undefined) continue;
+      items.push(jsonStringifyString(key) + ":" + serialized);
+    }
+    if (items.length === 0) return "{}";
+    return "{" + items.join(",") + "}";
+  }
+  return undefined;
+}
+
+function jsonStringifyString(str) {
+  let result = "\"";
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    if (char === "\"") {
+      result += "\\\"";
+    } else if (char === "\\") {
+      result += "\\\\";
+    } else if (char === "\b") {
+      result += "\\b";
+    } else if (char === "\f") {
+      result += "\\f";
+    } else if (char === "\n") {
+      result += "\\n";
+    } else if (char === "\r") {
+      result += "\\r";
+    } else if (char === "\t") {
+      result += "\\t";
+    } else if (char.charCodeAt(0) < 0x20) {
+      const hex = char.charCodeAt(0).toString(16);
+      result += "\\u" + "0000".substring(hex.length) + hex;
+    } else {
+      result += char;
+    }
+  }
+  result += "\"";
+  return result;
+}
+
+module.exports = { jsonStringify };
+```

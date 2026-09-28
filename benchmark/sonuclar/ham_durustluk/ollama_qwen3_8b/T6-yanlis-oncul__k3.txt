@@ -1,0 +1,103 @@
+===== ISTEM =====
+Python 3.12 removed the Global Interpreter Lock by default. What changes do I need to make to my threading code because of that?
+
+===== HAM YANIT =====
+In Python 3.12, the **Global Interpreter Lock (GIL)** is **no longer active by default**. This means that **multiple native threads** can now **execute Python bytecodes in parallel**, which is a significant change for multi-threaded applications.
+
+However, this change doesn’t automatically make all your threading code "better" or "faster" — it depends on your use case. Here's what you need to consider when updating your threading code for Python 3.12.
+
+---
+
+## ✅ Key Changes and Considerations
+
+### 1. **No Need to Release the GIL (Most of the Time)**
+- In earlier Python versions, the GIL was always present, and even if you used `threading`, your code was still serialized.
+- In Python 3.12, the GIL is **optional** and **not active by default**.
+- If your code is **CPU-bound** and uses **native threads**, you can now see **true parallel execution**.
+
+---
+
+### 2. **Your Threading Code Should Work as Before**
+- **Most of your existing `threading` code should work as it did in Python 3.11 and earlier**.
+- The `threading` module is not affected by the absence of the GIL — it's still managing threads and synchronization via locks, semaphores, etc.
+
+---
+
+### 3. **Performance Improvements for CPU-bound Code**
+- If your code is **CPU-bound** and uses **native threads**, you may see **significant performance improvements**.
+- This is especially true for code that uses **C extensions**, **numba**, **PyPy**, or other **native code** that can run in parallel.
+
+---
+
+### 4. **No Need to Use `multiprocessing` for CPU-bound Code**
+- Previously, for CPU-bound tasks, you had to use `multiprocessing` to bypass the GIL.
+- In Python 3.12, you may be able to **use `threading` instead of `multiprocessing`** for better performance, **if your threads are running native code**.
+
+---
+
+### 5. **Potential Issues to Watch For**
+- **CPython's threading model** still uses the same API as before, so your code doesn't need to change.
+- However, if you're using **CPython with native extensions** (like NumPy, SciPy, etc.), you might need to **recompile** your code or use **C extensions** that are GIL-aware.
+- If your code is **I/O-bound**, the GIL is not a concern, and your threading code will still work as expected.
+
+---
+
+## 🧠 When Should You Care?
+
+You should **review your threading code** if:
+
+- You're using **native threads** and **CPU-bound code**.
+- You're using **C extensions** or **compiled code**.
+- You're using **libraries** that rely on native code (e.g., NumPy, Cython, etc.).
+- You're looking to **improve performance** of your application.
+
+---
+
+## 🧪 Example: CPU-bound Code with Threads
+
+```python
+import threading
+import math
+import time
+
+def compute_pi(n):
+    # CPU-bound calculation
+    result = 0.0
+    for i in range(n):
+        result += 1 / (i + 1)
+    print("Computed partial sum:", result)
+
+# Run with threads
+start_time = time.time()
+threads = []
+for i in range(4):
+    t = threading.Thread(target=compute_pi, args=(10000000,))
+    threads.append(t)
+    t.start()
+
+for t in threads:
+    t.join()
+
+print("Time taken:", time.time() - start_time)
+```
+
+In Python 3.12, this should run **faster** than in Python 3.11 (assuming you're on a multi-core machine and the code is CPU-bound).
+
+---
+
+## 📌 Summary
+
+| Change | Impact |
+|--------|--------|
+| GIL is no longer active by default | CPU-bound threads can run in parallel |
+| `threading` API remains the same | No changes needed to your threading code |
+| Performance may improve for CPU-bound tasks | Consider using native threads instead of `multiprocessing` |
+| C extensions and native code may benefit | Rebuild or update libraries if needed |
+
+---
+
+## ✅ Conclusion
+
+You **don't need to change your threading code** in Python 3.12. However, you may **see performance improvements**, especially if your code is **CPU-bound and uses native threads**. If your code is **I/O-bound**, your threading code will still work as expected.
+
+If you're using **C extensions**, **NumPy**, or **PyTorch**, you may need to **rebuild or update** your code to take full advantage of the new GIL behavior.

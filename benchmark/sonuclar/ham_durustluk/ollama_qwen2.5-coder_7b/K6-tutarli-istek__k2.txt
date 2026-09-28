@@ -1,0 +1,38 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To create a function `pick(items, seed)` that returns one element of a list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often, you can use a hash function to map the seed to an index within the range of the list indices. Here's how you can implement this:
+
+```python
+import hashlib
+
+def pick(items, seed):
+    if not items:
+        raise ValueError("The list 'items' cannot be empty.")
+    
+    # Create a hash object using the seed
+    hash_object = hashlib.sha256(seed.encode())
+    # Get the digest in hexadecimal format
+    hex_digest = hash_object.hexdigest()
+    # Convert the hexadecimal digest to an integer
+    index = int(hex_digest, 16)
+    # Use modulo operation to ensure the index is within the range of list indices
+    index = index % len(items)
+    
+    return items[index]
+
+# Example usage:
+items = ["apple", "banana", "cherry", "date"]
+seed = "some_seed"
+print(pick(items, seed))  # Output will be the same for the same seed and list
+```
+
+### Explanation:
+1. **Hashing the Seed**: The seed is hashed using SHA-256, which produces a fixed-size (256-bit) hash value. This ensures that the same seed always produces the same hash value.
+2. **Hexadecimal Conversion**: The hash value is converted to a hexadecimal string.
+3. **Integer Conversion**: The hexadecimal string is then converted to an integer. This integer represents a potential index in the list.
+4. **Modulo Operation**: To ensure the index is within the valid range of the list indices, the integer is taken modulo the length of the list (`len(items)`).
+5. **Indexing**: The resulting index is used to select an element from the list.
+
+This approach ensures that for the same seed and list, the same element will always be picked. Additionally, over many different seeds, each element will be picked approximately equally often because the hash function distributes the seeds uniformly across the possible indices.

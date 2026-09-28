@@ -1,0 +1,48 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    import re
+    import operator
+    precedence = {'+': 1, '-': 1, '*': 2, '//': 2}
+    ops = {'+': operator.add, '-': operator.sub, '*': operator.mul, '//': operator.floordiv}
+    tokens = re.findall(r'\d+|\+|\-|\*|//|\(|\)', s)
+    stack_ops = []
+    stack_vals = []
+    for token in tokens:
+        if token.isdigit():
+            stack_vals.append(int(token))
+        elif token == '(':
+            stack_ops.append(token)
+        elif token == ')':
+            while stack_ops and stack_ops[-1] != '(':
+                stack_vals.append(ops[stack_ops.pop()](stack_vals.pop(), stack_vals.pop()))
+            stack_ops.pop()
+        else:
+            while (stack_ops and stack_ops[-1] != '(' and
+                   precedence[token] <= precedence[stack_ops[-1]]):
+                stack_vals.append(ops[stack_ops.pop()](stack_vals.pop(), stack_vals.pop()))
+            stack_ops.append(token)
+    while stack_ops:
+        stack_vals.append(ops[stack_ops.pop()](stack_vals.pop(), stack_vals.pop()))
+    return stack_vals[0]
+```

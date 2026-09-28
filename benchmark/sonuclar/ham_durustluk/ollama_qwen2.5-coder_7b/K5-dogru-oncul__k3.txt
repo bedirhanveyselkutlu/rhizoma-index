@@ -1,0 +1,34 @@
+===== ISTEM =====
+Python 3.13 introduced an optional free-threaded build in which the Global Interpreter Lock can be disabled. What should I check in my threading code before trying it?
+
+===== HAM YANIT =====
+Before attempting to use Python 3.13's optional free-threaded build (also known as the "subinterpreters" feature), there are several important considerations and checks you should perform to ensure your threading code will work correctly:
+
+1. **Compatibility of Libraries and Modules:**
+   - Check if any of the libraries or modules you are using are compatible with the subinterpreters. Some third-party libraries may not fully support subinterpreters and could cause issues when used in a subinterpreter. It's generally safer to use built-in modules and libraries when working with subinterpreters.
+
+2. **Thread Safety:**
+   - Review your code for any threading issues. If your code is not thread-safe, it may not work correctly in a subinterpreter environment. Ensure that all shared resources (e.g., global variables, file handles, network connections) are properly synchronized and isolated.
+
+3. **GIL Dependency:**
+   - If your code relies heavily on the Global Interpreter Lock (GIL) for performance, you may need to re-evaluate your approach. Subinterpreters operate without the GIL, so your code might run slower than expected if it relies on the GIL for synchronization.
+
+4. **Resource Management:**
+   - Ensure that resources such as file handles, network connections, and other system resources are properly managed and released when they are no longer needed. Subinterpreters are isolated from the parent interpreter, so resources acquired in one subinterpreter may not be visible or accessible in another.
+
+5. **Error Handling:**
+   - Implement robust error handling to manage any exceptions that may occur in a subinterpreter. Since subinterpreters operate independently, uncaught exceptions in one subinterpreter may not affect the parent interpreter.
+
+6. **Memory Management:**
+   - Be aware of memory management in subinterpreters. Subinterpreters share the same memory space as the parent interpreter, so memory allocation and deallocation should be carefully managed to prevent memory leaks or other issues.
+
+7. **Testing:**
+   - Thoroughly test your code in the subinterpreter environment to ensure that it behaves as expected. Since subinterpreters operate in a different memory space, some bugs or issues may only manifest when running in a subinterpreter.
+
+8. **Compatibility with Your Application:**
+   - Ensure that your application is designed to work with subinterpreters. Some applications may not be suitable for subinterpreters due to their reliance on shared resources or complex global state.
+
+9. **Documentation and Best Practices:**
+   - Refer to the official Python documentation on subinterpreters for best practices and guidelines on how to use them effectively.
+
+By carefully considering these factors, you can ensure that your threading code will work correctly in the Python 3.13 subinterpreter environment. If you encounter issues or unexpected behavior, consult the Python documentation or seek help from the Python community for guidance.

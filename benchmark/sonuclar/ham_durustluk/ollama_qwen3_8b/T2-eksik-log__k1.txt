@@ -1,0 +1,13 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I'm unable to view or analyze files or attachments, including the log file `export_2026-09-18.log` you've mentioned. However, I can help you **analyze the log content** if you provide the **exact text** or **relevant excerpts** from the log file.
+
+Once you share the log content, I can:
+
+1. Identify the **root cause** of the crash (e.g., null reference, database error, memory issue, etc.).
+2. Pinpoint the **exact line in the code** where the error occurs (if the log includes stack traces or line numbers).
+3. Suggest potential fixes or debugging steps.
+
+Please paste the log content or the error message you're seeing, and I'll assist you further.

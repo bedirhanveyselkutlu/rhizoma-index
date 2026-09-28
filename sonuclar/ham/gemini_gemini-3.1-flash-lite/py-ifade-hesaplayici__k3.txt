@@ -1,0 +1,74 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    def get_precedence(op):
+        if op in ('+', '-'): return 1
+        if op in ('*', '//'): return 2
+        return 0
+
+    def apply_op(a, b, op):
+        if op == '+': return a + b
+        if op == '-': return a - b
+        if op == '*': return a * b
+        if op == '//': return int(a / b) if a * b >= 0 else -(-a // b)
+        return 0
+
+    ops = []
+    nums = []
+    i = 0
+    while i < len(s):
+        if s[i] == ' ':
+            i += 1
+            continue
+        if s[i].isdigit():
+            val = 0
+            while i < len(s) and s[i].isdigit():
+                val = val * 10 + int(s[i])
+                i += 1
+            nums.append(val)
+            continue
+        elif s[i] == '(':
+            ops.append('(')
+        elif s[i] == ')':
+            while ops and ops[-1] != '(':
+                b = nums.pop()
+                a = nums.pop()
+                nums.append(apply_op(a, b, ops.pop()))
+            ops.pop()
+        else:
+            op = s[i:i+2] if i+1 < len(s) and s[i:i+2] == '//' else s[i]
+            while ops and get_precedence(ops[-1]) >= get_precedence(op):
+                b = nums.pop()
+                a = nums.pop()
+                nums.append(apply_op(a, b, ops.pop()))
+            ops.append(op)
+            i += len(op) - 1
+        i += 1
+        
+    while ops:
+        b = nums.pop()
+        a = nums.pop()
+        nums.append(apply_op(a, b, ops.pop()))
+        
+    return nums[0]
+```

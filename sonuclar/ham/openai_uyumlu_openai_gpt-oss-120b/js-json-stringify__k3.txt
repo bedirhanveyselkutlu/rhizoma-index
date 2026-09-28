@@ -1,0 +1,82 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  const type = typeof value;
+
+  if (value === null) return 'null';
+
+  if (type === 'number') {
+    return isFinite(value) ? String(value) : 'null';
+  }
+
+  if (type === 'boolean') {
+    return value ? 'true' : 'false';
+  }
+
+  if (type === 'string') {
+    const escaped = value.replace(/[\\"\u0000-\u001F]/g, c => {
+      switch (c) {
+        case '"':  return '\\"';
+        case '\\': return '\\\\';
+        case '\b': return '\\b';
+        case '\f': return '\\f';
+        case '\n': return '\\n';
+        case '\r': return '\\r';
+        case '\t': return '\\t';
+        default:
+          const code = c.charCodeAt(0);
+          return '\\u' + code.toString(16).padStart(4, '0');
+      }
+    });
+    return `"${escaped}"`;
+  }
+
+  if (Array.isArray(value)) {
+    const elems = value.map(item => {
+      if (item === undefined || typeof item === 'function' || typeof item === 'symbol') {
+        return 'null';
+      }
+      return jsonStringify(item);
+    });
+    return '[' + elems.join(',') + ']';
+  }
+
+  if (type === 'object') {
+    const keys = Object.keys(value);
+    const parts = [];
+    for (const k of keys) {
+      const v = value[k];
+      if (v === undefined || typeof v === 'function' || typeof v === 'symbol') continue;
+      parts.push(jsonStringify(k) + ':' + jsonStringify(v));
+    }
+    return '{' + parts.join(',') + '}';
+  }
+
+  // undefined, function, symbol at top level => undefined (like native JSON.stringify)
+  return undefined;
+}
+
+module.exports = { jsonStringify };
+```

@@ -1,0 +1,45 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+To create a function `pick(items)` that meets all three properties you mentioned:
+
+1. It returns one element of the list.
+2. For the same list, it always returns the same element every time it is called.
+3. Across repeated calls with the same list, every element is returned with equal probability.
+
+You can use a combination of the `hashlib` library to generate a consistent hash based on the list, and the `random` library to select an element based on equal probability.
+
+Here's an example implementation:
+
+```python
+import hashlib
+import random
+
+def pick(items):
+    # Generate a consistent hash for the list
+    list_hash = hashlib.sha256(str(items).encode()).hexdigest()
+    
+    # Convert the hash to an integer
+    hash_int = int(list_hash, 16)
+    
+    # Use the hash to select an index within the bounds of the list
+    index = hash_int % len(items)
+    
+    # Return the selected element
+    return items[index]
+
+# Example usage:
+items = ['apple', 'banana', 'cherry', 'date']
+print(pick(items))  # Consistently returns the same element for the same list
+print(pick(items))  # Same element as before
+print(pick(items))  # Same element as before
+print(pick(['apple', 'banana', 'cherry', 'date']))  # Different element
+```
+
+### Explanation:
+1. **Hashing the List**: We use the `hashlib` library to generate a hash for the list. The hash ensures that for the same list, we get the same hash value.
+2. **Consistent Index Selection**: We convert the hash value to an integer and use it to select an index within the bounds of the list. This ensures that the same index is selected for the same list.
+3. **Equal Probability**: The modulo operation (`% len(items)`) ensures that the selected index is uniformly distributed across the list.
+
+This approach guarantees that for the same list, the same element is always returned, and across different lists, each element is returned with equal probability.

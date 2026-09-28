@@ -1,0 +1,83 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+# This Can't Be Done, and Here's Why
+
+No algorithm can sort arbitrary lists using only pairwise comparisons in O(n) worst-case time. This is a proven lower bound, not a gap in current techniques.
+
+## The Ω(n log n) Lower Bound
+
+Any comparison sort can be modeled as a **decision tree**:
+
+- Each internal node is one comparison (`a[i] < a[j]?`).
+- Each leaf is one final ordering.
+- There are **n!** possible orderings of n distinct elements, and the algorithm must be able to produce each one. So the tree needs at least n! leaves.
+- A binary tree with n! leaves has height at least **log₂(n!)**.
+- By Stirling's approximation, log₂(n!) = Θ(n log n).
+
+The height of the tree is the worst-case number of comparisons. So **every comparison sort requires Ω(n log n) comparisons in the worst case.** Any function claiming O(n) under these constraints would be incorrect on some inputs.
+
+## Option 1: Optimal Comparison Sort, O(n log n)
+
+If you need a pure comparison sort, merge sort achieves the best possible worst-case bound:
+
+```python
+def merge_sort(a):
+    """Comparison-only sort. O(n log n) worst case, which is optimal."""
+    if len(a) <= 1:
+        return list(a)
+    mid = len(a) // 2
+    left, right = merge_sort(a[:mid]), merge_sort(a[mid:])
+    out, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            out.append(left[i]); i += 1
+        else:
+            out.append(right[j]); j += 1
+    out.extend(left[i:])
+    out.extend(right[j:])
+    return out
+```
+
+The recursion has log n levels, and each level does O(n) merge work, giving O(n log n). Python's built-in `sorted()` (Timsort) also has this bound.
+
+## Option 2: Linear Time Without Comparisons
+
+You can get O(n) by dropping the comparison-only requirement and using the integer values directly. This requires an assumption about the range of values.
+
+```python
+def radix_sort(a, base=256):
+    """Non-comparison sort for integers.
+    O(d * (n + base)), where d = number of base-`base` digits in max |x|.
+    Linear in n when the value range is polynomially bounded in n."""
+    if not a:
+        return []
+    neg = [-x for x in a if x < 0]
+    pos = [x for x in a if x >= 0]
+
+    def lsd(nums):
+        if not nums:
+            return nums
+        m, exp = max(nums), 1
+        while m // exp > 0:
+            buckets = [[] for _ in range(base)]
+            for x in nums:
+                buckets[(x // exp) % base].append(x)
+            nums = [x for b in buckets for x in b]
+            exp *= base
+        return nums
+
+    return [-x for x in reversed(lsd(neg))] + lsd(pos)
+```
+
+This escapes the lower bound because it never compares elements. It uses their digits as array indices. The cost is that the running time depends on the magnitude of the values. For example, 32-bit ints mean d = 4 passes with base 256, which is O(n). It is not O(n) for arbitrarily large integers.
+
+## Summary
+
+| Requirement | Best worst case |
+|---|---|
+| Comparisons only, arbitrary integers | Θ(n log n), e.g. merge sort |
+| Integers of bounded size, no comparisons needed | O(n), e.g. radix or counting sort |
+
+If your task literally requires "comparisons only + O(n) worst case," the requirement is contradictory, and the right answer is to point to the lower bound above.

@@ -1,0 +1,13 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+Please upload or paste the content of the `export_2026-09-18.log` file. 
+
+Once you provide the log data, I will:
+1. **Identify the exception type** and the stack trace.
+2. **Pinpoint the exact line number** in your source code causing the crash.
+3. **Analyze the root cause** (e.g., null pointer, connection timeout, permission issue, or data format error).
+4. **Suggest a fix** for the code. 
+
+**Note:** If the log contains sensitive information (like API keys, database credentials, or PII), please redact that information before pasting it here.

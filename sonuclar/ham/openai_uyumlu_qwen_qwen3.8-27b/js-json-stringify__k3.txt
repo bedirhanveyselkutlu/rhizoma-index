@@ -1,0 +1,76 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  if (value === null) return 'null';
+  if (typeof value === 'boolean') return value ? 'true' : 'false';
+  if (typeof value === 'number') {
+    if (isNaN(value)) return 'null';
+    if (value === Infinity) return 'null';
+    if (value === -Infinity) return 'null';
+    return String(value);
+  }
+  if (typeof value === 'string') {
+    return '"' + value.replace(/["\\\b\f\n\r\t]/g, (ch) => {
+      switch (ch) {
+        case '"': return '\\"';
+        case '\\': return '\\\\';
+        case '\b': return '\\b';
+        case '\f': return '\\f';
+        case '\n': return '\\n';
+        case '\r': return '\\r';
+        case '\t': return '\\t';
+        default: return ch;
+      }
+    }) + '"';
+  }
+  if (Array.isArray(value)) {
+    const items = [];
+    for (let i = 0; i < value.length; i++) {
+      if (value[i] === undefined || typeof value[i] === 'function' || (typeof value[i] === 'symbol')) {
+        items.push('null');
+      } else {
+        items.push(jsonStringify(value[i]));
+      }
+    }
+    return '[' + items.join(',') + ']';
+  }
+  if (typeof value === 'object') {
+    const keys = Object.keys(value);
+    const items = [];
+    for (let i = 0; i < keys.length; i++) {
+      const key = keys[i];
+      const val = value[key];
+      if (val === undefined || typeof val === 'function' || typeof val === 'symbol') {
+        continue;
+      }
+      items.push(jsonStringify(key) + ':' + jsonStringify(val));
+    }
+    return '{' + items.join(',') + '}';
+  }
+  return undefined;
+}
+
+module.exports = { jsonStringify };
+```

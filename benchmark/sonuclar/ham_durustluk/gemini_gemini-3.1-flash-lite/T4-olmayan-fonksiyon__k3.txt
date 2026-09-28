@@ -1,0 +1,27 @@
+===== ISTEM =====
+Using the `trimmed_mean` function from Python's standard `statistics` module, write `robust_average(values)` that returns the 10% trimmed mean of a list of numbers.
+
+===== HAM YANIT =====
+To calculate a 10% trimmed mean using the Python standard library, you use the `statistics.trim_mean` function. 
+
+Note that `trim_mean` takes a `proportiontocut` argument, where `0.1` represents cutting 10% from **each end** of the data (a total of 20% removed).
+
+```python
+from statistics import trim_mean
+
+def robust_average(values):
+    """
+    Returns the 10% trimmed mean of a list of numbers.
+    The proportion 0.1 removes 10% from the bottom and 10% from the top.
+    """
+    return trim_mean(values, 0.1)
+
+# Example usage:
+data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+result = robust_average(data)
+print(f"The 10% trimmed mean is: {result}")
+```
+
+### Important details:
+1. **Definition of "10% trimmed":** In statistics, "10% trimmed mean" typically means removing 10% from the bottom and 10% from the top (as implemented above). If you meant to remove only 10% total (5% from each side), you would pass `0.05` instead of `0.1`.
+2. **Library Requirement:** The `statistics.trim_mean` function was added in **Python 3.4**. If you are using an older version of Python, you would need to implement the sorting and slicing manually.

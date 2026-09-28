@@ -1,0 +1,58 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    def update(op, v):
+        if op == '+': stack.append(v)
+        if op == '-': stack.append(-v)
+        if op == '*': stack.append(stack.pop() * v)
+        if op == '//':
+            top = stack.pop()
+            stack.append(int(top / v))
+
+    stack = []
+    i = 0
+    op = '+'
+    num = 0
+    
+    while i < len(s):
+        char = s[i]
+        if char.isdigit():
+            num = num * 10 + int(char)
+        elif char == '(':
+            count = 0
+            start = i
+            while i < len(s):
+                if s[i] == '(': count += 1
+                elif s[i] == ')': count -= 1
+                if count == 0: break
+                i += 1
+            num = calculate(s[start + 1:i])
+        
+        if char in "+-*/" or i == len(s) - 1:
+            update(op, num)
+            op = char
+            num = 0
+        i += 1
+        
+    return sum(stack)
+```

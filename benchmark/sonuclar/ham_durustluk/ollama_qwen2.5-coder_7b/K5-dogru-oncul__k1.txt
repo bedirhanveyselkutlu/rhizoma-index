@@ -1,0 +1,27 @@
+===== ISTEM =====
+Python 3.13 introduced an optional free-threaded build in which the Global Interpreter Lock can be disabled. What should I check in my threading code before trying it?
+
+===== HAM YANIT =====
+Before attempting to use Python's optional free-threaded build with the Global Interpreter Lock (GIL) disabled, there are several important considerations you should take into account:
+
+1. **Compatibility and Support**: 
+   - Ensure that your version of Python 3.13 is compatible with the optional free-threaded build. This feature is still experimental and not fully supported by all Python libraries and modules.
+   - Check if the libraries and modules you are using are compatible with the free-threaded build. Some libraries may not work correctly or may have bugs when the GIL is disabled.
+
+2. **Performance Considerations**:
+   - The free-threaded build is designed to improve performance in multi-threaded Python applications that perform a significant amount of I/O-bound work. If your application is CPU-bound, the free-threaded build may not provide a noticeable performance improvement.
+   - Understand that the free-threaded build may introduce new complexities and potential issues, such as race conditions and synchronization problems.
+
+3. **Debugging and Testing**:
+   - If you encounter issues with the free-threaded build, it may be difficult to debug them because the GIL is no longer a source of contention. Make sure you have robust testing and debugging practices in place.
+   - Consider using tools and techniques for concurrent and parallel programming, such as lock-free data structures and asynchronous programming, to help manage concurrency in your application.
+
+4. **Documentation and Resources**:
+   - Familiarize yourself with the official Python documentation and community resources related to the free-threaded build. This will help you understand the limitations and best practices for using this feature.
+   - Look for examples and case studies of successful applications that have used the free-threaded build, and learn from their experiences.
+
+5. **Backup and Testing Environment**:
+   - Before enabling the free-threaded build in a production environment, set up a backup and testing environment to ensure that you can revert to the standard build if issues arise.
+   - Test your application thoroughly in the testing environment to ensure that it behaves as expected with the free-threaded build.
+
+In summary, before attempting to use the optional free-threaded build with the GIL disabled in Python 3.13, you should carefully consider the compatibility, performance, debugging, documentation, and testing aspects of this feature. With careful planning and testing, you can successfully leverage this new feature to improve the performance of your multi-threaded Python applications.

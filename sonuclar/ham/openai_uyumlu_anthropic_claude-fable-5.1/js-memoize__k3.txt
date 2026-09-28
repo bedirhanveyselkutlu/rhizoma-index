@@ -1,0 +1,61 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Memoize Function Results
+
+Write a pure 'memoize(fn)' wrapper that returns the cached result for the same arguments instead of recomputing it.
+
+STARTER CODE (javascript):
+function memoize(fn) {
+  // Write your code here
+}
+
+module.exports = { memoize };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function memoize(fn) {
+  const cache = new Map();
+
+  function getKey(args) {
+    try {
+      return JSON.stringify(args, (key, value) => {
+        if (typeof value === 'function') return `__fn__${value.toString()}`;
+        if (typeof value === 'undefined') return '__undefined__';
+        if (typeof value === 'bigint') return `__bigint__${value.toString()}`;
+        if (typeof value === 'symbol') return `__symbol__${value.toString()}`;
+        if (typeof value === 'number' && Number.isNaN(value)) return '__NaN__';
+        if (value === Infinity) return '__Infinity__';
+        if (value === -Infinity) return '__-Infinity__';
+        return value;
+      });
+    } catch (e) {
+      // Fallback for circular structures or unserializable values
+      return args.map((a) => {
+        if (a !== null && typeof a === 'object') return `__obj__${Object.prototype.toString.call(a)}_${String(a)}`;
+        return `${typeof a}:${String(a)}`;
+      }).join('|');
+    }
+  }
+
+  return function memoized(...args) {
+    const key = getKey(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn.apply(this, args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+module.exports = { memoize };
+```

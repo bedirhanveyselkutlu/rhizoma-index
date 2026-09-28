@@ -1,0 +1,19 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+The error code KVP-7731-R indicates that the refund request was rejected because the refund amount exceeds the original transaction amount. This could happen if the merchant mistakenly attempted to refund more than the customer paid for an item or service.
+
+To fix this issue, you should:
+
+1. **Verify the Amount**: Double-check the amount you are trying to refund. Ensure that the refund amount does not exceed the original transaction amount.
+
+2. **Check for Partial Refunds**: If the original transaction included multiple items or services, make sure that the refund amount is appropriate for the specific transaction.
+
+3. **Review Refund Policy**: Consult your payment provider's refund policy to understand the conditions under which refunds are allowed and the maximum amount that can be refunded.
+
+4. **Contact Support**: If you are unsure how to proceed, contact Korvanta Pay's customer support team. They can provide guidance based on your specific situation and help you resolve the issue.
+
+5. **Adjust the Refund Request**: Once you have verified the correct refund amount, update your refund request accordingly and try submitting it again.
+
+By following these steps, you should be able to resolve the KVP-7731-R error and successfully process your refund.

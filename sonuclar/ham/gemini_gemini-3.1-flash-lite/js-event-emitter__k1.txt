@@ -1,0 +1,59 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Event Emitter
+
+Write an 'EventEmitter' class with 'subscribe(eventName, callback)' and 'emit(eventName, args)' methods. The 'subscribe' method must return { unsubscribe: () => void }.
+
+STARTER CODE (javascript):
+class EventEmitter {
+  // Write your code here
+}
+
+module.exports = { EventEmitter };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+
+  subscribe(eventName, callback) {
+    if (!this.events[eventName]) {
+      this.events[eventName] = new Set();
+    }
+    this.events[eventName].add(callback);
+
+    return {
+      unsubscribe: () => {
+        this.events[eventName].delete(callback);
+        if (this.events[eventName].size === 0) {
+          delete this.events[eventName];
+        }
+      }
+    };
+  }
+
+  emit(eventName, args = []) {
+    if (!this.events[eventName]) {
+      return [];
+    }
+    const results = [];
+    this.events[eventName].forEach(callback => {
+      results.push(callback(...args));
+    });
+    return results;
+  }
+}
+
+module.exports = { EventEmitter };
+```

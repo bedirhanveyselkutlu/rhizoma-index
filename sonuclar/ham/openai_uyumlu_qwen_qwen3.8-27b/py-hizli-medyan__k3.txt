@@ -1,0 +1,53 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Median Finder on a Data Stream
+
+Write a 'MedianFinder' class that accepts numbers from a data stream and computes the running median with O(log n) insertion and O(1) lookup. It must have 'add_num(num)' and 'find_median()' methods.
+
+STARTER CODE (python):
+class MedianFinder:
+    def __init__(self):
+        pass
+    def add_num(self, num: int) -> None:
+        pass
+    def find_median(self) -> float:
+        pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+import heapq
+
+class MedianFinder:
+    def __init__(self):
+        self.max_heap = []  # stores the lower half (negated for min-heap to act as max-heap)
+        self.min_heap = []  # stores the upper half (regular min-heap)
+
+    def add_num(self, num: int) -> None:
+        if not self.max_heap or num <= -self.max_heap[0]:
+            heapq.heappush(self.max_heap, -num)
+        else:
+            heapq.heappush(self.min_heap, num)
+        
+        # Balance the heaps so that len(max_heap) >= len(min_heap) and |len(max_heap) - len(min_heap)| <= 1
+        if len(self.max_heap) > len(self.min_heap) + 1:
+            val = -heapq.heappop(self.max_heap)
+            heapq.heappush(self.min_heap, val)
+        elif len(self.min_heap) > len(self.max_heap):
+            val = heapq.heappop(self.min_heap)
+            heapq.heappush(self.max_heap, -val)
+
+    def find_median(self) -> float:
+        if len(self.max_heap) == len(self.min_heap):
+            return (-self.max_heap[0] + self.min_heap[0]) / 2.0
+        else:
+            return float(-self.max_heap[0])
+```

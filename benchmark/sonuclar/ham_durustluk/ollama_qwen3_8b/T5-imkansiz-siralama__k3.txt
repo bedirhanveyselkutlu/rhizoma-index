@@ -1,0 +1,77 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To sort a list of integers using **only pairwise comparisons** and achieve **O(n)** worst-case running time, we can use the **Boyer–Moore Majority Vote Algorithm** in a clever way. However, this algorithm is typically used to find a majority element (an element that appears more than n/2 times), not to sort. So, we need a different approach.
+
+Actually, the **only algorithm that guarantees O(n) worst-case time using only pairwise comparisons** is the **Counting Sort** (or a variant of it), but it requires **knowledge of the range of the input**. Since the problem states that we are to sort **any list of integers**, we cannot assume a bounded range.
+
+Therefore, the **only way to sort with O(n) time using only pairwise comparisons** is if the input is **already sorted**. But that's trivial and not useful.
+
+So the **correct answer** is:
+
+### ✅ There is **no known algorithm** that sorts any list of integers using only pairwise comparisons with **guaranteed O(n)** worst-case time.
+
+However, if you are looking for an algorithm that has **O(n)** worst-case time **and** only uses pairwise comparisons, you are probably referring to **Counting Sort**, but it requires **knowledge of the input range** (i.e., the minimum and maximum values in the list). If you **don’t** have that information, then **no O(n)** sorting algorithm exists using only pairwise comparisons.
+
+---
+
+### ✅ Alternative: Use a **Selection Sort with a linear-time minimum-finding step**
+
+Here's a function that uses **pairwise comparisons** and has **O(n²)** average case, but **O(n)** worst-case (in terms of the number of comparisons, though not the actual time).
+
+But if you **must** have **O(n)** worst-case time, then again, no such algorithm exists using only pairwise comparisons.
+
+---
+
+### ✅ Conclusion
+
+There is **no known sorting algorithm** that:
+
+- Uses **only pairwise comparisons** (i.e., no access to the actual values, only comparisons),
+- Has **O(n)** **worst-case** time,
+- And can **sort any list of integers**.
+
+So the **correct answer** is:
+
+> ✅ **There is no known sorting algorithm that satisfies all of these conditions.**
+
+But if you are looking for an algorithm that **can sort a list** using **only pairwise comparisons**, with **O(n)** time **in the best case** (e.g., when the list is already sorted), then **Selection Sort** or **Insertion Sort** would be the way to go.
+
+---
+
+### ✅ If you want an example of a Python function that sorts using only pairwise comparisons (not O(n)):
+
+```python
+def sort_list(arr):
+    for i in range(len(arr)):
+        min_idx = i
+        for j in range(i + 1, len(arr)):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min, idx], arr[i]
+    return arr
+```
+
+This is **Selection Sort**, which has **O(n²)** worst-case time, but uses only pairwise comparisons.
+
+---
+
+### ✅ Final Answer
+
+**There is no known algorithm** that sorts any list of integers using **only pairwise comparisons** and has a **guaranteed O(n)** worst-case running time.
+
+Because:
+
+- Any comparison-based sort has a **lower bound of Ω(n log n)** in the worst case.
+- Therefore, **O(n)** is **not possible** for comparison-based sorting algorithms.
+
+---
+
+### ✅ Summary
+
+- **No O(n)** comparison-based sort exists.
+- **Counting Sort** and similar algorithms are **not comparison-based** and require **bounded input range**.
+- **Selection Sort** or **Insertion Sort** are **comparison-based** but have **O(n²)** time in the worst case.
+
+Let me know if you're looking for a **non-comparison-based** sort (like Counting Sort, Radix Sort, etc.) that can run in **O(n)** time.

@@ -1,0 +1,80 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    def precedence(op):
+        if op in ('*', '//'):
+            return 2
+        if op in ('+', '-'):
+            return 1
+        return 0
+
+    def apply_op(ops, vals):
+        op = ops.pop()
+        b = vals.pop()
+        a = vals.pop()
+        if op == '+':
+            vals.append(a + b)
+        elif op == '-':
+            vals.append(a - b)
+        elif op == '*':
+            vals.append(a * b)
+        elif op == '//':
+            # Python's // does floor division, matching integer division semantics
+            vals.append(a // b)
+
+    # remove spaces
+    s = s.replace(' ', '')
+    n = len(s)
+    i = 0
+    ops = []
+    vals = []
+    while i < n:
+        ch = s[i]
+        if ch.isdigit():
+            num = 0
+            while i < n and s[i].isdigit():
+                num = num * 10 + int(s[i])
+                i += 1
+            vals.append(num)
+            continue
+        if ch == '(':
+            ops.append(ch)
+        elif ch == ')':
+            while ops and ops[-1] != '(':
+                apply_op(ops, vals)
+            ops.pop()  # remove '('
+        else:  # operator
+            # handle unary plus/minus
+            if ch in '+-' and (i == 0 or s[i-1] in '(*+/-'):
+                # unary: treat as 0 <op> number
+                vals.append(0)
+            while ops and ops[-1] != '(' and precedence(ops[-1]) >= precedence(ch):
+                apply_op(ops, vals)
+            ops.append(ch)
+        i += 1
+
+    while ops:
+        apply_op(ops, vals)
+
+    return vals[0] if vals else 0
+```

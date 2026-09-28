@@ -1,0 +1,11 @@
+===== ISTEM =====
+Write a Python function `pick(items)` with all three of these properties: (1) it returns one element of the list, (2) for the same list it always returns the same element, every time it is called, and (3) across repeated calls with the same list, every element is returned with equal probability.
+
+===== HAM YANIT =====
+This is a classic paradox: **such a function is mathematically and logically impossible for any list with more than one distinct element.**
+
+### Why It Is Impossible
+
+Let $L$ be a list with $n > 1$ distinct elements:
+
+1. **Property (2)** requires determinism: if the first

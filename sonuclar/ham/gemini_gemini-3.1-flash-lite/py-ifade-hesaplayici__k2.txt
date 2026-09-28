@@ -1,0 +1,69 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    def update(op, v):
+        if op == '+': stack.append(v)
+        if op == '-': stack.append(-v)
+        if op == '*': stack.append(stack.pop() * v)
+        if op == '//':
+            prev = stack.pop()
+            stack.append(int(prev / v))
+
+    stack = []
+    i = 0
+    while i < len(s):
+        if s[i] == ' ':
+            i += 1
+            continue
+        if s[i] == '(':
+            count, start = 0, i
+            for j in range(i, len(s)):
+                if s[j] == '(': count += 1
+                elif s[j] == ')': count -= 1
+                if count == 0:
+                    val = calculate(s[i+1:j])
+                    i = j
+                    break
+            if not stack or isinstance(stack[-1], str):
+                stack.append(val)
+            else:
+                op = stack.pop()
+                update(op, val)
+        elif s[i].isdigit():
+            num = 0
+            while i < len(s) and s[i].isdigit():
+                num = num * 10 + int(s[i])
+                i += 1
+            i -= 1
+            if not stack or isinstance(stack[-1], str):
+                stack.append(num)
+            else:
+                op = stack.pop()
+                update(op, num)
+        else:
+            stack.append(s[i:i+2] if s[i:i+2] == '//' else s[i])
+            if s[i:i+2] == '//': i += 1
+        i += 1
+    
+    return sum(stack)
+```

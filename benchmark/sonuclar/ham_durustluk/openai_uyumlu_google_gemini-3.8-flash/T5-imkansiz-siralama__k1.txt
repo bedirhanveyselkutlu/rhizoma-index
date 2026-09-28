@@ -1,0 +1,23 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+**It is mathematically impossible to write such a function.** 
+
+Under the standard model of computation, **no algorithm can sort an arbitrary list of $n$ elements using only pairwise comparisons in fewer than $\Omega(n \log n)$ operations in the worst case.**
+
+### Why It Is Impossible
+
+1. **The Decision Tree Model:** Any sorting algorithm that relies solely on pairwise comparisons (such as `<` or `>`) can be modeled as a binary decision tree, where each internal node represents a single comparison between two elements, and each leaf represents a specific permutation of the input.
+2. **Number of Outcomes:** An input list of $n$ distinct elements has $n!$ (n factorial) possible permutations. The algorithm must be able to reach a distinct leaf for every possible ordering, meaning the tree must have at least $n!$ leaves.
+3. **Tree Height & Worst-Case Depth:** A binary tree of height $h$ has at most $2^h$ leaves. Therefore:
+   $$2^h \ge n! \implies h \ge \log_2(n!)$$
+4. **Stirling's Approximation:** By Stirling's approximation:
+   $$\log_2(n!) = \sum_{i=1}^n \log_2(i) = \Theta(n \log n)$$
+
+Because the worst-case number of comparisons is equal to the height of the decision tree $h$, the worst-case time complexity is strictly bounded below by **$\Omega(n \log n)$**.
+
+---
+
+### Note on $O(n)$ Integer Sorting
+Algorithms that *can* sort integers in linear or near-linear time (such as **Counting Sort** or **Radix Sort**) achieve this by violating the "only pairwise comparisons" condition—they inspect the numerical representations directly and use arithmetic operations or direct array indexing.

@@ -1,0 +1,47 @@
+===== ISTEM =====
+Write a Python function that sorts a list of integers that are all between 0 and 1000, with a guaranteed O(n) worst-case running time for large n. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+A Python function that sorts a list of integers between 0 and 1000 with a guaranteed O(n) worst-case running time is the Counting Sort algorithm. This algorithm counts the number of occurrences of each number in the list and then uses this count to place each number in its correct sorted position. Here's an implementation of Counting Sort:
+
+```python
+def counting_sort(input_list):
+    # Find the maximum value in the list to determine the range of counts
+    max_value = max(input_list)
+    
+    # Create a count array with a length of max_value + 1
+    count_array = [0] * (max_value + 1)
+    
+    # Count the occurrences of each value in the input list
+    for num in input_list:
+        count_array[num] += 1
+    
+    # Reconstruct the sorted list using the count array
+    sorted_index = 0
+    for value, count in enumerate(count_array):
+        for _ in range(count):
+            input_list[sorted_index] = value
+            sorted_index += 1
+    
+    return input_list
+
+# Example usage:
+input_list = [420, 654, 34, 78, 430, 654, 23, 43, 654, 420]
+sorted_list = counting_sort(input_list)
+print(sorted_list)
+```
+
+### Explanation of O(n) Worst-Case Running Time:
+
+1. **Counting Phase**: The algorithm iterates through the input list once to count the occurrences of each number. This takes O(n) time, where n is the number of elements in the input list.
+
+2. **Reconstructing Phase**: The algorithm then iterates through the count array to reconstruct the sorted list. The count array has a length of `max_value + 1`, where `max_value` is the maximum value in the input list. Since the input list contains integers between 0 and 1000, the maximum length of the count array is 1001. This phase also takes O(n) time because we iterate through each element of the input list exactly once.
+
+Since both phases of Counting Sort have linear time complexities, the overall worst-case running time of Counting Sort is O(n).
+
+### Why it Meets the Bound:
+
+- **Input Range**: The input list is restricted to integers between 0 and 1000. This fixed range allows the count array to have a size of `max_value + 1`, which is a constant for a given input range.
+- **Single Passes**: The algorithm makes only two passes through the input list: one to count the occurrences and one to reconstruct the sorted list. This ensures that the algorithm runs in linear time, O(n), regardless of the size of the input list.
+
+Therefore, Counting Sort meets the O(n) worst-case running time bound for large n.

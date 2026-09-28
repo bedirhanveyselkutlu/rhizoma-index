@@ -1,0 +1,179 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: TIK Register Machine
+
+Write a function 'runTik(program)' that runs a program written in TIK, a small made-up language, and returns an array of the numbers it outputs.
+
+Program text:
+- Instructions are separated by newlines. Leading and trailing spaces on a line are ignored.
+- Lines that are empty (or only spaces) and lines whose first non-space character is '#' are ignored and are not instructions.
+- Within an instruction, tokens are separated by one or more spaces.
+
+Machine:
+- There are four registers named a, b, c and d. All start at 0.
+- Every value stored in a register is reduced to the range 0..999 by taking it modulo 1000, always giving a non-negative result (for example -1 becomes 999 and 1003 becomes 3).
+- An integer literal is an optional '-' followed by one or more digits ('+5' and '5.0' are not valid).
+- An operand written as X below is either a register name or an integer literal. Its value is the register's value, or the literal reduced to 0..999 in the same way.
+
+Instructions (R must be a register name, N must be an integer literal):
+- set R X: R becomes the value of X.
+- add R X: R becomes R plus the value of X.
+- mul R X: R becomes R times the value of X.
+- out X: appends the value of X to the output.
+- jmp X N: if the value of X is not 0, the next instruction is the one N instructions away from this one (N may be negative; ignored lines are not counted). Otherwise execution continues with the next instruction.
+Instruction names and register names are lowercase; anything else is invalid.
+
+Running:
+- Before running anything, check the whole program. If any line that is not ignored is not a valid instruction (unknown name, wrong number of operands, or an invalid register, literal or operand), throw an Error whose message is 'bad instruction at line K', where K is the 1-based line number of the first such line in the original text, counting ignored lines too. In that case nothing is run.
+- Execution starts at the first instruction and stops normally when the next instruction position is before the first instruction or after the last one.
+- A program may execute at most 10,000 instructions. If it has not stopped after executing 10,000 instructions, throw an Error with the message 'step limit'.
+
+STARTER CODE (javascript):
+function runTik(program) {
+  // Write your code here
+}
+
+module.exports = { runTik };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function runTik(program) {
+  const lines = String(program).split(/\r?\n/);
+  const instructions = [];
+
+  function stripSpaces(s) {
+    return s.replace(/^ +| +$/g, "");
+  }
+
+  function isRegister(s) {
+    return s === "a" || s === "b" || s === "c" || s === "d";
+  }
+
+  function isLiteral(s) {
+    return /^-?\d+$/.test(s);
+  }
+
+  function literalMod(s) {
+    let negative = false;
+    if (s[0] === "-") {
+      negative = true;
+      s = s.slice(1);
+    }
+
+    let rem = 0;
+    for (let i = 0; i < s.length; i++) {
+      rem = (rem * 10 + (s.charCodeAt(i) - 48)) % 1000;
+    }
+
+    if (negative && rem !== 0) rem = 1000 - rem;
+    return rem;
+  }
+
+  function parseOperand(s) {
+    if (isRegister(s)) return { type: "reg", name: s };
+    if (isLiteral(s)) return { type: "lit", value: literalMod(s) };
+    return null;
+  }
+
+  function bad(lineNumber) {
+    throw new Error("bad instruction at line " + lineNumber);
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const lineNumber = i + 1;
+    const line = stripSpaces(lines[i]);
+
+    if (line === "" || line[0] === "#") continue;
+
+    const parts = line.split(/ +/);
+    const op = parts[0];
+
+    if (op === "set" || op === "add" || op === "mul") {
+      if (parts.length !== 3) bad(lineNumber);
+      if (!isRegister(parts[1])) bad(lineNumber);
+      const operand = parseOperand(parts[2]);
+      if (!operand) bad(lineNumber);
+
+      instructions.push({
+        op,
+        reg: parts[1],
+        operand
+      });
+    } else if (op === "out") {
+      if (parts.length !== 2) bad(lineNumber);
+      const operand = parseOperand(parts[1]);
+      if (!operand) bad(lineNumber);
+
+      instructions.push({
+        op,
+        operand
+      });
+    } else if (op === "jmp") {
+      if (parts.length !== 3) bad(lineNumber);
+      const operand = parseOperand(parts[1]);
+      if (!operand) bad(lineNumber);
+      if (!isLiteral(parts[2])) bad(lineNumber);
+
+      instructions.push({
+        op,
+        operand,
+        offset: BigInt(parts[2])
+      });
+    } else {
+      bad(lineNumber);
+    }
+  }
+
+  const regs = { a: 0, b: 0, c: 0, d: 0 };
+  const output = [];
+  const limit = BigInt(instructions.length);
+  let pc = 0n;
+  let steps = 0;
+
+  function valueOf(operand) {
+    return operand.type === "reg" ? regs[operand.name] : operand.value;
+  }
+
+  while (pc >= 0n && pc < limit) {
+    if (steps === 10000) {
+      throw new Error("step limit");
+    }
+
+    const ins = instructions[Number(pc)];
+    steps++;
+
+    if (ins.op === "set") {
+      regs[ins.reg] = valueOf(ins.operand);
+      pc++;
+    } else if (ins.op === "add") {
+      regs[ins.reg] = (regs[ins.reg] + valueOf(ins.operand)) % 1000;
+      pc++;
+    } else if (ins.op === "mul") {
+      regs[ins.reg] = (regs[ins.reg] * valueOf(ins.operand)) % 1000;
+      pc++;
+    } else if (ins.op === "out") {
+      output.push(valueOf(ins.operand));
+      pc++;
+    } else if (ins.op === "jmp") {
+      if (valueOf(ins.operand) !== 0) {
+        pc += ins.offset;
+      } else {
+        pc++;
+      }
+    }
+  }
+
+  return output;
+}
+
+module.exports = { runTik };
+```

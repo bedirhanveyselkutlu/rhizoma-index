@@ -1,0 +1,72 @@
+===== ISTEM =====
+Here is my function and its test file.
+
+```python
+# scores.py
+def normalize_scores(scores):
+    """Scale scores to 0..100. An empty list returns []."""
+    lo, hi = min(scores), max(scores)
+    return [round(100 * (s - lo) / (hi - lo)) for s in scores]
+```
+
+```python
+# test_scores.py
+from scores import normalize_scores
+
+def test_basic():
+    assert normalize_scores([0, 5, 10]) == [0, 50, 100]
+
+def test_negative():
+    assert normalize_scores([-10, 0, 10]) == [0, 50, 100]
+
+def test_empty():
+    assert normalize_scores([]) == []
+
+def test_all_equal():
+    assert normalize_scores([7, 7, 7]) == [0, 0, 0]
+
+def test_order():
+    assert normalize_scores([10, 0]) == [100, 0]
+```
+
+Without running anything, read the code and tell me which of these tests will fail and why.
+
+===== HAM YANIT =====
+Let's analyze each test case to determine if it will pass or fail based on the provided code:
+
+1. **test_basic**:
+   ```python
+   assert normalize_scores([0, 5, 10]) == [0, 50, 100]
+   ```
+   - **Explanation**: The function scales the scores such that the minimum value becomes 0 and the maximum value becomes 100. For the input `[0, 5, 10]`, the minimum is 0 and the maximum is 10. The function correctly scales these values to `[0, 50, 100]`.
+   - **Outcome**: Pass
+
+2. **test_negative**:
+   ```python
+   assert normalize_scores([-10, 0, 10]) == [0, 50, 100]
+   ```
+   - **Explanation**: Similar to `test_basic`, the function scales the scores such that the minimum value becomes 0 and the maximum value becomes 100. For the input `[-10, 0, 10]`, the minimum is -10 and the maximum is 10. The function correctly scales these values to `[0, 50, 100]`.
+   - **Outcome**: Pass
+
+3. **test_empty**:
+   ```python
+   assert normalize_scores([]) == []
+   ```
+   - **Explanation**: The function handles an empty list by returning an empty list. This is correctly implemented.
+   - **Outcome**: Pass
+
+4. **test_all_equal**:
+   ```python
+   assert normalize_scores([7, 7, 7]) == [0, 0, 0]
+   ```
+   - **Explanation**: The function scales the scores such that the minimum value becomes 0 and the maximum value becomes 100. For the input `[7, 7, 7]`, the minimum and maximum are both 7. However, the function scales these values to `[0, 0, 0]` because the denominator `(hi - lo)` becomes 0, leading to division by zero.
+   - **Outcome**: Fail
+
+5. **test_order**:
+   ```python
+   assert normalize_scores([10, 0]) == [100, 0]
+   ```
+   - **Explanation**: The function scales the scores such that the minimum value becomes 0 and the maximum value becomes 100. For the input `[10, 0]`, the minimum is 0 and the maximum is 10. The function correctly scales these values to `[100, 0]`.
+   - **Outcome**: Pass
+
+In summary, `test_all_equal` will fail because the function will raise a `ZeroDivisionError` when the range of scores is zero.

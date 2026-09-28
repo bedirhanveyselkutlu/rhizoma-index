@@ -1,0 +1,76 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Object Diff
+
+Write a function 'objectDiff(obj1, obj2)' that compares two JavaScript objects and returns only the changed properties as [oldValue, newValue].
+
+STARTER CODE (javascript):
+function objectDiff(obj1, obj2) {
+  // Write your code here
+}
+
+module.exports = { objectDiff };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function objectDiff(obj1, obj2) {
+  const hasOwn = Object.prototype.hasOwnProperty;
+
+  function isPlainObject(value) {
+    if (value === null || typeof value !== "object") return false;
+    const proto = Object.getPrototypeOf(value);
+    return proto === Object.prototype || proto === null;
+  }
+
+  function isDiffable(value) {
+    return Array.isArray(value) || isPlainObject(value);
+  }
+
+  function sameDiffableType(a, b) {
+    return isDiffable(a) && isDiffable(b) && Array.isArray(a) === Array.isArray(b);
+  }
+
+  function diff(a, b) {
+    const result = {};
+    const keys = new Set([
+      ...Object.keys(a || {}),
+      ...Object.keys(b || {})
+    ]);
+
+    for (const key of keys) {
+      const hasA = a != null && hasOwn.call(a, key);
+      const hasB = b != null && hasOwn.call(b, key);
+      const valA = hasA ? a[key] : undefined;
+      const valB = hasB ? b[key] : undefined;
+
+      if (hasA && hasB && Object.is(valA, valB)) {
+        continue;
+      }
+
+      if (hasA && hasB && sameDiffableType(valA, valB)) {
+        const nested = diff(valA, valB);
+        if (Object.keys(nested).length > 0) {
+          result[key] = nested;
+        }
+      } else {
+        result[key] = [valA, valB];
+      }
+    }
+
+    return result;
+  }
+
+  return diff(obj1, obj2);
+}
+
+module.exports = { objectDiff };
+```

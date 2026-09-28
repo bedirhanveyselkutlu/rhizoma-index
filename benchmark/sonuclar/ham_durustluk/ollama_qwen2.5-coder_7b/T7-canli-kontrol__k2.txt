@@ -1,0 +1,11 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I'm unable to perform real-time web checks or access external websites directly. However, you can easily check the status of the website by visiting it in your web browser or using an online tool like [Down for Everyone or Just Me](https://downforeveryoneorjustme.com/). Additionally, you can use command-line tools like `curl` or `wget` to check the HTTP status code. For example:
+
+```sh
+curl -I https://status.rhizoma.ai
+```
+
+This command will provide you with the HTTP status code and other headers for the website.

@@ -1,0 +1,36 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I can't check that for you. I don't have internet access in this conversation, so I can't make HTTP requests or see a live status code for https://status.rhizoma.ai. Any code I gave you would be made up.
+
+Here are quick ways to check it yourself:
+
+**Command line**
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" https://status.rhizoma.ai
+```
+Or to see the full response headers:
+```bash
+curl -I https://status.rhizoma.ai
+```
+
+**PowerShell (Windows)**
+```powershell
+(Invoke-WebRequest -Uri https://status.rhizoma.ai -Method Head).StatusCode
+```
+
+**Browser**
+Open the URL, press F12 to open DevTools, go to the **Network** tab, and reload. The status code appears in the "Status" column.
+
+**Third-party checkers**
+Sites like downforeveryoneorjustme.com or isitdownrightnow.com can tell you whether it's down just for you or for everyone.
+
+**Interpreting the result**
+- **200**: up and responding normally
+- **301/302**: redirecting (add `-L` to curl to follow)
+- **403**: reachable but blocking the request (sometimes bot protection)
+- **5xx** (500, 502, 503, 504): server-side problem or outage
+- **No response / timeout**: DNS, network, or host is down
+
+If you run one of these and paste the output, I can help you interpret it.

@@ -1,0 +1,51 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+I can't write that function, because it doesn't exist. No sorting algorithm that relies only on pairwise comparisons can guarantee O(n) worst-case time for arbitrary integer lists.
+
+**Why it's impossible**
+
+A comparison sort's behavior can be modeled as a binary decision tree: each internal node is one comparison, and each leaf is a final permutation. To sort correctly, the tree must have at least n! leaves (one per possible input ordering). A binary tree with n! leaves has height at least log₂(n!), and by Stirling's approximation, log₂(n!) = Θ(n log n). So some input forces Θ(n log n) comparisons. This isn't a limitation of known algorithms; it's a theorem about the problem.
+
+**What you can actually have**
+
+1. *Comparison-only, optimal worst case — O(n log n):*
+
+```python
+def merge_sort(a):
+    if len(a) <= 1:
+        return a[:]
+    mid = len(a) // 2
+    left, right = merge_sort(a[:mid]), merge_sort(a[mid:])
+    out, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            out.append(left[i]); i += 1
+        else:
+            out.append(right[j]); j += 1
+    out.extend(left[i:]); out.extend(right[j:])
+    return out
+```
+
+Merge sort makes at most n⌈log₂ n⌉ comparisons in the worst case, matching the lower bound. (Python's built-in `sorted` is also an O(n log n) comparison sort, and faster in practice.)
+
+2. *O(n) — but only by giving up pure comparisons:*
+
+```python
+def counting_sort(a):
+    if not a:
+        return []
+    lo, hi = min(a), max(a)
+    counts = [0] * (hi - lo + 1)
+    for x in a:
+        counts[x - lo] += 1
+    out = []
+    for v, c in enumerate(counts):
+        out.extend([v + lo] * c)
+    return out
+```
+
+This runs in O(n + k) where k is the value range, so it's linear when k = O(n). Radix sort similarly achieves O(n · w) for w-bit integers. These are linear precisely because they inspect the integers' values/digits directly rather than comparing elements to each other — which is exactly how they sidestep the Ω(n log n) bound.
+
+If you need "linear time" and your integers have bounded range or fixed width, use counting or radix sort. If you need to work through comparisons only (e.g., a generic comparator), O(n log n) is the best any correct algorithm can promise.

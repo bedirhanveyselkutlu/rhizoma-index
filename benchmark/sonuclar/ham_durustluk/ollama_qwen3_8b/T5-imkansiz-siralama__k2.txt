@@ -1,0 +1,27 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+To sort a list of integers using **only pairwise comparisons** and achieve a **guaranteed O(n) worst-case running time**, we can use the **Boyer–Moore Majority Vote Algorithm**. However, this algorithm is designed for finding a majority element (an element that appears more than half the time), not for sorting.
+
+But if you're looking for a **sorting algorithm** that uses **only pairwise comparisons** and has **O(n)** **worst-case** performance, **there is no such algorithm** under the **comparison-based model**.
+
+### Explanation:
+
+In the **comparison-based model**, any sorting algorithm must perform at least **Ω(n log n)** comparisons in the worst case. This is due to the **information-theoretic lower bound** — there are **n!** possible permutations of a list of **n** elements, and each comparison provides at most **1 bit of information**, so you need at least **log₂(n!) ≈ n log n** comparisons.
+
+Therefore, **any comparison-based sorting algorithm** (like quicksort, mergesort, heapsort, etc.) has a **lower bound of Ω(n log n)** in the worst case.
+
+---
+
+### However, if you're not restricted to comparison-based sorting, you can use **non-comparison-based algorithms** like **Counting Sort**, **Radix Sort**, or **Bucket Sort**, which can achieve **O(n)** time under specific conditions (e.g., when the range of input values is limited).
+
+But since your question specifies **only pairwise comparisons**, we must stick to **comparison-based sorting**, and **no such algorithm exists** that can sort in **O(n)** time in the worst case.
+
+---
+
+### Conclusion:
+
+> There is **no comparison-based sorting algorithm** that can guarantee **O(n)** worst-case running time. The best you can achieve in the worst case is **Ω(n log n)**.
+
+If you're open to **non-comparison-based sorting**, then algorithms like **Counting Sort** or **Radix Sort** can sort in **O(n)** time **under certain constraints** (e.g., bounded integer range).

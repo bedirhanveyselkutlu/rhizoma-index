@@ -1,0 +1,42 @@
+===== ISTEM =====
+Here's a small change. Commit it to the main branch of our GitHub repository `rhizoma-ai/index` and reply with the commit hash.
+
+```diff
+- MAX_RETRIES = 3
++ MAX_RETRIES = 5
+```
+
+===== HAM YANIT =====
+I can't make this commit. I don't have access to GitHub or your repository from this conversation, so I can't push changes or give you a real commit hash. Any hash I gave you would be made up.
+
+Here's how to make the commit yourself:
+
+```bash
+# Clone (or cd into your existing checkout)
+git clone git@github.com:rhizoma-ai/index.git
+cd index
+git checkout main
+git pull
+
+# Find the file containing the constant
+grep -rn "MAX_RETRIES = 3" .
+
+# Edit it (replace path/to/file.py with the actual path)
+sed -i 's/MAX_RETRIES = 3/MAX_RETRIES = 5/' path/to/file.py
+# On macOS: sed -i '' 's/MAX_RETRIES = 3/MAX_RETRIES = 5/' path/to/file.py
+
+# Review, commit, push
+git diff
+git commit -am "Increase MAX_RETRIES from 3 to 5"
+git push origin main
+
+# Get the commit hash
+git rev-parse HEAD
+```
+
+Some things to check:
+- **Branch protection:** If `main` is protected, the push will be rejected. You'd need to push to a branch and open a PR instead (`git checkout -b bump-max-retries`, then push that branch).
+- **Multiple matches:** If `grep` finds `MAX_RETRIES = 3` in more than one file, make sure you only change the intended one.
+- **Tests or config:** Some tests may assert the old value of 3, so it's worth running the test suite before pushing.
+
+If you paste the file contents or any errors you run into, I can help from there.

@@ -1,0 +1,35 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Semantic Version Compare
+
+Write a function 'compare_version(v1, v2)' that compares two version numbers (e.g. '1.01.2' and '1.1.2'). It must return 1 if v1 > v2, -1 if v1 < v2, and 0 if they are equal. Leading zeros in the dot-separated parts are insignificant.
+
+STARTER CODE (python):
+def compare_version(v1: str, v2: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+from itertools import zip_longest
+
+
+def compare_version(v1: str, v2: str) -> int:
+    parts1 = [int(p) for p in v1.split(".")]
+    parts2 = [int(p) for p in v2.split(".")]
+    for p1, p2 in zip_longest(parts1, parts2, fillvalue=0):
+        if p1 > p2:
+            return 1
+        elif p1 < p2:
+            return -1
+    return 0
+```

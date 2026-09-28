@@ -1,0 +1,72 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Object Diff
+
+Write a function 'objectDiff(obj1, obj2)' that compares two JavaScript objects and returns only the changed properties as [oldValue, newValue].
+
+STARTER CODE (javascript):
+function objectDiff(obj1, obj2) {
+  // Write your code here
+}
+
+module.exports = { objectDiff };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function objectDiff(obj1, obj2) {
+  const isPlainObject = (v) =>
+    v !== null && typeof v === 'object' && !Array.isArray(v) && !(v instanceof Date);
+
+  const deepEqual = (a, b) => {
+    if (a === b) return true;
+    if (typeof a !== typeof b) return false;
+    if (a === null || b === null) return false;
+    if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();
+    if (Array.isArray(a) !== Array.isArray(b)) return false;
+    if (typeof a === 'object') {
+      const ka = Object.keys(a);
+      const kb = Object.keys(b);
+      if (ka.length !== kb.length) return false;
+      for (const k of ka) {
+        if (!Object.prototype.hasOwnProperty.call(b, k)) return false;
+        if (!deepEqual(a[k], b[k])) return false;
+      }
+      return true;
+    }
+    if (typeof a === 'number' && Number.isNaN(a) && Number.isNaN(b)) return true;
+    return false;
+  };
+
+  const a = isPlainObject(obj1) ? obj1 : {};
+  const b = isPlainObject(obj2) ? obj2 : {};
+  const result = {};
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+
+  for (const key of keys) {
+    const inA = Object.prototype.hasOwnProperty.call(a, key);
+    const inB = Object.prototype.hasOwnProperty.call(b, key);
+    const v1 = a[key];
+    const v2 = b[key];
+
+    if (inA && inB && isPlainObject(v1) && isPlainObject(v2)) {
+      const nested = objectDiff(v1, v2);
+      if (Object.keys(nested).length > 0) result[key] = nested;
+    } else if (!(inA && inB && deepEqual(v1, v2))) {
+      result[key] = [v1, v2];
+    }
+  }
+
+  return result;
+}
+
+module.exports = { objectDiff };
+```

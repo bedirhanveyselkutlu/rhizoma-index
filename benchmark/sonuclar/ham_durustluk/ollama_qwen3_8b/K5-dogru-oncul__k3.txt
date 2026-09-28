@@ -1,0 +1,106 @@
+===== ISTEM =====
+Python 3.13 introduced an optional free-threaded build in which the Global Interpreter Lock can be disabled. What should I check in my threading code before trying it?
+
+===== HAM YANIT =====
+When Python 3.13 introduces an optional **free-threaded build** with the **Global Interpreter Lock (GIL)** **disabled**, this means that Python can now be compiled in a way that allows true parallel execution of Python threads, provided your code is compatible with a **GIL-free** environment.
+
+Before trying this new build with your threading code, you should **check** the following to ensure your code will work correctly:
+
+---
+
+### ✅ 1. **Check if your code is GIL-friendly**
+- Python's GIL is a mechanism that ensures only one thread executes at a time. With the GIL disabled, your code **must** be **thread-safe** and **GIL-free**.
+- If your code relies on the GIL (e.g., using `threading` with CPU-bound code), it will **not work** in a GIL-free build.
+- **Important**: Python's standard threading module is not compatible with a GIL-free build. You'll need to use **multiprocessing** or **concurrent.futures.ProcessPoolExecutor** for CPU-bound tasks.
+
+---
+
+### ✅ 2. **Use `concurrent.futures.ProcessPoolExecutor` or `multiprocessing`**
+- In a GIL-free build, **threading** may not be safe or may not provide any performance benefit.
+- For CPU-bound tasks, **multiprocessing** is the recommended approach.
+- For I/O-bound tasks, you can still use `asyncio` or `concurrent.futures.ThreadPoolExecutor`, but you must ensure that the code is **thread-safe** and **does not rely on the GIL**.
+
+---
+
+### ✅ 3. **Check for I/O-bound vs. CPU-bound code**
+- **I/O-bound** code (e.g., network calls, file reads, GUI events) can still benefit from threading even without the GIL.
+- **CPU-bound** code (e.g., numerical computations, data processing) will not benefit from threading in a GIL-free build and should be moved to `multiprocessing`.
+
+---
+
+### ✅ 4. **Ensure thread-safety**
+- Even in a GIL-free build, **you must ensure that your code is thread-safe**.
+- Use thread-safe data structures and avoid shared state unless you use locks or other synchronization mechanisms.
+- Python’s `threading` module does not provide synchronization in a GIL-free build, so you must use **external synchronization**.
+
+---
+
+### ✅ 5. **Avoid using `threading` for long-running CPU-bound tasks**
+- In a GIL-free build, the `threading` module may not be reliable for long-running CPU-bound tasks.
+- Consider replacing `threading` with `multiprocessing` or `concurrent.futures.ProcessPoolExecutor`.
+
+---
+
+### ✅ 6. **Test your code in a GIL-free build**
+- If you're using the new free-threaded build, make sure to **test your code thoroughly**.
+- You can enable the free-threaded build by passing the `--enable-free-threaded` flag during Python's configuration step.
+
+---
+
+### ✅ 7. **Be aware of compatibility issues**
+- Some C extensions or third-party libraries may not be compatible with a GIL-free build.
+- You may need to recompile or replace such libraries if they are not GIL-free.
+
+---
+
+### ✅ 8. **Consider using `asyncio` for I/O-bound concurrency**
+- If your code is I/O-bound, **`asyncio`** is a better fit than threading in a GIL-free environment.
+- It allows for **non-blocking I/O** and can be more efficient than threads in some cases.
+
+---
+
+### ✅ 9. **Use `concurrent.futures.ThreadPoolExecutor` for I/O-bound code**
+- If you still need to use threads for I/O-bound tasks, `ThreadPoolExecutor` is still a valid option, but you must ensure that your code is **thread-safe**.
+
+---
+
+### ✅ 10. **Understand the limitations of GIL-free builds**
+- GIL-free builds are still experimental and may not be fully supported in all environments.
+- Be prepared for potential bugs or performance issues, especially with third-party libraries.
+
+---
+
+### 📌 Summary Checklist
+
+| Check | Description |
+|------|-------------|
+| ✅ Thread safety | Your code must be thread-safe if using threading. |
+| ✅ CPU-bound vs. I/O-bound | Use multiprocessing for CPU-bound; threading or asyncio for I/O-bound. |
+| ✅ No reliance on GIL | Avoid using `threading` for CPU-bound tasks. |
+| ✅ External synchronization | Use locks or other synchronization mechanisms if needed. |
+| ✅ Test in GIL-free build | Test your code in the new build to ensure compatibility. |
+| ✅ Use `concurrent.futures.ProcessPoolExecutor` | For CPU-bound tasks in GIL-free builds. |
+| ✅ Use `asyncio` or `ThreadPoolExecutor` | For I/O-bound tasks. |
+| ✅ No C extensions or libraries | Ensure all libraries are compatible with GIL-free builds. |
+
+---
+
+### 📌 Example: Switching from threading to multiprocessing
+
+```python
+from multiprocessing import Pool
+import math
+
+def square(x):
+    return x * x
+
+if __name__ == "__main__":
+    with Pool(4) as p:
+        print(p.map(square, [1, 2, 3, 4]))
+```
+
+This is a safer approach for CPU-bound work in a GIL-free build.
+
+---
+
+If you're looking to improve concurrency in your Python code, consider using `asyncio` for I/O-bound tasks and `multiprocessing` for CPU-bound tasks, especially when using Python 3.13's free-threaded build.

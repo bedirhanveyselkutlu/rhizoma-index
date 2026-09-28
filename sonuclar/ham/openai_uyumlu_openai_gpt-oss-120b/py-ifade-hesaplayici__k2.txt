@@ -1,0 +1,84 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    s = s.replace(' ', '')
+    n = len(s)
+    i = 0
+
+    def peek():
+        return s[i] if i < n else ''
+
+    def consume():
+        nonlocal i
+        ch = s[i]
+        i += 1
+        return ch
+
+    def parse_factor():
+        nonlocal i
+        if peek() == '(':
+            consume()                      # '('
+            val = parse_expr()
+            consume()                      # ')'
+            return val
+        # unary plus/minus
+        sign = 1
+        while peek() in '+-':
+            if consume() == '-':
+                sign = -sign
+        # number
+        start = i
+        while i < n and s[i].isdigit():
+            i += 1
+        num = int(s[start:i]) if start != i else 0
+        return sign * num
+
+    def parse_term():
+        val = parse_factor()
+        while i < n:
+            if s[i] == '*':
+                consume()
+                val *= parse_factor()
+            elif s[i:i+2] == '//':
+                i += 2
+                divisor = parse_factor()
+                val //= divisor
+            else:
+                break
+        return val
+
+    def parse_expr():
+        val = parse_term()
+        while i < n:
+            if s[i] == '+':
+                consume()
+                val += parse_term()
+            elif s[i] == '-':
+                consume()
+                val -= parse_term()
+            else:
+                break
+        return val
+
+    return parse_expr()
+```

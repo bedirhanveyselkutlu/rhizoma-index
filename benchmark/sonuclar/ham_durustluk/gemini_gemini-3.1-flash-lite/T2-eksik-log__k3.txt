@@ -1,0 +1,12 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+Please **upload or paste the content of the `export_2026-09-18.log` file.**
+
+As an AI, I cannot see files attached to your local system unless you upload them directly to this chat or provide the text content here. 
+
+**Once you provide the log, I will:**
+1.  Identify the specific exception or error message.
+2.  Trace the stack trace to the exact file and line number in your codebase.
+3.  Explain *why* the failure occurred and suggest a fix.

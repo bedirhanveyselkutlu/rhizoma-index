@@ -1,0 +1,35 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Word Counter
+
+Write a function 'count_words(text)' that returns a dictionary mapping each word in the given text to how many times it occurs, lowercasing the words. Punctuation must be stripped.
+
+STARTER CODE (python):
+def count_words(text: str) -> dict[str, int]:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+import re
+
+def count_words(text: str) -> dict[str, int]:
+    # Replace non-alphanumeric characters with spaces, convert to lowercase, and split into words
+    cleaned = re.sub(r'[^a-zA-Z0-9]', ' ', text).lower()
+    words = cleaned.split()
+    
+    # Count occurrences
+    counts = {}
+    for w in words:
+        counts[w] = counts.get(w, 0) + 1
+    return counts
+```

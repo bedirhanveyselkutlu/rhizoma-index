@@ -1,0 +1,9 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I don’t see `export_2026-09-18.log` attached in this conversation, so I can’t determine the root cause or the failing code line yet.
+
+Please upload it again, or paste the error traceback plus about 50 lines immediately before it. Redact any passwords, tokens, or connection strings.
+
+Once I have the log, I can identify the likely root cause and the file/line reported by the traceback. If it doesn’t include source locations, I’ll need the relevant code to pinpoint the exact line.

@@ -1,0 +1,60 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  if (value === null) {
+    return 'null';
+  }
+
+  if (typeof value === 'number') {
+    return String(value);
+  }
+
+  if (typeof value === 'boolean') {
+    return String(value);
+  }
+
+  if (typeof value === 'string') {
+    return '"' + value.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t') + '"';
+  }
+
+  if (Array.isArray(value)) {
+    const arrayContent = value.map(item => jsonStringify(item)).join(',');
+    return '[' + arrayContent + ']';
+  }
+
+  if (typeof value === 'object') {
+    const keys = Object.keys(value);
+    const objectContent = keys
+      .filter(key => value[key] !== undefined && typeof value[key] !== 'function' && typeof value[key] !== 'symbol')
+      .map(key => '"' + key + '":' + jsonStringify(value[key]))
+      .join(',');
+    return '{' + objectContent + '}';
+  }
+
+  return undefined;
+}
+
+module.exports = { jsonStringify };
+```

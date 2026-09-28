@@ -1,0 +1,123 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    values = []
+    operators = []
+    precedence = {"+": 1, "-": 1, "*": 2, "//": 2, "u+": 3, "u-": 3}
+
+    def apply():
+        op = operators.pop()
+        if op in ("u+", "u-"):
+            if not values:
+                raise ValueError("Missing operand")
+            value = values.pop()
+            values.append(value if op == "u+" else -value)
+            return
+
+        if len(values) < 2:
+            raise ValueError("Missing operand")
+        right = values.pop()
+        left = values.pop()
+        if op == "+":
+            values.append(left + right)
+        elif op == "-":
+            values.append(left - right)
+        elif op == "*":
+            values.append(left * right)
+        elif op == "//":
+            values.append(left // right)
+
+    i = 0
+    expect_operand = True
+
+    while i < len(s):
+        char = s[i]
+
+        if char.isspace():
+            i += 1
+            continue
+
+        if "0" <= char <= "9":
+            if not expect_operand:
+                raise ValueError("Missing operator")
+            number = 0
+            while i < len(s) and "0" <= s[i] <= "9":
+                number = number * 10 + ord(s[i]) - ord("0")
+                i += 1
+            values.append(number)
+            expect_operand = False
+            continue
+
+        if char == "(":
+            if not expect_operand:
+                raise ValueError("Missing operator")
+            operators.append(char)
+            i += 1
+            continue
+
+        if char == ")":
+            if expect_operand:
+                raise ValueError("Missing operand")
+            while operators and operators[-1] != "(":
+                apply()
+            if not operators:
+                raise ValueError("Unmatched parenthesis")
+            operators.pop()
+            i += 1
+            continue
+
+        if char in "+-*":
+            op = char
+            i += 1
+        elif s.startswith("//", i):
+            op = "//"
+            i += 2
+        else:
+            raise ValueError("Invalid character")
+
+        if expect_operand:
+            if op not in ("+", "-"):
+                raise ValueError("Missing operand")
+            operators.append("u" + op)
+        else:
+            while (
+                operators
+                and operators[-1] != "("
+                and precedence[operators[-1]] >= precedence[op]
+            ):
+                apply()
+            operators.append(op)
+            expect_operand = True
+
+    if expect_operand:
+        raise ValueError("Missing operand")
+
+    while operators:
+        if operators[-1] == "(":
+            raise ValueError("Unmatched parenthesis")
+        apply()
+
+    if len(values) != 1:
+        raise ValueError("Invalid expression")
+    return values[0]
+```

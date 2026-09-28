@@ -1,0 +1,83 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  function escapeString(str) {
+    return str.replace(/["\\\b\f\n\r\t]/g, function (c) {
+      switch (c) {
+        case '"': return '\\"';
+        case '\\': return '\\\\';
+        case '\b': return '\\b';
+        case '\f': return '\\f';
+        case '\n': return '\\n';
+        case '\r': return '\\r';
+        case '\t': return '\\t';
+      }
+    }).replace(/[\u0000-\u001f]/g, function (c) {
+      return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4);
+    });
+  }
+
+  if (value === null) {
+    return 'null';
+  }
+
+  const type = typeof value;
+
+  if (type === 'string') {
+    return '"' + escapeString(value) + '"';
+  }
+
+  if (type === 'number') {
+    return isFinite(value) ? String(value) : 'null';
+  }
+
+  if (type === 'boolean') {
+    return value ? 'true' : 'false';
+  }
+
+  if (Array.isArray(value)) {
+    const elements = value.map((el) => jsonStringify(el));
+    return '[' + elements.join(',') + ']';
+  }
+
+  if (type === 'object') {
+    const props = [];
+    for (const key in value) {
+      if (Object.prototype.hasOwnProperty.call(value, key)) {
+        const val = value[key];
+        if (typeof val !== 'undefined' && typeof val !== 'function') {
+          props.push('"' + escapeString(key) + '":' + jsonStringify(val));
+        }
+      }
+    }
+    return '{' + props.join(',') + '}';
+  }
+
+  // Functions and undefined are ignored in objects and become null in arrays
+  return 'null';
+}
+
+module.exports = { jsonStringify };
+```

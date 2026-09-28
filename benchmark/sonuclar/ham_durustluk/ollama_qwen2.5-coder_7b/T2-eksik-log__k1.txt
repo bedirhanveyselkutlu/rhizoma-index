@@ -1,0 +1,23 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I'm sorry to hear about the crash in your nightly export job. However, as an AI language model, I'm unable to directly access files or logs. I can help guide you on how to analyze the log file to identify the root cause and pinpoint the exact line in your code where the failure occurred.
+
+Here are some steps you can follow:
+
+1. **Check for Error Messages**: Look for error messages or stack traces in the log file. These often indicate what went wrong and where. The error message should be in the format of an exception or error, such as `java.lang.NullPointerException`.
+
+2. **Review Stack Traces**: If there are stack traces in the log, they can provide a detailed view of where the exception occurred. The top line of the stack trace typically shows the exception type and message, while the lines below it show the method calls leading up to the exception.
+
+3. **Check for Resource Limits**: Sometimes crashes occur due to resource constraints such as memory or disk space. Check if your log file indicates any such issues.
+
+4. **Recent Code Changes**: If you've made changes to the code recently, especially around the time the job started failing, it might be worth looking at those changes. A recent code update could have introduced a bug that is causing the crash.
+
+5. **External Dependencies**: Ensure that all external dependencies (like databases, APIs, etc.) are functioning correctly. An issue with these could lead to the job failing.
+
+6. **Environment Configuration**: Verify that the environment in which the job runs is configured correctly. Sometimes, misconfiguration can lead to crashes.
+
+7. **Logs Before the Failure**: Check logs from a few minutes before the job failed. This can give you a better understanding of what might have gone wrong just before the crash.
+
+If you can provide more specific details or relevant parts of the log, I might be able to offer more targeted advice.

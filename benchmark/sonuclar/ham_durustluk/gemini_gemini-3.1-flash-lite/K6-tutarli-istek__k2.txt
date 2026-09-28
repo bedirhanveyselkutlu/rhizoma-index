@@ -1,0 +1,46 @@
+===== ISTEM =====
+Write a Python function `pick(items, seed)` that returns one element of the list, always returns the same element for the same list and seed, and over many different seeds returns each element about equally often.
+
+===== HAM YANIT =====
+To achieve this, you can use Python's built-in `random` module. The key is to initialize a **local random number generator** instance using the provided seed, rather than using the global `random.seed()`, which could interfere with other parts of your program.
+
+### The Implementation
+
+```python
+import random
+
+def pick(items, seed):
+    """
+    Returns one element from the list based on the seed.
+    The same seed always returns the same item for the same list.
+    """
+    if not items:
+        return None
+    
+    # Create a local generator instance
+    rng = random.Random(seed)
+    
+    # Use the local generator to pick a random element
+    return rng.choice(items)
+```
+
+### Why this works:
+1.  **Determinism:** By creating `random.Random(seed)`, you ensure that the internal state of the generator starts from the exact same point every time that specific seed is passed. `rng.choice()` will therefore always produce the same result for the same inputs.
+2.  **Uniformity:** The `random` module's underlying algorithm (Mersenne Twister) is specifically designed to distribute selections uniformly across the range of indices in a list. Over many different seeds, the mathematical properties of the generator ensure that each element will be selected roughly an equal number of times.
+3.  **Isolation:** By using a local instance (`rng`), you ensure that calling this function does not affect the state of Python's global random number generator (e.g., if another part of your code is using `random.random()` or `random.shuffle()`).
+
+### Example Usage:
+
+```python
+my_list = ["apple", "banana", "cherry"]
+
+# Same inputs produce same output
+print(pick(my_list, 42))  # Always 'cherry'
+print(pick(my_list, 42))  # Always 'cherry'
+
+# Different inputs produce different outputs
+print(pick(my_list, 10))  # 'banana'
+```
+
+### Important Note on Seeds:
+If your `seed` values are sequential (e.g., 1, 2, 3...) or have low entropy, the randomness is still technically robust because the `random` module uses a hash of the seed to initialize its state. However, ensure that the seeds themselves are sufficiently distinct if you want to avoid patterns in your output sequence.

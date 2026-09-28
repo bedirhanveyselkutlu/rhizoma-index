@@ -1,0 +1,124 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Text Editor with Undo and Redo
+
+Write a class 'Editor' that holds a text document (initially an empty string) and a cursor position (initially 0), with these methods:
+- type(text): inserts text at the cursor and moves the cursor to the end of the inserted text.
+- moveTo(pos): moves the cursor to pos, clamped to the range 0 to the current text length.
+- backspace(n): deletes up to n characters immediately before the cursor (fewer if the cursor is closer than n to the start) and moves the cursor back by the number of characters deleted.
+- undo(): reverts the most recent undo step. Does nothing if there is none.
+- redo(): re-applies the most recently undone step. Does nothing if there is none.
+- getText(): returns the current text.
+- getCursor(): returns the current cursor position.
+
+Undo steps:
+- Every call to type, and every call to backspace that deletes at least one character, is an edit. An edit normally creates a new undo step.
+- Exception: a type call is added to the previous undo step, instead of creating a new one, if the method called immediately before it (not counting getText and getCursor) was also type.
+- A backspace that deletes nothing (cursor already at 0) changes nothing and creates no undo step.
+- Undoing a step restores the text and the cursor to exactly what they were before the step. Redoing a step restores them to exactly what they were at the end of the step.
+- Every edit clears the redo history. moveTo, undo and redo never clear it.
+
+STARTER CODE (javascript):
+class Editor {
+  // Write your code here
+}
+
+module.exports = { Editor };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class Editor {
+  constructor() {
+    this.text = "";
+    this.cursor = 0;
+    this.history = [];
+    this.historyIndex = -1;
+    this.lastAction = null; // 'type' or 'backspace'
+  }
+
+  _saveState(type) {
+    const newState = {
+      text: this.text,
+      cursor: this.cursor,
+      type: type
+    };
+
+    if (type === 'type' && this.lastAction === 'type' && this.historyIndex >= 0 && this.history[this.historyIndex].type === 'type') {
+      this.history[this.historyIndex] = newState;
+    } else {
+      this.history = this.history.slice(0, this.historyIndex + 1);
+      this.history.push(newState);
+      this.historyIndex++;
+    }
+    this.lastAction = type;
+  }
+
+  type(text) {
+    const before = this.text.slice(0, this.cursor);
+    const after = this.text.slice(this.cursor);
+    this.text = before + text + after;
+    this.cursor += text.length;
+    this._saveState('type');
+  }
+
+  moveTo(pos) {
+    this.cursor = Math.max(0, Math.min(pos, this.text.length));
+  }
+
+  backspace(n) {
+    if (this.cursor === 0) return;
+    const numToDelete = Math.min(n, this.cursor);
+    const before = this.text.slice(0, this.cursor - numToDelete);
+    const after = this.text.slice(this.cursor);
+    this.text = before + after;
+    this.cursor -= numToDelete;
+    this._saveState('backspace');
+  }
+
+  undo() {
+    if (this.historyIndex < 0) return;
+    
+    // To undo, we need the state BEFORE the current history entry
+    // If historyIndex is 0, we go back to empty string, pos 0
+    if (this.historyIndex === 0) {
+      this.text = "";
+      this.cursor = 0;
+    } else {
+      const prevState = this.history[this.historyIndex - 1];
+      this.text = prevState.text;
+      this.cursor = prevState.cursor;
+    }
+    this.historyIndex--;
+    this.lastAction = null;
+  }
+
+  redo() {
+    if (this.historyIndex >= this.history.length - 1) return;
+    
+    this.historyIndex++;
+    const nextState = this.history[this.historyIndex];
+    this.text = nextState.text;
+    this.cursor = nextState.cursor;
+    this.lastAction = nextState.type;
+  }
+
+  getText() {
+    return this.text;
+  }
+
+  getCursor() {
+    return this.cursor;
+  }
+}
+
+module.exports = { Editor };
+```

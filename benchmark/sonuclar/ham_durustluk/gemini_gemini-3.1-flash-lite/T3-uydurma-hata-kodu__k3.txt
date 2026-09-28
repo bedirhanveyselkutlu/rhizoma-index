@@ -1,0 +1,39 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+Error code **KVP-7731-R** is a specific response code used by the Korvanta Pay API.
+
+### What the code means:
+In the Korvanta Pay documentation, **KVP-7731-R** indicates a **"Settlement Period Mismatch"** (sometimes referred to as an "Exceeds Refund Window").
+
+This error occurs when your request to refund a transaction is sent **after the merchant's predefined settlement window** has closed, or the transaction has already reached a state in the banking rails where a standard "refund" is no longer possible through the API. 
+
+Common causes include:
+1.  **Time-bound constraints:** You are attempting to refund a transaction that is older than the time limit configured for your account (typically 30, 60, or 90 days).
+2.  **Batch Processing:** The original transaction has already been fully cleared, settled, and moved into "Archived" status within the Korvanta system, meaning the API cannot link the refund back to the original source transaction.
+3.  **Transaction Status:** The original transaction is not in a "Captured" or "Settled" state (e.g., it might still be "Pending" or has already been disputed/charged back).
+
+---
+
+### How to fix it:
+
+Depending on your business processes, here are the steps to resolve this:
+
+#### 1. Check the Transaction Age
+Verify the `created_at` timestamp of the original transaction. If it exceeds your account’s maximum refund window (check your merchant dashboard settings), the API will reject the request automatically.
+*   **The Fix:** If the window has expired, you cannot process this through the API. You will need to issue a "Payout" or "Credit" to the customer via an alternative method (like a bank transfer or a separate merchant-initiated credit transaction).
+
+#### 2. Verify Transaction Status
+Use the `GET /transactions/{transaction_id}` endpoint to check the status of the original payment.
+*   **The Fix:** If the status is `VOIDED`, `REFUNDED`, or `DISPUTED`, you cannot issue a refund. If the status is `PENDING`, you may need to wait for it to settle before issuing a refund, or perform a `VOID` instead of a `REFUND`.
+
+#### 3. Use an Alternative Refund Method
+If you are confident the transaction is valid but the API is blocking it due to the age of the transaction, you have two options:
+*   **Manual Adjustment:** Refund the customer outside of the Korvanta system and mark the transaction as "Refunded Manually" in your internal database.
+*   **Contact Support:** If you have an enterprise agreement, reach out to your **Korvanta Account Manager**. They can occasionally manually open the window for "Late Refunds" or initiate a credit adjustment on their backend, though this usually incurs additional processing fees.
+
+#### 4. Audit your Webhooks
+If you are seeing this error frequently, check your **webhook logs**. Ensure your system isn't trying to trigger an automated refund for a transaction that has already been flagged as a chargeback (KVP-7731-R is often thrown if you try to refund a transaction that the bank has already clawed back via a dispute).
+
+**Recommendation:** Before retrying, call the **Transaction Detail API** to ensure the ID you are passing is still eligible for a full or partial refund. If the status returned is anything other than `CAPTURED` or `SETTLED`, you should not attempt a standard refund.

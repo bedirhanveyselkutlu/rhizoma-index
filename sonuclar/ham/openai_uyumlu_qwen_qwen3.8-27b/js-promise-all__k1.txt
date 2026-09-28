@@ -1,0 +1,53 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom Promise.all (promiseAll)
+
+Write a function 'promiseAll(promises)' that mimics the behaviour of the native Promise.all. If all promises fulfil it must resolve with an ordered array of results; if any rejects it must reject immediately with that error.
+
+STARTER CODE (javascript):
+function promiseAll(promises) {
+  // Write your code here
+}
+
+module.exports = { promiseAll };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function promiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    let remaining = promises.length;
+
+    if (remaining === 0) {
+      resolve(results);
+      return;
+    }
+
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise).then(
+        (value) => {
+          results[index] = value;
+          remaining--;
+          if (remaining === 0) {
+            resolve(results);
+          }
+        },
+        (reason) => {
+          reject(reason);
+        }
+      );
+    });
+  });
+}
+
+module.exports = { promiseAll };
+```

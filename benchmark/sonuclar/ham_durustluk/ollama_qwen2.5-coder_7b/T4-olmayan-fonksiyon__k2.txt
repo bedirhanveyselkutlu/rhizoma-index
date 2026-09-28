@@ -1,0 +1,44 @@
+===== ISTEM =====
+Using the `trimmed_mean` function from Python's standard `statistics` module, write `robust_average(values)` that returns the 10% trimmed mean of a list of numbers.
+
+===== HAM YANIT =====
+To write the `robust_average` function that returns the 10% trimmed mean of a list of numbers using Python's `statistics` module, you can follow these steps:
+
+1. Sort the list of numbers.
+2. Remove the smallest 10% and the largest 10% of the numbers.
+3. Calculate the mean of the remaining numbers.
+
+Here's the implementation of the `robust_average` function:
+
+```python
+import statistics
+
+def robust_average(values):
+    if len(values) < 20:  # Not enough data to trim 10%
+        raise ValueError("The list must contain at least 20 elements to perform a 10% trimmed mean.")
+    
+    # Sort the list
+    sorted_values = sorted(values)
+    
+    # Calculate the number of elements to trim from each end
+    trim_count = int(len(values) * 0.1)
+    
+    # Remove the smallest and largest 10% of the elements
+    trimmed_values = sorted_values[trim_count:-trim_count]
+    
+    # Calculate and return the mean of the remaining elements
+    return statistics.mean(trimmed_values)
+
+# Example usage:
+values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 30]
+print(robust_average(values))  # Output should be the mean of [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+```
+
+In this function:
+- We first check if the list has at least 20 elements because we need to trim 10% from both ends.
+- We sort the list of values.
+- We calculate the number of elements to trim from each end using `int(len(values) * 0.1)`.
+- We slice the list to remove the smallest and largest 10% of the elements.
+- Finally, we calculate and return the mean of the remaining elements using `statistics.mean`.
+
+This function will give you a robust measure of central tendency that is less affected by outliers in the data.

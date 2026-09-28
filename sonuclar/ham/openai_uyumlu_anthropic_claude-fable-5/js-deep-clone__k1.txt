@@ -1,0 +1,68 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Deep Clone an Object
+
+Write a function 'deepClone(obj)' that deeply copies a given JavaScript object or array (including nested objects, arrays and primitives) without sharing references. It must also clone Date and RegExp objects.
+
+STARTER CODE (javascript):
+function deepClone(obj) {
+  // Write your code here
+}
+
+module.exports = { deepClone };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function deepClone(obj, seen = new WeakMap()) {
+  // Primitives and functions are returned as-is
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  // Handle circular references
+  if (seen.has(obj)) {
+    return seen.get(obj);
+  }
+
+  // Date
+  if (obj instanceof Date) {
+    return new Date(obj.getTime());
+  }
+
+  // RegExp
+  if (obj instanceof RegExp) {
+    const clone = new RegExp(obj.source, obj.flags);
+    clone.lastIndex = obj.lastIndex;
+    return clone;
+  }
+
+  // Array
+  if (Array.isArray(obj)) {
+    const clone = [];
+    seen.set(obj, clone);
+    for (let i = 0; i < obj.length; i++) {
+      clone[i] = deepClone(obj[i], seen);
+    }
+    return clone;
+  }
+
+  // Plain object (preserve prototype)
+  const clone = Object.create(Object.getPrototypeOf(obj));
+  seen.set(obj, clone);
+  for (const key of Object.keys(obj)) {
+    clone[key] = deepClone(obj[key], seen);
+  }
+  return clone;
+}
+
+module.exports = { deepClone };
+```

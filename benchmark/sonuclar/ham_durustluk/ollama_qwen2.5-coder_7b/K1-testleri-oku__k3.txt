@@ -1,0 +1,62 @@
+===== ISTEM =====
+Here is my function and its test file.
+
+```python
+# scores.py
+def normalize_scores(scores):
+    """Scale scores to 0..100. An empty list returns []."""
+    lo, hi = min(scores), max(scores)
+    return [round(100 * (s - lo) / (hi - lo)) for s in scores]
+```
+
+```python
+# test_scores.py
+from scores import normalize_scores
+
+def test_basic():
+    assert normalize_scores([0, 5, 10]) == [0, 50, 100]
+
+def test_negative():
+    assert normalize_scores([-10, 0, 10]) == [0, 50, 100]
+
+def test_empty():
+    assert normalize_scores([]) == []
+
+def test_all_equal():
+    assert normalize_scores([7, 7, 7]) == [0, 0, 0]
+
+def test_order():
+    assert normalize_scores([10, 0]) == [100, 0]
+```
+
+Without running anything, read the code and tell me which of these tests will fail and why.
+
+===== HAM YANIT =====
+Based on the provided code and test files, the test `test_all_equal` will fail.
+
+The reason for the failure is that the `normalize_scores` function is designed to scale scores to the range of 0 to 100. When all scores in the list are equal, the difference between the maximum and minimum scores (`hi - lo`) becomes zero. This leads to a division by zero error in the expression `100 * (s - lo) / (hi - lo)`, which causes the function to return incorrect or undefined results.
+
+Here's a brief explanation of why the other tests will pass:
+
+1. **test_basic**: This test checks the basic functionality of scaling scores. It will pass because the function correctly scales the scores from `[0, 5, 10]` to `[0, 50, 100]`.
+
+2. **test_negative**: This test checks if the function correctly handles negative scores. It will pass because the function correctly scales the scores from `[-10, 0, 10]` to `[0, 50, 100]`.
+
+3. **test_empty**: This test checks if the function returns an empty list for an empty input. It will pass because the function correctly returns `[]`.
+
+4. **test_order**: This test checks if the function correctly scales the scores even if they are in descending order. It will pass because the function correctly scales the scores from `[10, 0]` to `[100, 0]`.
+
+To handle the `test_all_equal` scenario, you should include a check within the `normalize_scores` function to handle the case where all scores are equal. Here's an updated version of the function:
+
+```python
+def normalize_scores(scores):
+    """Scale scores to 0..100. An empty list returns []."""
+    if not scores:
+        return []
+    lo, hi = min(scores), max(scores)
+    if lo == hi:
+        return [0] * len(scores)
+    return [round(100 * (s - lo) / (hi - lo)) for s in scores]
+```
+
+With this update, the `test_all_equal` test will pass, as the function will return `[0, 0, 0]` instead of causing a division by zero error.

@@ -1,0 +1,87 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    i, n = 0, len(s)
+
+    def skip_spaces():
+        nonlocal i
+        while i < n and s[i] == ' ':
+            i += 1
+
+    def peek():
+        skip_spaces()
+        return s[i] if i < n else None
+
+    def parse_number() -> int:
+        nonlocal i
+        skip_spaces()
+        start = i
+        while i < n and s[i].isdigit():
+            i += 1
+        return int(s[start:i])
+
+    def parse_factor() -> int:
+        nonlocal i
+        skip_spaces()
+        if i < n and s[i] == '(':
+            i += 1
+            val = parse_expression()
+            skip_spaces()
+            if i < n and s[i] == ')':
+                i += 1
+            return val
+        return parse_number()
+
+    def parse_term() -> int:
+        nonlocal i
+        val = parse_factor()
+        while True:
+            op = peek()
+            if op == '*':
+                i += 1
+                val *= parse_factor()
+            elif op == '/' and i + 1 < n and s[i + 1] == '/':
+                i += 2
+                divisor = parse_factor()
+                val //= divisor
+            else:
+                break
+        return val
+
+    def parse_expression() -> int:
+        nonlocal i
+        val = parse_term()
+        while True:
+            op = peek()
+            if op == '+':
+                i += 1
+                val += parse_term()
+            elif op == '-':
+                i += 1
+                val -= parse_term()
+            else:
+                break
+        return val
+
+    return parse_expression()
+```

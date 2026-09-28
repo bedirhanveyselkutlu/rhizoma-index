@@ -1,0 +1,38 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Prime Number Check
+
+Write a function 'is_prime(n)' that checks whether the given integer is prime. 1 and negative numbers are not prime. It must run in O(sqrt(n)) time.
+
+STARTER CODE (python):
+def is_prime(n: int) -> bool:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def is_prime(n: int) -> bool:
+    if n <= 1:
+        return False
+    if n <= 3:
+        return True
+    if n % 2 == 0:
+        return False
+    
+    i = 3
+    while i * i <= n:
+        if n % i == 0:
+            return False
+        i += 2
+    
+    return True
+```

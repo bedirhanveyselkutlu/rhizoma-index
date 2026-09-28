@@ -1,0 +1,104 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  const escapes = {
+    '"': '\\"',
+    '\\': '\\\\',
+    '\b': '\\b',
+    '\f': '\\f',
+    '\n': '\\n',
+    '\r': '\\r',
+    '\t': '\\t',
+  };
+
+  function escapeString(str) {
+    return (
+      '"' +
+      str.replace(/[\x00-\x1f\\"]/g, (char) => {
+        if (escapes[char]) return escapes[char];
+        return '\\u' + char.charCodeAt(0).toString(16).padStart(4, '0');
+      }) +
+      '"'
+    );
+  }
+
+  function serialize(val) {
+    if (val === null) return 'null';
+    if (val === undefined || typeof val === 'function' || typeof val === 'symbol') {
+      return undefined;
+    }
+
+    if (typeof val === 'object' && typeof val.toJSON === 'function') {
+      return serialize(val.toJSON());
+    }
+
+    if (val instanceof Number) {
+      val = val.valueOf();
+    } else if (val instanceof String) {
+      val = val.valueOf();
+    } else if (val instanceof Boolean) {
+      val = val.valueOf();
+    }
+
+    const type = typeof val;
+
+    if (type === 'number') {
+      return Number.isFinite(val) ? String(val) : 'null';
+    }
+    if (type === 'boolean') {
+      return String(val);
+    }
+    if (type === 'string') {
+      return escapeString(val);
+    }
+    if (type === 'bigint') {
+      throw new TypeError('Do not know how to serialize a BigInt');
+    }
+
+    if (Array.isArray(val)) {
+      const items = val.map((item) => {
+        const res = serialize(item);
+        return res === undefined ? 'null' : res;
+      });
+      return `[${items.join(',')}]`;
+    }
+
+    if (type === 'object') {
+      const entries = [];
+      for (const key of Object.keys(val)) {
+        const res = serialize(val[key]);
+        if (res !== undefined) {
+          entries.push(`${escapeString(key)}:${res}`);
+        }
+      }
+      return `{${entries.join(',')}}`;
+    }
+  }
+
+  return serialize(value);
+}
+
+module.exports = { jsonStringify };
+```

@@ -1,0 +1,51 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Median Finder on a Data Stream
+
+Write a 'MedianFinder' class that accepts numbers from a data stream and computes the running median with O(log n) insertion and O(1) lookup. It must have 'add_num(num)' and 'find_median()' methods.
+
+STARTER CODE (python):
+class MedianFinder:
+    def __init__(self):
+        pass
+    def add_num(self, num: int) -> None:
+        pass
+    def find_median(self) -> float:
+        pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+class MedianFinder:
+    def __init__(self):
+        self.left = []  # max heap (using negative values for min heap behavior)
+        self.right = []  # min heap
+
+    def add_num(self, num: int) -> None:
+        import heapq
+        if not self.left or num <= -self.left[0]:
+            heapq.heappush(self.left, -num)
+        else:
+            heapq.heappush(self.right, num)
+        
+        if len(self.left) > len(self.right) + 1:
+            val = -heapq.heappop(self.left)
+            heapq.heappush(self.right, val)
+        elif len(self.right) > len(self.left):
+            val = heapq.heappop(self.right)
+            heapq.heappush(self.left, -val)
+
+    def find_median(self) -> float:
+        if (len(self.left) + len(self.right)) % 2 == 1:
+            return -self.left[0]
+        else:
+            return (-self.left[0] + self.right[0]) / 2
+```

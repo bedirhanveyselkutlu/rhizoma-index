@@ -1,0 +1,30 @@
+{
+ "gemini_gemini-3.1-flash-lite.txt": {
+  "A": "3/3",
+  "B": "1/3"
+ },
+ "ollama_qwen2.5-coder_7b.txt": {
+  "A": "2/3",
+  "B": "0/3"
+ },
+ "ollama_qwen3_8b.txt": {
+  "A": "0/3",
+  "B": "1/3"
+ },
+ "openai_uyumlu_anthropic_claude-fable-5.1.txt": {
+  "A": "3/3",
+  "B": "3/3"
+ },
+ "openai_uyumlu_anthropic_claude-opus-5.5.txt": {
+  "A": "3/3",
+  "B": "3/3"
+ },
+ "openai_uyumlu_google_gemini-3.8-flash.txt": {
+  "A": "3/3",
+  "B": "3/3"
+ },
+ "openai_uyumlu_openai_gpt-6-astra.txt": {
+  "A": "3/3",
+  "B": "3/3"
+ }
+}

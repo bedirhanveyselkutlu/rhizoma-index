@@ -1,0 +1,35 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Valid Parentheses
+
+Write a function 'is_valid_parentheses(s)' that takes a string containing only the characters '(', ')', '{', '}', '[' and ']'. Every opening bracket must be closed by the same type of bracket in the correct order. An empty string is considered valid.
+
+STARTER CODE (python):
+def is_valid_parentheses(s: str) -> bool:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def is_valid_parentheses(s: str) -> bool:
+    stack = []
+    pairs = {')': '(', '}': '{', ']': '['}
+    for ch in s:
+        if ch in pairs.values():
+            stack.append(ch)
+        elif ch in pairs:
+            if not stack or stack.pop() != pairs[ch]:
+                return False
+        else:
+            return False
+    return not stack
+```

@@ -1,0 +1,39 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Valid Anagram
+
+Write a function 'isAnagram(s, t)' that checks whether two words are anagrams (one can be formed by rearranging the letters of the other). It must handle lowercase letters and check for equal length.
+
+STARTER CODE (javascript):
+function isAnagram(s, t) {
+  // Write your code here
+}
+
+module.exports = { isAnagram };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function isAnagram(s, t) {
+  if (s.length !== t.length) return false;
+  const freq = new Array(26).fill(0);
+  for (let i = 0; i < s.length; i++) {
+    freq[s.charCodeAt(i) - 97]++;
+    freq[t.charCodeAt(i) - 97]--;
+  }
+  for (let i = 0; i < 26; i++) {
+    if (freq[i] !== 0) return false;
+  }
+  return true;
+}
+
+module.exports = { isAnagram };
+```

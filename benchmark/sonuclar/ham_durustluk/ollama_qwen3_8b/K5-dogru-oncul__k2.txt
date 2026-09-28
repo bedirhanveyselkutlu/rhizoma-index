@@ -1,0 +1,85 @@
+===== ISTEM =====
+Python 3.13 introduced an optional free-threaded build in which the Global Interpreter Lock can be disabled. What should I check in my threading code before trying it?
+
+===== HAM YANIT =====
+Python 3.13 introduced an **optional free-threaded build** that allows the **Global Interpreter Lock (GIL)** to be **disabled**. This is a significant change that may affect the behavior of your multithreaded code. Before trying this new build, here are the key things you should **check** in your threading code:
+
+---
+
+### ✅ 1. **Are you using C extensions or external libraries?**
+- **C extensions** (like NumPy, SciPy, or other C-based modules) may not be thread-safe **without the GIL**.
+- **Check if your code uses any C extensions** or external libraries that may rely on the GIL.
+- If you're using **NumPy**, you should be aware that it's **not thread-safe** without the GIL and may require special handling or even be incompatible.
+
+---
+
+### ✅ 2. **Are you using thread-local storage or thread-specific data?**
+- The GIL is **not required** for thread-local storage or per-thread data.
+- However, if your code uses **thread-local variables**, ensure that the **threading module** or **ctypes** is used correctly (these are generally safe).
+
+---
+
+### ✅ 3. **Do you use any shared state between threads?**
+- Without the GIL, **shared memory access** must be **explicitly synchronized** using locks, semaphores, or other synchronization primitives.
+- If your code relies on **implicit GIL-based synchronization** (like in CPython), it may now **race conditions** or **data corruption**.
+
+---
+
+### ✅ 4. **Is your code using `threading` or `concurrent.futures`?**
+- The `threading` module and `concurrent.futures` are **GIL-aware** and may not work correctly without the GIL.
+- You may need to **rewrite your code** to use **multiprocessing** or **asyncio** instead, or use **threading with explicit locks**.
+
+---
+
+### ✅ 5. **Are you using any third-party threading libraries?**
+- Libraries like **multiprocessing**, **concurrent.futures**, or **asyncio** may not be compatible with a **GIL-free build**.
+- Be sure to check the **compatibility** of any third-party libraries with the new build.
+
+---
+
+### ✅ 6. **Do you use any I/O-bound code?**
+- The GIL is **not required** for I/O-bound code (like network or file I/O).
+- If your code is **I/O-bound**, it may work fine even without the GIL, but you should still **test thoroughly**.
+
+---
+
+### ✅ 7. **Are you using any CPU-bound code?**
+- CPU-bound code **without the GIL** may **run faster** on **multi-core systems**, but it requires **explicit synchronization**.
+- If you're using **CPUs with multiple cores**, the GIL-free build could give **better performance**, but you need to **manage synchronization manually**.
+
+---
+
+### ✅ 8. **Is your code using CPython or a different Python implementation?**
+- The **GIL-free build** is specific to **CPython** (the official Python implementation).
+- If you're using **PyPy**, **Jython**, or **IronPython**, the GIL behavior is **different** and not relevant to this build.
+
+---
+
+### ✅ 9. **Have you tested your code with the new build?**
+- The GIL-free build is **optional**, so you can **compile Python with or without** the GIL.
+- Before switching, **test your code thoroughly** in both configurations.
+
+---
+
+### 🚨 Summary: Things to Check
+| Item | Check |
+|------|-------|
+| C extensions | Are they thread-safe without the GIL? |
+| Shared state | Are you using proper synchronization? |
+| Thread-local storage | Is it used correctly? |
+| I/O-bound vs CPU-bound | Does your code need the GIL? |
+| Third-party libraries | Are they compatible with GIL-free? |
+| Threaded code | Are you using proper locks or synchronization? |
+
+---
+
+### ⚠️ Recommendation
+Before trying the GIL-free build:
+- **Test your code with the GIL enabled** to ensure it works.
+- **Review all shared memory and synchronization**.
+- **Consider rewriting CPU-bound code** to use **multiprocessing** or **async** if needed.
+- **Use tools like `threading.enumerate()`** or `threading.active_count()` to monitor thread behavior.
+
+---
+
+If you're unsure, it's **safer to stick with the GIL-enabled build** until your code is fully verified for GIL-free compatibility.

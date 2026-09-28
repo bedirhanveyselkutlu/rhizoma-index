@@ -1,0 +1,34 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+I don't have reliable information about Korvanta Pay or its error code KVP-7731-R, so I can't tell you what that specific code means. Rather than guess and send you down the wrong path, here's how to pin it down, plus the usual causes of refund rejections so you can check the likely candidates.
+
+## Finding the exact meaning
+
+1. **Check the full API response or dashboard entry.** Error payloads often include a `message`, `reason`, `decline_code`, or `details` field that explains the code in plain language. Look at the raw response, not just the code.
+2. **Search the provider's developer docs** for "error codes," "refund errors," or the exact string `KVP-7731`. The "-R" suffix *might* indicate a refund-category error, but that's only a guess.
+3. **Contact Korvanta Pay support** with the refund ID, original transaction ID, timestamp, and full error response. They can see the internal reason.
+4. **Check your logs** for any webhook or event tied to that refund attempt. These sometimes carry more detail than the synchronous response.
+
+## Common reasons refunds get rejected (across most providers)
+
+- **Refund amount exceeds the refundable balance**: the full amount was already refunded, or partial refunds add up to more than the original charge.
+- **Original transaction not settled yet**: some processors require you to *void/cancel* an unsettled authorization instead of refunding it.
+- **Refund window expired**: many card networks and processors limit refunds to roughly 90–180 days after the charge.
+- **Transaction is in dispute/chargeback**: refunds are often blocked while a dispute is open.
+- **Insufficient merchant balance**: your account doesn't have enough funds to cover the refund.
+- **Payment method can't receive refunds**: closed card, expired account, or certain vouchers and prepaid methods.
+- **Currency mismatch**: the refund currency differs from the original charge.
+- **Duplicate request / idempotency conflict**: the same refund was submitted twice.
+- **Permissions or account restrictions**: your API key lacks refund scope, or the account is under review.
+
+## Quick troubleshooting checklist
+
+- Confirm the original charge status (settled, captured, disputed?).
+- Compare the refund amount to the remaining refundable amount.
+- Check the charge date against typical refund time limits.
+- Verify your account balance and API key permissions.
+- Retry only after identifying the cause, using a fresh idempotency key if needed.
+
+If you can share the full error message or response body (with sensitive data removed), I can help you interpret it.

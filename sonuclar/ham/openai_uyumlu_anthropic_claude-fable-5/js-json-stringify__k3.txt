@@ -1,0 +1,109 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  if (value === null) return "null";
+
+  const type = typeof value;
+
+  if (type === "number") {
+    return isFinite(value) ? String(value) : "null";
+  }
+
+  if (type === "boolean") {
+    return value ? "true" : "false";
+  }
+
+  if (type === "string") {
+    return escapeString(value);
+  }
+
+  if (type === "undefined" || type === "function" || type === "symbol") {
+    return undefined;
+  }
+
+  if (Array.isArray(value)) {
+    const items = value.map(function (item) {
+      const str = jsonStringify(item);
+      return str === undefined ? "null" : str;
+    });
+    return "[" + items.join(",") + "]";
+  }
+
+  if (type === "object") {
+    const parts = [];
+    for (const key in value) {
+      if (Object.prototype.hasOwnProperty.call(value, key)) {
+        const str = jsonStringify(value[key]);
+        if (str !== undefined) {
+          parts.push(escapeString(key) + ":" + str);
+        }
+      }
+    }
+    return "{" + parts.join(",") + "}";
+  }
+
+  return undefined;
+}
+
+function escapeString(str) {
+  let result = '"';
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+    const code = str.charCodeAt(i);
+    switch (ch) {
+      case '"':
+        result += '\\"';
+        break;
+      case "\\":
+        result += "\\\\";
+        break;
+      case "\b":
+        result += "\\b";
+        break;
+      case "\f":
+        result += "\\f";
+        break;
+      case "\n":
+        result += "\\n";
+        break;
+      case "\r":
+        result += "\\r";
+        break;
+      case "\t":
+        result += "\\t";
+        break;
+      default:
+        if (code < 0x20) {
+          result += "\\u" + code.toString(16).padStart(4, "0");
+        } else {
+          result += ch;
+        }
+    }
+  }
+  return result + '"';
+}
+
+module.exports = { jsonStringify };
+```

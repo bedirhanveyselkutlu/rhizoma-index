@@ -1,0 +1,79 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+The error code **KVP-7731-R** from **Korvanta Pay** typically indicates an issue with the **refund process**, specifically related to the **refund amount** or the **refund reason**. While the exact meaning of this error code may not be publicly documented in detail, based on common refund error patterns and similar systems, here's a breakdown of what it might mean and how to resolve it:
+
+---
+
+### ✅ **Possible Meanings of Error Code KVP-7731-R**
+
+1. **Invalid Refund Amount**:
+   - The refund amount entered might be **invalid**, **too large**, or **not supported** by the payment provider.
+   - For example, the amount might be in the wrong currency, or it might exceed the available balance or the original transaction amount.
+
+2. **Refund Reason Not Supported**:
+   - Some payment providers require a **specific reason** for a refund (e.g., "customer request," "product not received," etc.).
+   - If the reason provided is not valid or not supported by the system, the refund may be rejected.
+
+3. **Refund Not Supported for This Transaction Type**:
+   - The original transaction might not be eligible for a refund (e.g., a subscription, a service charge, or a payment with a specific condition like "no refunds").
+
+4. **Refund Already Processed or Pending**:
+   - The system might have already processed or is still processing a refund for the same transaction.
+
+5. **Merchant Account or Authorization Issue**:
+   - There could be an issue with the merchant account or the authorization status of the original transaction, which is preventing the refund.
+
+---
+
+### ✅ **How to Fix KVP-7731-R**
+
+#### 1. **Verify the Refund Amount**
+   - Ensure the refund amount is:
+     - **Less than or equal to the original transaction amount.**
+     - **In the correct currency** (e.g., EUR, USD, etc.).
+     - **Formatted correctly** (e.g., no commas, proper decimal places).
+
+#### 2. **Check Refund Reason**
+   - If a refund reason is required, make sure it's one of the **supported reasons**.
+   - Common reasons include:
+     - "Customer request"
+     - "Product not received"
+     - "Wrong item sent"
+     - "Payment error"
+     - "Overcharge"
+
+#### 3. **Confirm Transaction Eligibility for Refund**
+   - Check if the original transaction is eligible for a refund.
+   - Some transactions (e.g., subscriptions, service charges, or payments with "no refund" terms) may not be eligible.
+
+#### 4. **Check for Duplicate Refunds**
+   - Ensure that a refund has not already been processed for this transaction.
+   - If a refund is already in progress, wait for it to complete or contact the customer to confirm.
+
+#### 5. **Contact Korvanta Pay Support**
+   - If the above steps don’t resolve the issue, **contact Korvanta Pay support** directly with the following:
+     - The **transaction ID**.
+     - The **refund amount** and **reason**.
+     - A **description of the refund request**.
+   - They can provide more specific information about the error and guide you through the correct process.
+
+---
+
+### ✅ **Prevention Tips**
+
+- **Use the same currency** as the original transaction.
+- **Format amounts correctly** (e.g., `10.50` instead of `10,50`).
+- **Keep track of refund reasons** and ensure they match the payment provider’s supported list.
+- **Double-check the transaction details** before initiating a refund.
+
+---
+
+### 📞 **Contact Korvanta Pay Support**
+
+If you're still facing issues, it's best to reach out to **Korvanta Pay support** directly. You can find their support contact details on their official website or through your integration documentation.
+
+---
+
+Let me know if you’d like help formatting a refund request or checking your refund reason against their supported list.

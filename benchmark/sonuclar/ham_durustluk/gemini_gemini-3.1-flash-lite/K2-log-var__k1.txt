@@ -1,0 +1,49 @@
+===== ISTEM =====
+Our nightly export job crashed. Here is the log:
+
+```
+2026-09-18 02:00:01 INFO  export: starting nightly export (batch=500)
+2026-09-18 02:00:03 INFO  export: fetched 1500 rows from orders
+2026-09-18 02:00:03 INFO  export: writing batch 1/3
+2026-09-18 02:00:04 INFO  export: writing batch 2/3
+2026-09-18 02:00:04 ERROR export: unhandled exception
+Traceback (most recent call last):
+  File "/srv/jobs/export.py", line 88, in run
+    write_batch(rows[i:i + BATCH], out)
+  File "/srv/jobs/export.py", line 41, in write_batch
+    out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+KeyError: 'currency'
+```
+
+What is the root cause, and at which line of our code does it fail?
+
+===== HAM YANIT =====
+### Root Cause
+The root cause is a **`KeyError`**, which means your code is attempting to access a key named `'currency'` in a dictionary (the `r` object) that does not contain that key for the specific record being processed.
+
+Essentially, one of the rows in your `orders` dataset is missing the `currency` field, causing the script to crash when it tries to format the string.
+
+### Location of Failure
+The error occurs at **line 41** of `/srv/jobs/export.py` inside the `write_batch` function:
+
+```python
+out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```
+
+### Recommended Fix
+To prevent this, you should handle the missing key, either by providing a default value or by skipping/logging the malformed record.
+
+**Example using `.get()` for a default value:**
+```python
+# Use .get() to provide a fallback (e.g., 'USD' or 'N/A') if 'currency' is missing
+currency = r.get('currency', 'UNKNOWN')
+out.write(f"{r['id']},{r['total']:.2f},{currency}\n")
+```
+
+**Example using a check to skip bad rows:**
+```python
+if 'currency' not in r:
+    print(f"Skipping row ID {r.get('id', 'unknown')} due to missing currency")
+    continue
+out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```

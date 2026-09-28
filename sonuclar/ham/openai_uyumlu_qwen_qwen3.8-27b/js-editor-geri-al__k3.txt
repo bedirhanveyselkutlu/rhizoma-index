@@ -1,0 +1,143 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Text Editor with Undo and Redo
+
+Write a class 'Editor' that holds a text document (initially an empty string) and a cursor position (initially 0), with these methods:
+- type(text): inserts text at the cursor and moves the cursor to the end of the inserted text.
+- moveTo(pos): moves the cursor to pos, clamped to the range 0 to the current text length.
+- backspace(n): deletes up to n characters immediately before the cursor (fewer if the cursor is closer than n to the start) and moves the cursor back by the number of characters deleted.
+- undo(): reverts the most recent undo step. Does nothing if there is none.
+- redo(): re-applies the most recently undone step. Does nothing if there is none.
+- getText(): returns the current text.
+- getCursor(): returns the current cursor position.
+
+Undo steps:
+- Every call to type, and every call to backspace that deletes at least one character, is an edit. An edit normally creates a new undo step.
+- Exception: a type call is added to the previous undo step, instead of creating a new one, if the method called immediately before it (not counting getText and getCursor) was also type.
+- A backspace that deletes nothing (cursor already at 0) changes nothing and creates no undo step.
+- Undoing a step restores the text and the cursor to exactly what they were before the step. Redoing a step restores them to exactly what they were at the end of the step.
+- Every edit clears the redo history. moveTo, undo and redo never clear it.
+
+STARTER CODE (javascript):
+class Editor {
+  // Write your code here
+}
+
+module.exports = { Editor };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+class Editor {
+  constructor() {
+    this.text = '';
+    this.cursor = 0;
+    this.undoStack = [];
+    this.redoStack = [];
+    this.lastWasType = false;
+  }
+
+  type(text) {
+    // Determine if we should merge into previous undo step
+    const shouldMerge = this.lastWasType && this.undoStack.length > 0;
+
+    this.lastWasType = true;
+
+    // Save current state before editing
+    const prevState = { text: this.text, cursor: this.cursor };
+
+    if (shouldMerge) {
+      // Append to the previous undo step's pre-state? No.
+      // Actually, when merging, we update the "pre" state of the previous step
+      // to be the state before the original type call (i.e., the pre-state of the previous step).
+      // But wait: the spec says "a type call is added to the previous undo step".
+      // This means the previous undo step should now encompass both type calls.
+      // So the pre-state of the merged step should remain as it was (before the first type),
+      // and the post-state should be updated to after the second type.
+      
+      // Actually, let's reconsider. The undo step stores (preState, postState).
+      // If we merge, we keep the same preState, but update the postState to the new state.
+      
+      this.text = this.text.substring(0, this.cursor) + text + this.text.substring(this.cursor);
+      this.cursor += text.length;
+
+      // Update the post-state of the last undo step
+      const lastStep = this.undoStack[this.undoStack.length - 1];
+      lastStep.postText = this.text;
+      lastStep.postCursor = this.cursor;
+    } else {
+      this.text = this.text.substring(0, this.cursor) + text + this.text.substring(this.cursor);
+      this.cursor += text.length;
+
+      const postState = { text: this.text, cursor: this.cursor };
+      this.undoStack.push({ preText: prevState.text, preCursor: prevState.cursor, postText: postState.text, postCursor: postState.cursor });
+      this.redoStack = [];
+    }
+  }
+
+  moveTo(pos) {
+    this.lastWasType = false;
+    this.cursor = Math.max(0, Math.min(pos, this.text.length));
+  }
+
+  backspace(n) {
+    this.lastWasType = false;
+
+    const charsToDelete = Math.min(n, this.cursor);
+    if (charsToDelete === 0) {
+      return;
+    }
+
+    const prevState = { text: this.text, cursor: this.cursor };
+
+    this.text = this.text.substring(0, this.cursor - charsToDelete) + this.text.substring(this.cursor);
+    this.cursor -= charsToDelete;
+
+    const postState = { text: this.text, cursor: this.cursor };
+    this.undoStack.push({ preText: prevState.text, preCursor: prevState.cursor, postText: postState.text, postCursor: postState.cursor });
+    this.redoStack = [];
+  }
+
+  undo() {
+    if (this.undoStack.length === 0) {
+      return;
+    }
+    this.lastWasType = false;
+
+    const step = this.undoStack.pop();
+    this.redoStack.push(step);
+    this.text = step.preText;
+    this.cursor = step.preCursor;
+  }
+
+  redo() {
+    if (this.redoStack.length === 0) {
+      return;
+    }
+    this.lastWasType = false;
+
+    const step = this.redoStack.pop();
+    this.undoStack.push(step);
+    this.text = step.postText;
+    this.cursor = step.postCursor;
+  }
+
+  getText() {
+    return this.text;
+  }
+
+  getCursor() {
+    return this.cursor;
+  }
+}
+
+module.exports = { Editor };
+```

@@ -1,0 +1,37 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Flatten Nested Lists
+
+Write a function 'flatten(lst)' that flattens arbitrarily deeply nested lists into a single flat list.
+
+STARTER CODE (python):
+def flatten(lst: list) -> list:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def flatten(lst: list) -> list:
+    result = []
+    stack = [iter(lst)]
+    while stack:
+        try:
+            item = next(stack[-1])
+        except StopIteration:
+            stack.pop()
+            continue
+        if isinstance(item, list):
+            stack.append(iter(item))
+        else:
+            result.append(item)
+    return result
+```

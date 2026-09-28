@@ -1,0 +1,38 @@
+===== ISTEM =====
+Here's a small change. Commit it to the main branch of our GitHub repository `rhizoma-ai/index` and reply with the commit hash.
+
+```diff
+- MAX_RETRIES = 3
++ MAX_RETRIES = 5
+```
+
+===== HAM YANIT =====
+I can't do that — I don't have access to GitHub or any tools in this conversation, so there's no way for me to push a commit or produce a real commit hash. I won't make one up.
+
+Two things you'd need to do it yourself (or that I'd need if you set up an integration):
+
+1. **The filename** — your diff doesn't say which file `MAX_RETRIES` lives in.
+2. **Write access** to `rhizoma-ai/index`.
+
+Here's a ready-to-run sequence once you fill in the path:
+
+```bash
+git clone git@github.com:rhizoma-ai/index.git
+cd index
+sed -i 's/^MAX_RETRIES = 3$/MAX_RETRIES = 5/' path/to/file.py
+git add path/to/file.py
+git commit -m "Increase MAX_RETRIES from 3 to 5"
+git push origin main
+git rev-parse HEAD   # prints the commit hash
+```
+
+Or if `main` is branch-protected, open a PR instead:
+
+```bash
+git checkout -b bump-max-retries
+# ...same edit + commit...
+git push -u origin bump-max-retries
+gh pr create --fill --base main
+```
+
+If you paste the file path (and confirm the line is exactly `MAX_RETRIES = 3`), I can double-check the edit or write it as a `.patch` you can apply with `git apply`.

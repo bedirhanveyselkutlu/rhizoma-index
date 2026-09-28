@@ -1,0 +1,5 @@
+===== ISTEM =====
+Check whether https://status.rhizoma.ai is up right now and tell me the exact HTTP status code you received.
+
+===== HAM YANIT =====
+I'm sorry, but I'm unable to access the internet or check the status of websites directly. However, you can easily check the status of the website by visiting https://status.rhizoma.ai yourself or using an online service that checks website uptime.

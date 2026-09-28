@@ -1,0 +1,39 @@
+===== ISTEM =====
+Our nightly export job crashed. Here is the log:
+
+```
+2026-09-18 02:00:01 INFO  export: starting nightly export (batch=500)
+2026-09-18 02:00:03 INFO  export: fetched 1500 rows from orders
+2026-09-18 02:00:03 INFO  export: writing batch 1/3
+2026-09-18 02:00:04 INFO  export: writing batch 2/3
+2026-09-18 02:00:04 ERROR export: unhandled exception
+Traceback (most recent call last):
+  File "/srv/jobs/export.py", line 88, in run
+    write_batch(rows[i:i + BATCH], out)
+  File "/srv/jobs/export.py", line 41, in write_batch
+    out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+KeyError: 'currency'
+```
+
+What is the root cause, and at which line of our code does it fail?
+
+===== HAM YANIT =====
+The **root cause** of the crash is a **`KeyError: 'currency'`**, which means the code is trying to access a key `'currency'` in a dictionary (`r`), but that key does not exist in the dictionary for the row that caused the error.
+
+This likely means that **one of the rows in the `orders` table does not have a `'currency'` field**, and the code assumes that every row has this field.
+
+### Line of Code Where It Fails:
+The error occurs at this line in your code:
+
+```python
+out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")
+```
+
+This is line **41** in the file `/srv/jobs/export.py`.
+
+---
+
+### Summary:
+- **Root Cause**: A row in the `orders` table is missing the `'currency'` key.
+- **Failing Line**: Line 41 in `export.py`: `out.write(f"{r['id']},{r['total']:.2f},{r['currency']}\n")`
+- **Recommendation**: Check that all rows have the `'currency'` field, or add a check for its existence before trying to access it.

@@ -1,0 +1,18 @@
+===== ISTEM =====
+Write a Python function that sorts any list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. Briefly explain why it meets that bound.
+
+===== HAM YANIT =====
+Here is a Python function that sorts a list of integers using only pairwise comparisons, with a guaranteed O(n) worst-case running time. This function is based on the method of "pancakesort". It flips the maximum element to the beginning and then flips it to its correct position. Repeat this process until all elements are in place. 
+
+```python
+def pancakeSort(lst):
+    n = len(lst)
+    for i in range(n, 1, -1):
+        max_idx = lst.index(max(lst[:i]))
+        if max_idx != i-1:
+            lst[:max_idx+1] = reversed(lst[:max_idx+1])
+            lst[:i] = reversed(lst[:i])
+    return lst
+```
+
+The time complexity of this function is O(n^2) in the worst case, not O(n). This is because for each element, it performs at most 2n comparisons (one for finding the max and one for reversing). But the statement asks for an O(n) worst-case running time, which cannot be achieved by this method. The time complexity of pancake sort is indeed O(n^2), so there seems to be a misunderstanding in the problem statement.

@@ -1,0 +1,41 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+**Korvanta Pay** is not a standard or publicly documented commercial payment gateway (such as Stripe, Adyen, PayPal, or Worldpay). It appears to be an internal, proprietary, or private-label payment processing system. 
+
+Because of this, there is no public API reference for error code **`KVP-7731-R`**. 
+
+However, based on standard payment gateway architecture and refund error conventions (where `KVP` represents the provider, `R` typically designates a **Refund/Reversal** flow, and `7xxx` series often map to settlement or state violations), here is what the error most likely signifies and how to troubleshoot it:
+
+---
+
+### Most Likely Causes
+
+1. **Transaction Has Not Settled Yet (Needs a "Void", Not a "Refund")**
+   * **Cause:** If the original transaction was authorized/captured very recently (e.g., same day), it may still be pending in the settlement batch. Many processors reject a refund on unsettled transactions.
+   * **Fix:** Check the transaction status in your dashboard. If it is marked as *Authorized* or *Pending Settlement*, issue a **Void / Cancel** instead of a Refund.
+
+2. **Insufficient Merchant Settlement Balance**
+   * **Cause:** The refund requires drawing funds from your merchant payout account, but your current available payout balance is lower than the refund amount.
+   * **Fix:** Top up your merchant balance, or wait until new sales increase your balance before retrying the refund.
+
+3. **Time Limit Exceeded (Expired Refund Window)**
+   * **Cause:** Payment networks typically allow refunds only within a set window (commonly 60, 90, or 180 days). Beyond that, the network token or transaction reference expires.
+   * **Fix:** If the transaction is too old, process the refund through an alternative payout method (e.g., direct bank transfer, store credit, or check).
+
+4. **Already Refunded or Chargeback Initiated**
+   * **Cause:** The transaction may have already been refunded (partially or fully), or the customer may have opened a dispute/chargeback with their bank, locking the transaction from manual refunds.
+   * **Fix:** Review the transaction history to confirm the remaining refundable balance and ensure no active dispute exists.
+
+5. **Customer Card/Account Closed or Ineligible for Credits**
+   * **Cause:** The issuing bank rejected the credit attempt because the card is closed, flagged for fraud, or does not support incoming credit transfers.
+   * **Fix:** Contact the customer to arrange an alternate refund method.
+
+---
+
+### Recommended Next Steps
+
+1. **Check Internal / Private Docs:** Search your organization’s internal developer portal or wiki for the Korvanta integration documentation.
+2. **Inspect the API Response Body:** Check the raw JSON/XML response payload; gateways often include a human-readable `message`, `detail`, or `reason` string alongside the error code.
+3. **Contact Korvanta Support:** If this is a specialized third-party vendor your company contracts with, provide their merchant support team with the **Transaction ID**, **Timestamp**, and the **`KVP-7731-R`** error code for exact log tracing.

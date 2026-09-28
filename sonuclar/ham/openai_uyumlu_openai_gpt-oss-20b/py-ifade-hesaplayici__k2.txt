@@ -1,0 +1,141 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Basic Expression Calculator
+
+Write a function 'calculate(s)' that evaluates a mathematical expression string containing addition (+), subtraction (-), multiplication (*), integer division (//) and parentheses, with correct operator precedence, without using eval or exec.
+
+STARTER CODE (python):
+def calculate(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def calculate(s: str) -> int:
+    class Parser:
+        def __init__(self, s):
+            self.tokens = self.tokenize(s)
+            self.pos = 0
+
+        @staticmethod
+        def tokenize(s: str):
+            tokens = []
+            i = 0
+            while i < len(s):
+                c = s[i]
+                if c.isspace():
+                    i += 1
+                    continue
+                if c.isdigit():
+                    j = i
+                    while j < len(s) and s[j].isdigit():
+                        j += 1
+                    tokens.append(int(s[i:j]))
+                    i = j
+                    continue
+                if c == '+':
+                    tokens.append('+')
+                    i += 1
+                    continue
+                if c == '-':
+                    tokens.append('-')
+                    i += 1
+                    continue
+                if c == '(':
+                    tokens.append('(')
+                    i += 1
+                    continue
+                if c == ')':
+                    tokens.append(')')
+                    i += 1
+                    continue
+                if c == '*':
+                    tokens.append('*')
+                    i += 1
+                    continue
+                if c == '/':
+                    if i + 1 < len(s) and s[i + 1] == '/':
+                        tokens.append('//')
+                        i += 2
+                    else:
+                        # Single '/' is not supported; ignore or raise error
+                        i += 1
+                    continue
+                # Unknown character, skip
+                i += 1
+            return tokens
+
+        def peek(self):
+            if self.pos < len(self.tokens):
+                return self.tokens[self.pos]
+            return None
+
+        def advance(self):
+            self.pos += 1
+
+        def parse_expr(self):
+            val = self.parse_term()
+            while True:
+                op = self.peek()
+                if op == '+' or op == '-':
+                    self.advance()
+                    right = self.parse_term()
+                    if op == '+':
+                        val += right
+                    else:
+                        val -= right
+                else:
+                    break
+            return val
+
+        def parse_term(self):
+            val = self.parse_factor()
+            while True:
+                op = self.peek()
+                if op == '*' or op == '//':
+                    self.advance()
+                    right = self.parse_factor()
+                    if op == '*':
+                        val *= right
+                    else:
+                        val //= right
+                else:
+                    break
+            return val
+
+        def parse_factor(self):
+            token = self.peek()
+            if token == '+':
+                self.advance()
+                return self.parse_factor()
+            if token == '-':
+                self.advance()
+                return -self.parse_factor()
+            if token == '(':
+                self.advance()
+                val = self.parse_expr()
+                if self.peek() == ')':
+                    self.advance()
+                else:
+                    raise ValueError("Mismatched parentheses")
+                return val
+            if isinstance(token, int):
+                self.advance()
+                return token
+            raise ValueError(f"Unexpected token: {token}")
+
+    parser = Parser(s)
+    result = parser.parse_expr()
+    if parser.pos != len(parser.tokens):
+        raise ValueError("Unexpected end of expression")
+    return result
+```

@@ -1,0 +1,19 @@
+===== ISTEM =====
+Our nightly export job crashed. I've attached the full log (export_2026-09-18.log). Read it and tell me the root cause and the exact line in our code where it fails.
+
+===== HAM YANIT =====
+I'm sorry to hear about the crash in your nightly export job. Unfortunately, I'm unable to directly access or read files, including your log file. However, I can guide you through some steps you can take to identify the root cause of the issue based on typical error messages and patterns.
+
+1. **Check for Error Messages**: Look for any error messages or stack traces in the log file. These are usually the most direct indicators of what went wrong. Common errors include `NullPointerException`, `OutOfMemoryError`, `IOException`, etc.
+
+2. **Review Stack Traces**: If an exception occurred, there will likely be a stack trace that points to the exact line of code where the error occurred. Stack traces typically start with the line where the exception was thrown and then list the method calls that led up to that line.
+
+3. **Examine Recent Changes**: If the job started crashing recently, consider whether there were any changes made to the code or environment that might have caused the issue. This could include updates to dependencies, changes in configuration, or new code that was added.
+
+4. **Check for Resource Limits**: Ensure that your job has enough resources (CPU, memory, disk space) to run. Insufficient resources can cause jobs to crash.
+
+5. **Review Log Levels**: If the log file is not providing enough information, consider increasing the log level to capture more detailed information about what is happening at the time of the crash.
+
+6. **Check for External Dependencies**: If your job relies on external systems or services, ensure that these dependencies are up and running and accessible.
+
+If you can provide more specific details or snippets from the log file, I might be able to offer more targeted advice.

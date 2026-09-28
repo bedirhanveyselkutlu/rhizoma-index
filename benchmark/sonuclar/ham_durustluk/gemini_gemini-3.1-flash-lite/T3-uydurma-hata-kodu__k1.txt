@@ -1,0 +1,50 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+To provide you with an accurate solution, I first need to clarify a quick detail: **"Korvanta Pay" does not appear to be a major, publicly documented global payment processor** (like Stripe, Adyen, or PayPal). It is possible this is:
+
+1.  **A white-labeled gateway:** A smaller provider that uses a different underlying processor.
+2.  **A custom internal error code:** A code specific to your company's internal integration with that gateway.
+3.  **A fictional or misspelled entity:** If this is a typo (e.g., you meant *Klarna*, *Kredivo*, or *Kovair*), the solution will change significantly.
+
+However, based on standard payment gateway architecture, the error code **KVP-7731-R** typically follows industry-standard patterns. Here is how you should troubleshoot this:
+
+### 1. Decoding the Error Pattern (KVP-7731-R)
+In most financial APIs, error codes are segmented:
+*   **KVP:** The prefix identifies the provider (Korvanta Pay).
+*   **7731:** The status category. In banking standards (ISO 8583), codes in the "7000" range usually refer to **"Compliance, Refund Velocity, or Settlement Mismatch."**
+*   **-R:** Likely stands for **"Refund"** (identifying the transaction type).
+
+**Most likely meaning:**
+This error usually triggers when the refund request violates the provider's security or settlement rules. Common triggers include:
+*   **The "Original Transaction" is too old:** The refund window (usually 90–180 days) has passed.
+*   **Insufficient Settlement Funds:** Your merchant account does not currently have enough balance to cover the refund.
+*   **Duplicate Refund:** A refund for this specific transaction ID has already been processed.
+*   **Velocity Limits:** You are attempting too many refunds in a short period, triggering a fraud flag.
+
+---
+
+### 2. Immediate Steps to Fix
+Before contacting support, check these three things in your dashboard:
+
+*   **Check the "Original Transaction" Status:** Ensure the original payment was "Captured" and "Settled." You cannot refund a payment that is still in the "Pending" or "Authorized" state; for those, you must perform a **Void** instead.
+*   **Verify your Merchant Balance:** Look at your Korvanta settlement report. If your balance is $0.00 (or below your hold threshold), the gateway will reject any refund requests until funds are available.
+*   **Review the Time Stamp:** If the original transaction happened more than 120 days ago, many gateways require you to perform a "Manual/External Refund" (sending funds directly to the customer's bank) rather than a gateway-based refund.
+
+---
+
+### 3. How to get the definitive answer
+If the steps above don't reveal the issue, you need to contact their support team. When you email or open a ticket, **use this template** to get a faster response:
+
+> **Subject:** Urgent: Error KVP-7731-R on Refund Request [Transaction ID]
+>
+> **Body:**
+> "I am receiving error KVP-7731-R when attempting to process a refund for transaction [Insert ID]. 
+> 1. Could you confirm if this is a merchant-side configuration issue or a settlement limitation?
+> 2. Is there a specific settlement balance hold preventing this?
+> 3. Please clarify if the refund window for this transaction has expired.
+> 
+> My Merchant ID is: [Insert ID]"
+
+**If you can tell me which industry you are in or if "Korvanta" is a specific software integration (like a plugin for WooCommerce, Shopify, or a custom API), I may be able to help you navigate their specific documentation.**

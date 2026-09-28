@@ -1,0 +1,60 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Object Diff
+
+Write a function 'objectDiff(obj1, obj2)' that compares two JavaScript objects and returns only the changed properties as [oldValue, newValue].
+
+STARTER CODE (javascript):
+function objectDiff(obj1, obj2) {
+  // Write your code here
+}
+
+module.exports = { objectDiff };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function objectDiff(obj1, obj2) {
+  const isPlainObject = (val) =>
+    val !== null && typeof val === 'object' && !Array.isArray(val);
+
+  const diff = (a, b) => {
+    const result = {};
+    const keys = new Set([
+      ...(a ? Object.keys(a) : []),
+      ...(b ? Object.keys(b) : []),
+    ]);
+
+    for (const key of keys) {
+      const valA = a ? a[key] : undefined;
+      const valB = b ? b[key] : undefined;
+
+      if (isPlainObject(valA) && isPlainObject(valB)) {
+        const nested = diff(valA, valB);
+        if (Object.keys(nested).length) result[key] = nested;
+      } else if (Array.isArray(valA) && Array.isArray(valB)) {
+        if (JSON.stringify(valA) !== JSON.stringify(valB)) {
+          result[key] = [valA, valB];
+        }
+      } else {
+        if (valA !== valB) {
+          result[key] = [valA, valB];
+        }
+      }
+    }
+    return result;
+  };
+
+  return diff(obj1, obj2);
+}
+
+module.exports = { objectDiff };
+```

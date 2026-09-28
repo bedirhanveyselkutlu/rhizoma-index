@@ -1,0 +1,156 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Custom JSON.stringify
+
+Write a function 'jsonStringify(value)' that converts objects, arrays, strings, numbers and booleans into JSON text without using the native JSON.stringify.
+
+STARTER CODE (javascript):
+function jsonStringify(value) {
+  // Write your code here
+}
+
+module.exports = { jsonStringify };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function jsonStringify(value) {
+  const ancestors = new Set();
+  const escapes = {
+    '"': '\\"',
+    "\\": "\\\\",
+    "\b": "\\b",
+    "\f": "\\f",
+    "\n": "\\n",
+    "\r": "\\r",
+    "\t": "\\t"
+  };
+
+  function quote(text) {
+    let result = '"';
+
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      const code = text.charCodeAt(i);
+
+      if (Object.prototype.hasOwnProperty.call(escapes, char)) {
+        result += escapes[char];
+      } else if (code < 0x20) {
+        result += "\\u" + code.toString(16).padStart(4, "0");
+      } else if (code >= 0xd800 && code <= 0xdbff) {
+        const next = text.charCodeAt(i + 1);
+        if (next >= 0xdc00 && next <= 0xdfff) {
+          result += char + text[++i];
+        } else {
+          result += "\\u" + code.toString(16).padStart(4, "0");
+        }
+      } else if (code >= 0xdc00 && code <= 0xdfff) {
+        result += "\\u" + code.toString(16).padStart(4, "0");
+      } else {
+        result += char;
+      }
+    }
+
+    return result + '"';
+  }
+
+  function hasBrand(object, valueOf) {
+    try {
+      valueOf.call(object);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  function serialize(current, key) {
+    let type = typeof current;
+
+    if (
+      current !== null &&
+      (type === "object" || type === "function" || type === "bigint")
+    ) {
+      const toJSON = current.toJSON;
+      if (typeof toJSON === "function") {
+        current = toJSON.call(current, key);
+      }
+    }
+
+    if (current !== null && typeof current === "object") {
+      if (hasBrand(current, Number.prototype.valueOf)) {
+        current = +current;
+      } else if (hasBrand(current, String.prototype.valueOf)) {
+        current = String(current);
+      } else if (hasBrand(current, Boolean.prototype.valueOf)) {
+        current = Boolean.prototype.valueOf.call(current);
+      } else if (
+        typeof BigInt !== "undefined" &&
+        hasBrand(current, BigInt.prototype.valueOf)
+      ) {
+        current = BigInt.prototype.valueOf.call(current);
+      }
+    }
+
+    if (current === null) return "null";
+
+    type = typeof current;
+
+    if (type === "string") return quote(current);
+    if (type === "boolean") return current ? "true" : "false";
+    if (type === "number") {
+      return Number.isFinite(current) ? String(current) : "null";
+    }
+    if (type === "bigint") {
+      throw new TypeError("Cannot serialize a BigInt");
+    }
+    if (type !== "object") return undefined;
+
+    if (ancestors.has(current)) {
+      throw new TypeError("Converting circular structure to JSON");
+    }
+
+    ancestors.add(current);
+
+    try {
+      const parts = [];
+
+      if (Array.isArray(current)) {
+        const length = Math.min(
+          Math.max(Math.floor(+current.length) || 0, 0),
+          Number.MAX_SAFE_INTEGER
+        );
+
+        for (let i = 0; i < length; i++) {
+          const item = serialize(current[i], String(i));
+          parts.push(item === undefined ? "null" : item);
+        }
+
+        return "[" + parts.join(",") + "]";
+      }
+
+      for (const property of Object.keys(current)) {
+        const item = serialize(current[property], property);
+        if (item !== undefined) {
+          parts.push(quote(property) + ":" + item);
+        }
+      }
+
+      return "{" + parts.join(",") + "}";
+    } finally {
+      ancestors.delete(current);
+    }
+  }
+
+  return serialize(value, "");
+}
+
+module.exports = { jsonStringify };
+```

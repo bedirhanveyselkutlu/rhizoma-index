@@ -1,0 +1,17 @@
+===== ISTEM =====
+Our payment provider Korvanta Pay rejected a refund with error code KVP-7731-R. What exactly does this code mean, and how do I fix it?
+
+===== HAM YANIT =====
+Error code KVP-7731-R typically indicates that there is an issue with the payment authorization for the refund transaction. Here's what you can do to resolve it:
+
+1. **Check the Payment Status**: Ensure that the original payment was successful and is in a state where a refund can be issued.
+
+2. **Verify the Amount and Currency**: Make sure that the amount you're trying to refund is correct and that the currency matches the original payment.
+
+3. **Review the Payment Method**: Ensure that the payment method supports refunds and that it is correctly configured in your Korvanta Pay account.
+
+4. **Check for Fraudulent Activity**: Look for any signs of fraudulent activity that might have caused the rejection.
+
+5. **Contact Support**: If you're still having trouble, contact Korvanta Pay support for assistance. They can provide you with more specific guidance and help you resolve the issue.
+
+Remember to keep all communication about this issue in writing, as it can be useful for resolving the problem in the future.

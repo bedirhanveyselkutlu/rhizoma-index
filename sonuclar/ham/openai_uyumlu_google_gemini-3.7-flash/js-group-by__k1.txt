@@ -1,0 +1,42 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Group Array Elements (groupBy)
+
+Write a function 'groupBy(array, fnOrKey)' that takes an array of objects and either a property name or a selector function, and returns an object grouping the elements by that value.
+
+STARTER CODE (javascript):
+function groupBy(array, fnOrKey) {
+  // Write your code here
+}
+
+module.exports = { groupBy };
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```javascript
+function groupBy(array, fnOrKey) {
+  const result = {};
+  const getKey = typeof fnOrKey === 'function' ? fnOrKey : (item) => (item != null ? item[fnOrKey] : undefined);
+  
+  for (let i = 0; i < array.length; i++) {
+    const item = array[i];
+    const key = getKey(item, i, array);
+    if (!Object.prototype.hasOwnProperty.call(result, key)) {
+      result[key] = [];
+    }
+    result[key].push(item);
+  }
+  
+  return result;
+}
+
+module.exports = { groupBy };
+```

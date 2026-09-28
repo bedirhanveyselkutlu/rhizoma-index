@@ -1,0 +1,45 @@
+===== ISTEM =====
+Solve the following programming task.
+
+TASK: Roman Numeral to Integer
+
+Write a function 'roman_to_int(s)' that converts a valid Roman numeral string (I, V, X, L, C, D, M) to an integer. It must handle the rules IV=4, IX=9, XL=40, XC=90, CD=400, CM=900.
+
+STARTER CODE (python):
+def roman_to_int(s: str) -> int:
+    # Write your code here
+    pass
+
+
+RULES:
+- Keep the function name and signature EXACTLY as given.
+- Return working code only. No explanations.
+- Put the code in a single ``` block.
+- Try to solve it first. If you genuinely cannot, write only this single
+  line instead of producing faulty code: CANNOT_SOLVE
+
+===== HAM YANIT =====
+```python
+def roman_to_int(s: str) -> int:
+    roman_map = {
+        'I': 1,
+        'V': 5,
+        'X': 10,
+        'L': 50,
+        'C': 100,
+        'D': 500,
+        'M': 1000
+    }
+    
+    total = 0
+    n = len(s)
+    
+    for i in range(n):
+        value = roman_map[s[i]]
+        if i + 1 < n and value < roman_map[s[i + 1]]:
+            total -= value
+        else:
+            total += value
+            
+    return total
+```
