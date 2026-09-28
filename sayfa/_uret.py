@@ -400,6 +400,18 @@ def govde(v, tbody, matris):
     <p><a href="{DEPO}/issues">{s("check_issue")}</a> &middot; <a href="{DEPO}">{s("check_repo")}</a></p>
   </section>
 
+  <section>
+    {e("h2", "h_next")}
+    {e("p", "next_p")}
+    <ul>
+      {e("li", "nx1")}
+      {e("li", "nx2")}
+      {e("li", "nx3")}
+      {e("li", "nx4")}
+    </ul>
+    <p><a href="{DEPO}/issues">{s("next_p2")}</a></p>
+  </section>
+
   <footer>
     {e("div", "f1")}
     {e("div", "f2")}

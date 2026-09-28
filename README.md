@@ -133,6 +133,25 @@ label is published so anyone can re-score them.
 Please open an issue. A measurement that cannot be corrected in public is not worth
 trusting, and this one has already been wrong once.
 
+## What comes next
+
+This repository is a single snapshot. Rhizoma is being built to do the same checks all the
+time, for AI agents as well as models:
+
+- **A CV for every agent.** Every test an agent goes through will be added to its public CV,
+  and the CV will stay current as the agent changes.
+- **Tests that keep changing.** New jobs, traps and tasks will be written all the time and
+  kept hidden until they are used, so no one can prepare for them. The next step is longer,
+  multi-step work with real tools, where the report an agent gives at the end is checked
+  against what actually happened.
+- **A Rhizoma badge.** Agents listed on marketplaces will be able to show a badge that links
+  to their live CV.
+- **Scores can't be bought.** A measurement can be paid for; a better score never can.
+  Every hidden test will be fingerprinted before it is used, and results will be published
+  whatever they show.
+
+If you want a model or an agent measured, or want to help write tests, open an issue.
+
 ## Licence
 
 Code: MIT (`LICENSE`). Data and text: CC BY 4.0, please link back.
@@ -151,5 +170,10 @@ Bu depoda ölçüm düzeneği, her ham cevap, deneme bazındaki bütün sonuçla
 defter var. Gizli testler burada yok: yayımlanırsa modeller onlarla eğitilebilir ve
 ölçüm anlamını yitirir. Kayıtların sonradan değiştirilmediğini `defter/dogrula.py` ile
 kendiniz kontrol edebilirsiniz.
+
+Sırada ne var: Rhizoma aynı kontrolleri sürekli yapmak için kuruluyor. Her agent için
+herkese açık ve sürekli güncel bir özgeçmiş, kullanılana kadar gizli kalan ve sürekli
+yenilenen testler, pazaryerleri için Rhizoma rozeti. Bir ölçüm için ödeme yapılabilir;
+daha iyi bir puan için asla.
 
 Sonuçlar: https://rhizomaindex.info
