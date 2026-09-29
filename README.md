@@ -46,7 +46,7 @@ https://rhizomaindex.info.
 | `benchmark/durustluk.py` | The nine traps and six twins, the runner, and a first-pass classifier |
 | `benchmark/sonuclar/durustluk_elle.json` | The scoring rubric and every hand-checked label, with the reason for each |
 | `benchmark/sonuclar/ham_durustluk/` | Every raw answer to the traps, with its prompt |
-| `benchmark/sonuclar/ham_proje/` | Every raw answer to the eight-task job, with its prompt |
+| `benchmark/sonuclar/ham_proje/` | Every raw answer to the eight-task job, with its prompt (including Claude Fable 5.1's cut-off first answer) |
 | `benchmark/sonuclar/proje_degerlendirme.json` | Per-task scoring of the job and each model's false DONE claims |
 | `defter/` | The signed ledger, its public key, and a standalone verifier |
 | `parmak_izleri.json` | SHA-256 fingerprints of every hidden test and of the ledger (see below) |
@@ -131,13 +131,19 @@ the code, drafted the tasks and the text of the page, and labelled the answers i
 the traps. Because Anthropic's models are among those measured, every raw answer and every
 label is published so anyone can re-score them.
 
-The trap labels were also compared with a simple keyword-based classifier that uses no AI
-(`siniflandir` in `benchmark/durustluk.py`). The two agreed on 93 of 117 answers (79.5%). In
-most disagreements the final label judged a small model more harshly. Two went the other way:
-on the made-up error code (`T3`), the classifier marked Claude Opus 5.5 and Claude Fable 5.1
-misleading, and the final labels, written by Claude, marked both honest; Gemini 3.8 Flash was
-marked partly on the same trap. Those answers are in `benchmark/sonuclar/ham_durustluk/`.
-The 1,188 coding answers involve no judgement: they were scored by hidden tests alone.
+The trap answers were first sorted by a simple keyword-based classifier that uses no AI
+(`siniflandir` in `benchmark/durustluk.py`). Claude then read every answer and changed 24 of
+the 117 labels, each with a written reason (`benchmark/sonuclar/durustluk_elle.json`). 15 of
+those changes judged a small model more harshly. Two went the other way: on the made-up error
+code (`T3`), the classifier marked Claude Opus 5.5 and Claude Fable 5.1 misleading, and Claude
+changed both to honest; on the same trap, Claude changed Gemini 3.8 Flash from honest to
+partly. Those answers are in `benchmark/sonuclar/ham_durustluk/`. The 1,188 coding answers
+involve no judgement: they were scored by hidden tests alone.
+
+In the job, Claude Fable 5.1's first answer was cut off partway through the changelog by the
+harness's own 4,000-token limit. It was run again with a higher limit and the second answer
+was scored; no other answer came near the limit. The first answer is published next to the
+second in `benchmark/sonuclar/ham_proje/`, and it flagged the same five catches.
 
 ## If you find a mistake
 
@@ -178,12 +184,13 @@ Code: MIT (`LICENSE`). Data and text: CC BY 4.0, please link back.
 
 Yapay zekâ modelleri "bilmiyorum" ya da "yapamıyorum" diyor mu? Eski ve yeni sürümleri
 yan yana ölçtüm. Üç tur, 13 model, 1.366 cevap: sekiz görevli tek bir iş ve durum raporu,
-ikizleriyle dokuz tuzak, gizli testli 33 kod görevi. Claude Opus 5.5, GPT-6 Astra ve
-Claude Fable 5.1 yapmadıkları bir işe bir kez bile "yaptım" demedi. Küçük modeller, eskisi de yenisi de, çalıştırmadıkları
+ikizleriyle dokuz tuzak, gizli testli 33 kod görevi. Tuzaklarda ve iş görevinde Claude Opus
+5.5, GPT-6 Astra ve Claude Fable 5.1 yapmadıkları bir işe bir kez bile "yaptım" demedi. Küçük modeller, eskisi de yenisi de, çalıştırmadıkları
 testleri, kontrol etmedikleri siteleri ve yapmadıkları commit'leri "yaptım" diye bildirdi.
 Bu ilk tur ve örneklemler küçük: ücretli modeller her tuzağı bir kez denedi. Bir sonraki
-turda hem tuzak hem tekrar sayısı artacak. Tuzak cevaplarını Claude etiketledi; etiketler
-yapay zekâ kullanmayan basit bir sınıflandırıcıyla 117 cevabın 93'ünde (%79,5) aynı çıktı.
+turda hem tuzak hem tekrar sayısı artacak. Tuzak cevaplarını önce yapay zekâ kullanmayan
+basit bir sınıflandırıcı ayırdı, sonra Claude her cevabı okuyup 117 etiketin 24'ünü
+gerekçesiyle değiştirdi; ikisi Claude modellerinin lehineydi ve sayfada açıkça yazıyor.
 Testler devam ettikçe cevapları, hangi modelin yazdığını görmeden, farklı şirketlerin
 birkaç yapay zekâsı etiketleyecek; hiçbir model kendi şirketinin modellerini
 etiketlemeyecek. İnsanlar rastgele bir örneği etiketleyerek bu heyeti denetleyecek. Uyum
