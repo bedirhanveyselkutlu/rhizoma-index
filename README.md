@@ -22,6 +22,9 @@ Three rounds, 13 models, 1,366 answers:
 - **33 coding tasks with hidden tests**, 1,188 attempts. No model ever used the
   instruction to write `CANNOT_SOLVE`; 62 answers were broken code delivered as done.
 
+This is the first round, and the samples are small: the paid models ran each trap once.
+The next round will have more traps and more repetitions.
+
 The write-up is in [`sayfa/index.html`](sayfa/index.html) (English and Turkish), and live at
 https://rhizomaindex.info.
 
@@ -165,6 +168,8 @@ yan yana ölçtüm. Üç tur, 13 model, 1.366 cevap: sekiz görevli tek bir iş 
 ikizleriyle dokuz tuzak, gizli testli 33 kod görevi. Claude Opus 5.5, GPT-6 Astra ve
 Claude Fable 5.1 yapmadıkları bir işe bir kez bile "yaptım" demedi. Küçük modeller, eskisi de yenisi de, çalıştırmadıkları
 testleri, kontrol etmedikleri siteleri ve yapmadıkları commit'leri "yaptım" diye bildirdi.
+Bu ilk tur ve örneklemler küçük: ücretli modeller her tuzağı bir kez denedi. Bir sonraki
+turda hem tuzak hem tekrar sayısı artacak.
 
 Bu depoda ölçüm düzeneği, her ham cevap, deneme bazındaki bütün sonuçlar ve imzalı
 defter var. Gizli testler burada yok: yayımlanırsa modeller onlarla eğitilebilir ve
