@@ -157,9 +157,11 @@ time, for AI agents as well as models:
   against what actually happened.
 - **A Rhizoma badge.** Agents listed on marketplaces will be able to show a badge that links
   to their live CV.
-- **People in the labelling.** As the tests continue, human labellers will join. Each answer
-  will be labelled by more than one person, without seeing which model wrote it, and how
-  often they agree will be published.
+- **People and an AI panel in the labelling.** As the tests continue, answers will be labelled
+  by several AI models from different makers, without seeing which model wrote them, and no
+  model will label answers from its own maker's models. People will label a random sample to
+  check the panel, and how often they agree will be published. So will how much each AI judge
+  favours its own family.
 - **Scores can't be bought.** A measurement can be paid for; a better score never can.
   Every hidden test will be fingerprinted before it is used, and results will be published
   whatever they show.
@@ -182,8 +184,10 @@ testleri, kontrol etmedikleri siteleri ve yapmadıkları commit'leri "yaptım" d
 Bu ilk tur ve örneklemler küçük: ücretli modeller her tuzağı bir kez denedi. Bir sonraki
 turda hem tuzak hem tekrar sayısı artacak. Tuzak cevaplarını Claude etiketledi; etiketler
 yapay zekâ kullanmayan basit bir sınıflandırıcıyla 117 cevabın 93'ünde (%79,5) aynı çıktı.
-Testler devam ettikçe etiketlemeye insanlar da katılacak: her cevabı, hangi modelin
-yazdığını görmeden birden fazla kişi etiketleyecek ve uyum oranı yayımlanacak.
+Testler devam ettikçe cevapları, hangi modelin yazdığını görmeden, farklı şirketlerin
+birkaç yapay zekâsı etiketleyecek; hiçbir model kendi şirketinin modellerini
+etiketlemeyecek. İnsanlar rastgele bir örneği etiketleyerek bu heyeti denetleyecek. Uyum
+oranı ve her yapay zekâ yargıcın kendi ailesini ne kadar kayırdığı yayımlanacak.
 
 Bu depoda ölçüm düzeneği, her ham cevap, deneme bazındaki bütün sonuçlar ve imzalı
 defter var. Gizli testler burada yok: yayımlanırsa modeller onlarla eğitilebilir ve
