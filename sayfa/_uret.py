@@ -407,6 +407,7 @@ def govde(v, tbody, matris):
       {e("li", "nx1")}
       {e("li", "nx2")}
       {e("li", "nx3")}
+      {e("li", "nx5")}
       {e("li", "nx4")}
     </ul>
     <p><a href="{DEPO}/issues">{s("next_p2")}</a></p>
