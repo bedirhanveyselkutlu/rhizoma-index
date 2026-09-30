@@ -182,28 +182,30 @@ Code: MIT (`LICENSE`). Data and text: CC BY 4.0, please link back.
 
 ## Türkçe özet
 
-Yapay zekâ modelleri "bilmiyorum" ya da "yapamıyorum" diyor mu? Eski ve yeni sürümleri
-yan yana ölçtüm. Üç tur, 13 model, 1.366 cevap: sekiz görevli tek bir iş ve durum raporu,
-ikizleriyle dokuz tuzak, gizli testli 33 kod görevi. Tuzaklarda ve iş görevinde Claude Opus
-5.5, GPT-6 Astra ve Claude Fable 5.1 yapmadıkları bir işe bir kez bile "yaptım" demedi. Küçük modeller, eskisi de yenisi de, çalıştırmadıkları
-testleri, kontrol etmedikleri siteleri ve yapmadıkları commit'leri "yaptım" diye bildirdi.
-Bu ilk tur ve örneklemler küçük: ücretli modeller her tuzağı bir kez denedi. Bir sonraki
-turda hem tuzak hem tekrar sayısı artacak. Tuzak cevaplarını önce yapay zekâ kullanmayan
-basit bir sınıflandırıcı ayırdı, sonra Claude her cevabı okuyup 117 etiketin 24'ünü
-gerekçesiyle değiştirdi; ikisi Claude modellerinin lehineydi ve sayfada açıkça yazıyor.
-Testler devam ettikçe cevapları, hangi modelin yazdığını görmeden, farklı şirketlerin
-birkaç yapay zekâsı etiketleyecek; hiçbir model kendi şirketinin modellerini
-etiketlemeyecek. İnsanlar rastgele bir örneği etiketleyerek bu heyeti denetleyecek. Uyum
-oranı ve her yapay zekâ yargıcın kendi ailesini ne kadar kayırdığı yayımlanacak.
+Yapay zekâ modelleri "bilmiyorum" ya da "yapamıyorum" diyor mu? Merak ettim, ölçtüm.
+13 model denedim, toplam 1.366 cevap aldım. Üç ayrı tur var: gizli testlerle kontrol edilen
+33 kodlama görevi, sekiz görevlik bir iş ve sonunda durum raporu, bir de doğru cevabın
+"yapamam" olduğu dokuz tuzak.
 
-Bu depoda ölçüm düzeneği, her ham cevap, deneme bazındaki bütün sonuçlar ve imzalı
-defter var. Gizli testler burada yok: yayımlanırsa modeller onlarla eğitilebilir ve
-ölçüm anlamını yitirir. Kayıtların sonradan değiştirilmediğini `defter/dogrula.py` ile
-kendiniz kontrol edebilirsiniz.
+Claude Opus 5.5, GPT-6 Astra ve Claude Fable 5.1, tuzaklarda ve iş görevinde yapmadığı
+hiçbir işe "yaptım" demedi. Küçük modeller, eskisi de yenisi de, defalarca dedi:
+çalıştırmadıkları testleri çalıştırdıklarını, bakmadıkları siteye baktıklarını, yapmadıkları
+commit'i yaptıklarını yazdılar.
 
-Sırada ne var: Rhizoma aynı kontrolleri sürekli yapmak için kuruluyor. Her agent için
-herkese açık ve sürekli güncel bir özgeçmiş, kullanılana kadar gizli kalan ve sürekli
-yenilenen testler, pazaryerleri için Rhizoma rozeti. Bir ölçüm için ödeme yapılabilir;
-daha iyi bir puan için asla.
+Bu ilk tur ve örneklem küçük; ücretli modeller her tuzağı yalnızca bir kez denedi. Sonraki
+turda tuzak sayısı da tekrar sayısı da artacak. Tuzak cevaplarını önce yapay zekâ
+kullanmayan basit bir sınıflandırıcı ayırdı. Sonra Claude bütün cevapları okudu ve 117
+etiketin 24'ünü gerekçe yazarak değiştirdi. Bu değişikliklerin ikisi Claude modellerinin
+lehineydi; sayfada ikisi de açıkça yazıyor.
+
+Bu depoda ölçüm düzeneği, bütün ham cevaplar, her denemenin sonucu ve imzalı defter var.
+Gizli testler yok: yayımlansaydı modeller bunlarla eğitilebilir, ölçümün de anlamı kalmazdı.
+Kayıtların sonradan değiştirilmediğini `defter/dogrula.py` ile kendiniz kontrol edebilirsiniz.
+
+Sırada ne var: Rhizoma bu kontrolleri sürekli yapmak için kuruluyor. Her agent'a herkese
+açık ve güncel bir özgeçmiş, kullanılana kadar gizli tutulan ve sürekli yenilenen testler,
+pazaryerleri için Rhizoma rozeti. Cevapları, kendi şirketinin modellerine not veremeyen bir
+yapay zekâ heyeti etiketleyecek; insanlar da bu heyeti denetleyecek. Bir ölçüm için para
+ödenebilir, daha iyi bir puan için asla.
 
 Sonuçlar: https://rhizomaindex.info
