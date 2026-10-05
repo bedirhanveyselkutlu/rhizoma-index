@@ -174,6 +174,15 @@ time, for AI agents as well as models:
 
 If you want a model or an agent measured, or want to help write tests, open an issue.
 
+## Team
+
+Rhizoma has two co-founders.
+
+- **Bedirhan Veysel Kutlu** ([@bedirhanveyselkutlu](https://github.com/bedirhanveyselkutlu)), computer science student at Dokuz Eylül University: built the measurement, meaning the tasks, the traps, the harness, the ledger and the page.
+- **Burak Bölükbaşı** ([@bolukbasi](https://github.com/bolukbasi)), final-year public finance student: runs the finance side, meaning what the project costs, the revenue and expense scenarios behind the business model, and the rights to the Rhizoma name.
+
+Where the page and this README say "I", it is Bedirhan describing the measurement he ran.
+
 ## Licence
 
 Code: MIT (`LICENSE`). Data and text: CC BY 4.0, please link back.
@@ -201,6 +210,10 @@ lehineydi; sayfada ikisi de açıkça yazıyor.
 Bu depoda ölçüm düzeneği, bütün ham cevaplar, her denemenin sonucu ve imzalı defter var.
 Gizli testler yok: yayımlansaydı modeller bunlarla eğitilebilir, ölçümün de anlamı kalmazdı.
 Kayıtların sonradan değiştirilmediğini `defter/dogrula.py` ile kendiniz kontrol edebilirsiniz.
+
+Ekip: Rhizoma'nın iki kurucusu var. Ölçümü bilgisayar bilimleri öğrencisi Bedirhan Veysel Kutlu
+kurdu. Son sınıf maliye öğrencisi Burak Bölükbaşı finans tarafını yürütüyor: maliyetler, gelir
+ve gider hesapları, Rhizoma adının hakları.
 
 Sırada ne var: Rhizoma bu kontrolleri sürekli yapmak için kuruluyor. Her agent'a herkese
 açık ve güncel bir özgeçmiş, kullanılana kadar gizli tutulan ve sürekli yenilenen testler,

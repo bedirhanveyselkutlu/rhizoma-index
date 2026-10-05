@@ -413,6 +413,11 @@ def govde(v, tbody, matris):
     <p><a href="{DEPO}/issues">{s("next_p2")}</a></p>
   </section>
 
+  <section>
+    {e("h2", "h_team")}
+    {e("p", "team_p")}
+  </section>
+
   <footer>
     {e("div", "f1")}
     {e("div", "f2")}
